@@ -219,17 +219,10 @@ export const CatalogExplorer: React.FC = () => {
                         {tpl.name}
                       </h3>
                     </div>
-                    <div className="text-right">
-                      {tpl.originalPrice && (
-                        <span className="text-xs text-charcoal-muted line-through block">
-                          ${tpl.originalPrice} USD
-                        </span>
-                      )}
-                      <span className="font-serif text-2xl font-semibold text-charcoal">
-                        ${tpl.price}{' '}
-                        <span className="text-xs font-sans font-normal text-charcoal-muted">
-                          USD
-                        </span>
+                    <div className="text-right shrink-0">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-champagne/80 border border-gold/40 text-[11px] font-medium text-gold-dark">
+                        <Sparkles className="w-3 h-3 text-gold-dark" />
+                        <span>Próximamente en CLP ($)</span>
                       </span>
                     </div>
                   </div>
@@ -611,17 +604,10 @@ export const CatalogExplorer: React.FC = () => {
                     <h3 className="font-serif text-3xl text-charcoal mt-0.5">
                       Diseño «{activeDemo.name}»
                     </h3>
-                    <div className="mt-2 flex items-baseline gap-2">
-                      <span className="font-serif text-3xl font-semibold text-charcoal">
-                        ${activeDemo.price} USD
-                      </span>
-                      {activeDemo.originalPrice && (
-                        <span className="text-sm text-charcoal-muted line-through">
-                          ${activeDemo.originalPrice} USD
-                        </span>
-                      )}
-                      <span className="text-xs text-sage-dark bg-sage-light px-2 py-0.5">
-                        Pago único
+                    <div className="mt-2 flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-champagne border border-gold/40 text-xs font-medium text-gold-dark">
+                        <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
+                        <span>Próximamente en CLP ($) · Envíos Ilimitados</span>
                       </span>
                     </div>
                   </div>

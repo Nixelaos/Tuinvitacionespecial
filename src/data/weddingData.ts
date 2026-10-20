@@ -19,7 +19,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
     category: 'Editorial Clásico',
     price: 129,
     originalPrice: 169,
-    badge: '1.ª Invitación',
+    badge: 'Lacre Dorado & Cuerdas',
     isPopular: true,
     shortDescription:
       'Sobre animado con sello de lacre dorado V&S, cuenta regresiva, dress code por estación, confirmación por WhatsApp y agradecimientos.',
@@ -83,7 +83,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
     category: 'Botánico & Salvia',
     price: 139,
     originalPrice: 179,
-    badge: '2.ª Invitación',
+    badge: 'Puertas Translúcidas & Luz de Luna',
     isPopular: true,
     shortDescription:
       'Puertas dobles de papel vegetal translúcido, lluvia de pétalos dorados, interruptor Día/Noche, tocadiscos de vinilo y postal RSVP en vivo.',
@@ -147,7 +147,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
     category: 'Hacienda & Romántico',
     price: 135,
     originalPrice: 175,
-    badge: '3.ª Invitación',
+    badge: 'Bordes Rasgados & Mesa de Regalos',
     isPopular: true,
     shortDescription:
       'Pliego con cinta de seda terracota, límites orgánicos rasgados (no cuadrados), un solo Dress Code y planilla conectada al backend de regalos.',
@@ -211,7 +211,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
     category: 'Minimalista Lujo',
     price: 145,
     originalPrice: 185,
-    badge: '4.ª Invitación · Nueva',
+    badge: 'Corazones Etéreos & 5 Paletas',
     isPopular: true,
     shortDescription:
       'Efecto de lluvia de corazones casi transparentes, tonos marfil menta, selector interactivo de 5 paletas de color y simulador celular/tablet.',
@@ -480,44 +480,44 @@ export const TESTIMONIALS: Testimonial[] = [
 export const FAQ_ITEMS: FaqItem[] = [
   {
     id: 'faq-1',
-    category: 'Proceso y Entrega',
-    question: '¿Cuánto tiempo tardan en entregar mi invitación digital?',
+    category: 'Experiencia & Funciones',
+    question: '¿Cómo funcionan las invitaciones digitales interactivas?',
     answer:
-      'Una vez que nos envías la información y fotografías de tu boda, entregamos la primera versión lista para revisión en un plazo de 48 a 72 horas hábiles. Si tienes una urgencia, contamos con entrega exprés en 24 horas.',
+      'Tus invitados reciben un enlace que abre una experiencia sensorial única: desde un sobre animado con sello de lacre, puertas botánicas o pliegos de seda, hasta su canción favorita sonando de fondo, mapa interactivo con un toque para Google Maps o Waze, e información detallada de la celebración, todo sin necesidad de descargar ninguna aplicación.',
   },
   {
     id: 'faq-2',
-    category: 'Proceso y Entrega',
-    question: '¿A cuántas personas puedo enviar la invitación? ¿Tiene límite?',
+    category: 'Confirmación de Asistencia',
+    question: '¿Cómo confirman su asistencia nuestros invitados?',
     answer:
-      '¡Los envíos son 100% ilimitados! Puedes compartir tu invitación por WhatsApp, correo electrónico, Instagram o mensaje de texto a tantos invitados como desees, sin ningún costo adicional por invitado.',
+      'Es directo y muy sencillo para cualquier persona: tus invitados tocan el botón de confirmación, seleccionan la cantidad de lugares o acompañantes que asistirán y te envían un mensaje personalizado directamente a tu WhatsApp con sus datos y dedicatoria. Sin registros difíciles ni plataformas complejas.',
   },
   {
     id: 'faq-3',
-    category: 'Personalización',
-    question: '¿Aún no tengo todas mis fotos o un horario exacto, puedo reservar hoy?',
+    category: 'Mesa de Regalos',
+    question: '¿Cómo funciona la Lista de Regalos y el panel para los novios?',
     answer:
-      'Sí, por supuesto. Puedes apartar tu diseño y precio promocional hoy mismo, e incluso podemos armar una versión "Save the Date" inicial y agregar los horarios detallados o fotografías de tu sesión preboda más adelante sin costo extra.',
+      'Incluye una elegante planilla interactiva donde tus invitados pueden descubrir sus regalos y experiencias soñadas. Los novios disponen de un panel privado para agregar, editar fotos, valores y cantidades de regalos a su gusto, manteniendo todo organizado y a su medida.',
   },
   {
     id: 'faq-4',
-    category: 'Personalización',
-    question: '¿Se pueden cambiar los colores, tipografías y textos de la plantilla?',
+    category: 'Compatibilidad & Dispositivos',
+    question: '¿Se verá bien en celulares, tablets y computadoras?',
     answer:
-      'Totalmente. Cada diseño es una base editorial que adaptamos al color de tu boda (por ejemplo, cambiar de verde salvia a azul dusty, terracota o blanco y negro). También personalizamos todos los textos, frases y secciones.',
+      'Totalmente. Cada diseño está optimizado para adaptarse con máxima nitidez y fluidez a cualquier dispositivo (iPhone, Android, iPad y computadoras). Además, modelos como Brisa Marfil & Menta incluyen un simulador en pantalla para visualizar cómo se ve en formato móvil y tablet.',
   },
   {
     id: 'faq-5',
-    category: 'Confirmación RSVP',
-    question: '¿Cómo funciona la confirmación de asistencia y los pases por familia?',
+    category: 'Valores & Moneda',
+    question: '¿En qué moneda estarán disponibles y cómo es el pago?',
     answer:
-      'En los planes Atelier y Haute Couture dispones de un generador de enlaces personalizados: al enviar la invitación a la "Familia Gómez", la invitación los saluda por su nombre y les indica exactamente cuántos lugares tienen asignados (ej. "Hemos reservado 4 pases en su honor").',
+      'Nuestras invitaciones estarán disponibles próximamente en Pesos Chilenos (CLP $). El servicio es de pago único, transparente y sin mensualidades ocultas.',
   },
   {
     id: 'faq-6',
-    category: 'Pagos y Vigencia',
-    question: '¿Durante cuánto tiempo permanece activa nuestra invitación en internet?',
+    category: 'Envíos & Entrega',
+    question: '¿A cuántos invitados puedo enviar la invitación? ¿Hay un límite?',
     answer:
-      'Tu invitación permanece activa desde el día de su entrega hasta 6 meses después de la fecha de tu boda (12 meses en el plan Haute Couture), para que siempre puedan revivirla y descargar los mensajes de sus invitados.',
+      '¡Los envíos son 100% ilimitados! Una vez lista tu invitación, puedes compartir el enlace cuantas veces quieras por WhatsApp, correo electrónico, Instagram o mensaje directo con todos tus seres queridos sin ningún costo adicional.',
   },
 ];

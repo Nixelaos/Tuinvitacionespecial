@@ -96,7 +96,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-sm text-ivory-200/80">
               <li>
                 <a href="/#catalogo" className="hover:text-gold-light transition">
-                  Catálogo 2026–2027
+                  Catálogo de Diseños
                 </a>
               </li>
               <li>
@@ -110,18 +110,13 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/#precios" className="hover:text-gold-light transition">
-                  Planes y Precios
+                <a href="/disenos/mesa-de-regalos" className="hover:text-gold-light transition">
+                  Mesa de Regalos
                 </a>
               </li>
               <li>
                 <a href="/#preguntas" className="hover:text-gold-light transition">
                   Preguntas Frecuentes
-                </a>
-              </li>
-              <li>
-                <a href="/#cotizador" className="hover:text-gold-light transition">
-                  Cotizador en Línea
                 </a>
               </li>
             </ul>

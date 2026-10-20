@@ -31,7 +31,6 @@ import {
   Feather,
   Compass,
   Flame,
-  Star,
   Wine,
   Sailboat,
 } from 'lucide-react';

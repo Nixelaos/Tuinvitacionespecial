@@ -17,11 +17,12 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { label: 'Catálogo', href: '/#catalogo' },
-    { label: 'Invitación 1', href: '/disenos/invitacion-completa' },
-    { label: 'Invitación 2', href: '/disenos/invitacion-artistica' },
-    { label: 'Invitación 3 (Papel)', href: '/disenos/invitacion-papel-artesanal' },
-    { label: 'Invitación 4 (Menta)', href: '/disenos/invitacion-marfil-menta' },
-    { label: 'Lista de Regalos', href: '/disenos/mesa-de-regalos' },
+    { label: 'Sobre Real', href: '/disenos/invitacion-completa' },
+    { label: 'Orangerie Botánica', href: '/disenos/invitacion-artistica' },
+    { label: 'Papel Artesanal', href: '/disenos/invitacion-papel-artesanal' },
+    { label: 'Marfil & Menta', href: '/disenos/invitacion-marfil-menta' },
+    { label: 'Mesa de Regalos', href: '/disenos/mesa-de-regalos' },
+    { label: 'Preguntas', href: '/#preguntas' },
   ];
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -58,7 +59,7 @@ export const Navbar: React.FC = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8" aria-label="Navegación principal">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Navegación principal">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -73,11 +74,11 @@ export const Navbar: React.FC = () => {
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="/#cotizador"
+              href="/#catalogo"
               className="text-xs uppercase tracking-[0.16em] text-charcoal px-4 py-2.5 border border-charcoal/20 hover:border-gold hover:bg-champagne/40 transition-all flex items-center gap-1.5"
             >
-              <Heart className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Personalizar</span>
+              <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
+              <span>Ver Diseños</span>
             </a>
             <a
               href={whatsappUrl}
@@ -86,7 +87,7 @@ export const Navbar: React.FC = () => {
               className="bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.16em] px-5 py-2.5 transition-all duration-300 flex items-center gap-2 shadow-sm"
             >
               <FaWhatsapp className="w-4 h-4 text-[#A7D7B8]" />
-              <span>Asesoría en Vivo</span>
+              <span>Asesoría en WhatsApp</span>
               <ArrowUpRight className="w-3.5 h-3.5 opacity-75" />
             </a>
           </div>
@@ -120,12 +121,12 @@ export const Navbar: React.FC = () => {
           </nav>
           <div className="pt-2 flex flex-col sm:flex-row gap-3">
             <a
-              href="/#cotizador"
+              href="/#catalogo"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full justify-center py-3 border border-charcoal/25 text-center text-xs uppercase tracking-[0.18em] text-charcoal flex items-center gap-2"
             >
-              <Heart className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Cotizar mi Invitación</span>
+              <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
+              <span>Explorar Catálogo</span>
             </a>
             <a
               href={whatsappUrl}

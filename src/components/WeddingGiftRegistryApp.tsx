@@ -152,7 +152,7 @@ const CATEGORIES = [
   'Experiencias',
 ];
 
-const BACKEND_URL = 'http://localhost:4000/api/gifts';
+import { BACKEND_URL } from '../config/api';
 const STORAGE_KEY = 'atelier_wedding_gifts_v1';
 
 export const renderGiftIcon = (iconName: GiftIconName, className = 'w-5 h-5') => {
@@ -211,17 +211,19 @@ export const WeddingGiftRegistryApp: React.FC = () => {
   // Load gifts from Backend API (or fallback to localStorage)
   useEffect(() => {
     const fetchGifts = async () => {
-      try {
-        const res = await fetch(BACKEND_URL);
-        if (res.ok) {
-          const data = await res.json();
-          setGifts(data);
-          setBackendConnected(true);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-          return;
+      if (BACKEND_URL) {
+        try {
+          const res = await fetch(BACKEND_URL);
+          if (res.ok) {
+            const data = await res.json();
+            setGifts(data);
+            setBackendConnected(true);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            return;
+          }
+        } catch {
+          // Backend offline or unreachable, fallback to localStorage
         }
-      } catch {
-        // Backend not running right now, use localStorage or initial data
       }
 
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -286,20 +288,22 @@ export const WeddingGiftRegistryApp: React.FC = () => {
     };
 
     if (isCreatingNew) {
-      try {
-        const res = await fetch(BACKEND_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (res.ok) {
-          const created = await res.json();
-          syncLocalGifts([created, ...gifts]);
-          setIsCreatingNew(false);
-          return;
+      if (BACKEND_URL) {
+        try {
+          const res = await fetch(BACKEND_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (res.ok) {
+            const created = await res.json();
+            syncLocalGifts([created, ...gifts]);
+            setIsCreatingNew(false);
+            return;
+          }
+        } catch {
+          // Fallback local save
         }
-      } catch {
-        // Fallback local save
       }
       const newLocal: WeddingGiftItem = {
         id: `gift-${Date.now()}`,
@@ -308,20 +312,22 @@ export const WeddingGiftRegistryApp: React.FC = () => {
       syncLocalGifts([newLocal, ...gifts]);
       setIsCreatingNew(false);
     } else if (editingGift) {
-      try {
-        const res = await fetch(`${BACKEND_URL}/${editingGift.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (res.ok) {
-          const updatedItem = await res.json();
-          syncLocalGifts(gifts.map((g) => (g.id === editingGift.id ? updatedItem : g)));
-          setEditingGift(null);
-          return;
+      if (BACKEND_URL) {
+        try {
+          const res = await fetch(`${BACKEND_URL}/${editingGift.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (res.ok) {
+            const updatedItem = await res.json();
+            syncLocalGifts(gifts.map((g) => (g.id === editingGift.id ? updatedItem : g)));
+            setEditingGift(null);
+            return;
+          }
+        } catch {
+          // Fallback local update
         }
-      } catch {
-        // Fallback local update
       }
       const updatedLocal: WeddingGiftItem = {
         ...editingGift,
@@ -333,10 +339,12 @@ export const WeddingGiftRegistryApp: React.FC = () => {
   };
 
   const handleDeleteGift = async (id: string) => {
-    try {
-      await fetch(`${BACKEND_URL}/${id}`, { method: 'DELETE' });
-    } catch {
-      // Fallback local delete
+    if (BACKEND_URL) {
+      try {
+        await fetch(`${BACKEND_URL}/${id}`, { method: 'DELETE' });
+      } catch {
+        // Fallback local delete
+      }
     }
     syncLocalGifts(gifts.filter((g) => g.id !== id));
   };
@@ -346,17 +354,23 @@ export const WeddingGiftRegistryApp: React.FC = () => {
     if (!selectedGiftForGuest) return;
 
     const targetId = selectedGiftForGuest.id;
-    try {
-      const res = await fetch(`${BACKEND_URL}/${targetId}/reserve`, {
-        method: 'POST',
-      });
-      if (res.ok) {
-        const updatedItem = await res.json();
-        syncLocalGifts(gifts.map((g) => (g.id === targetId ? updatedItem : g)));
-      } else {
-        throw new Error('offline');
+    let savedRemotely = false;
+    if (BACKEND_URL) {
+      try {
+        const res = await fetch(`${BACKEND_URL}/${targetId}/reserve`, {
+          method: 'POST',
+        });
+        if (res.ok) {
+          const updatedItem = await res.json();
+          syncLocalGifts(gifts.map((g) => (g.id === targetId ? updatedItem : g)));
+          savedRemotely = true;
+        }
+      } catch {
+        // Fallback local reserve
       }
-    } catch {
+    }
+
+    if (!savedRemotely) {
       syncLocalGifts(
         gifts.map((g) =>
           g.id === targetId && g.reservedCount < g.quantity
@@ -416,8 +430,8 @@ export const WeddingGiftRegistryApp: React.FC = () => {
               <Server className="w-3 h-3" />
               <span>
                 {backendConnected
-                  ? 'Conectado a Backend (/backend/server.mjs :4000)'
-                  : 'Modo Interactivo Sincronizado'}
+                  ? (import.meta.env.DEV ? 'Conectado a Backend Local (:4000)' : 'API Conectada')
+                  : 'Modo Interactivo Local'}
               </span>
             </span>
           </div>

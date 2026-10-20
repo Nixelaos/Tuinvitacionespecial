@@ -31,8 +31,8 @@ import {
   renderGiftIcon,
   type WeddingGiftItem,
 } from './WeddingGiftRegistryApp';
+import { BACKEND_URL } from '../config/api';
 
-const BACKEND_URL = 'http://localhost:4000/api/gifts';
 const STORAGE_KEY = 'atelier_wedding_gifts_v1';
 
 /**
@@ -117,15 +117,17 @@ export const TornPaperWeddingInvitation: React.FC = () => {
   // Fetch live gifts from backend (or localStorage) so the planilla always shows the couple's latest gifts
   useEffect(() => {
     const loadGifts = async () => {
-      try {
-        const res = await fetch(BACKEND_URL);
-        if (res.ok) {
-          const data = await res.json();
-          setCoupleGifts(data);
-          return;
+      if (BACKEND_URL) {
+        try {
+          const res = await fetch(BACKEND_URL);
+          if (res.ok) {
+            const data = await res.json();
+            setCoupleGifts(data);
+            return;
+          }
+        } catch {
+          // fallback to localStorage
         }
-      } catch {
-        // fallback to localStorage
       }
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {

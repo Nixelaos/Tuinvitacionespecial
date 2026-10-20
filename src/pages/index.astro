@@ -5,18 +5,15 @@ import { HeroDemoPhone } from '../components/HeroDemoPhone';
 import { CatalogExplorer } from '../components/CatalogExplorer';
 import { FeaturesGrid } from '../components/FeaturesGrid';
 import { ProcessSteps } from '../components/ProcessSteps';
-import { PricingSection } from '../components/PricingSection';
 import { FaqAccordion } from '../components/FaqAccordion';
-import { OrderQuoteSection } from '../components/OrderQuoteSection';
 import { FloatingWhatsApp } from '../components/FloatingWhatsApp';
 import { Footer } from '../components/Footer';
-import { TESTIMONIALS, BRAND_NAME, WHATSAPP_NUMBER } from '../data/weddingData';
+import { BRAND_NAME, WHATSAPP_NUMBER } from '../data/weddingData';
 import {
   Sparkles,
   Heart,
   ShieldCheck,
   Clock,
-  Star,
   Send,
   CheckCircle2,
   ArrowRight,
@@ -49,9 +46,10 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
             </h1>
 
             <p class="text-base sm:text-lg text-charcoal-muted leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light">
-              Sorprende a tus invitados desde el primer instante con un sobre animado de lacre,
-              vuestra canción favorita, mapas GPS interactivos y confirmación de asistencia
-              <strong class="text-charcoal font-medium">RSVP en tiempo real</strong> directo a tu WhatsApp.
+              Sorprende a tus invitados desde el primer instante con un hermoso sobre que se abre al tocarlo,
+              su melodía favorita sonando de fondo, mapas para llegar directo con Google Maps o Waze y un
+              botón simple para que tus invitados te confirmen su asistencia directamente a tu WhatsApp,
+              indicando cuántos lugares usarán y dedicándote un mensaje especial.
             </p>
 
             <!-- Hero CTAs -->
@@ -102,38 +100,6 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
           <!-- Right Interactive Phone Demo -->
           <div class="lg:col-span-5">
             <HeroDemoPhone client:load />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- STATS & EDITORIAL RIBBON -->
-    <section class="bg-charcoal text-ivory-50 py-10 border-b border-gold/30">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center divide-x divide-ivory-200/10">
-          <div class="px-2">
-            <p class="font-serif text-3xl sm:text-4xl text-gold-light">+1,400</p>
-            <p class="text-[11px] uppercase tracking-[0.2em] text-ivory-200/75 mt-1">
-              Bodas Celebradas
-            </p>
-          </div>
-          <div class="px-2">
-            <p class="font-serif text-3xl sm:text-4xl text-gold-light">100%</p>
-            <p class="text-[11px] uppercase tracking-[0.2em] text-ivory-200/75 mt-1">
-              Envíos Ilimitados
-            </p>
-          </div>
-          <div class="px-2">
-            <p class="font-serif text-3xl sm:text-4xl text-gold-light">48 hrs</p>
-            <p class="text-[11px] uppercase tracking-[0.2em] text-ivory-200/75 mt-1">
-              Tiempo de Entrega
-            </p>
-          </div>
-          <div class="px-2">
-            <p class="font-serif text-3xl sm:text-4xl text-gold-light">4.9 ★</p>
-            <p class="text-[11px] uppercase tracking-[0.2em] text-ivory-200/75 mt-1">
-              Calificación de Novios
-            </p>
           </div>
         </div>
       </div>
@@ -196,89 +162,6 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
         </div>
 
         <ProcessSteps />
-      </div>
-    </section>
-
-    <!-- PRICING PLANS SECTION -->
-    <section id="precios" class="py-20 sm:py-28 bg-champagne/40 border-y border-ivory-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-10 space-y-3">
-          <span class="text-xs uppercase tracking-[0.26em] text-gold-dark font-semibold block">
-            Inversión Transparente · Pago Único
-          </span>
-          <h2 class="font-serif text-4xl sm:text-5xl text-charcoal font-normal">
-            Colecciones y Planes de Precios
-          </h2>
-          <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed">
-            Sin mensualidades ocultas ni cobros por número de invitados. Elige la colección ideal y
-            envía tu invitación de manera ilimitada.
-          </p>
-        </div>
-
-        <PricingSection client:visible />
-      </div>
-    </section>
-
-    <!-- TESTIMONIALS SECTION -->
-    <section class="py-20 sm:py-28">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
-          <span class="text-xs uppercase tracking-[0.26em] text-gold-dark font-semibold block">
-            Historias Reales
-          </span>
-          <h2 class="font-serif text-4xl sm:text-5xl text-charcoal font-normal">
-            Lo que dicen nuestras parejas
-          </h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {
-            TESTIMONIALS.map((t) => (
-              <article class="editorial-card p-7 flex flex-col justify-between">
-                <div class="space-y-4">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-1 text-gold">
-                      <Star className="w-4 h-4 fill-current" />
-                      <Star className="w-4 h-4 fill-current" />
-                      <Star className="w-4 h-4 fill-current" />
-                      <Star className="w-4 h-4 fill-current" />
-                      <Star className="w-4 h-4 fill-current" />
-                    </div>
-                    <span class="text-[10px] uppercase tracking-widest px-2.5 py-0.5 bg-champagne text-charcoal">
-                      Diseño: {t.templateName}
-                    </span>
-                  </div>
-
-                  <p class="font-serif italic text-xl text-charcoal leading-relaxed">
-                    {t.quote}
-                  </p>
-                </div>
-
-                <div class="pt-6 mt-6 border-t border-ivory-200 flex items-center gap-3.5">
-                  <img
-                    src={t.avatarUrl}
-                    alt={t.couple}
-                    class="w-12 h-12 rounded-full object-cover border border-gold/40"
-                    loading="lazy"
-                  />
-                  <div>
-                    <h3 class="font-serif text-xl font-medium text-charcoal">{t.couple}</h3>
-                    <p class="text-xs text-charcoal-muted">
-                      {t.location} · {t.guestCount} invitados
-                    </p>
-                  </div>
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <!-- CUSTOMIZER & ORDER SECTION -->
-    <section id="cotizador" class="py-20 sm:py-28 bg-ivory-200/70 border-t border-ivory-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <OrderQuoteSection client:visible />
       </div>
     </section>
 
