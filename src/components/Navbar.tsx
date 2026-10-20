@@ -17,12 +17,10 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { label: 'Catálogo', href: '/#catalogo' },
-    { label: 'Sobre Real', href: '/disenos/invitacion-completa' },
-    { label: 'Orangerie Botánica', href: '/disenos/invitacion-artistica' },
-    { label: 'Papel Artesanal', href: '/disenos/invitacion-papel-artesanal' },
-    { label: 'Marfil & Menta', href: '/disenos/invitacion-marfil-menta' },
+    { label: 'Funciones', href: '/#funciones' },
+    { label: 'Proceso', href: '/#proceso' },
     { label: 'Mesa de Regalos', href: '/disenos/mesa-de-regalos' },
-    { label: 'Preguntas', href: '/#preguntas' },
+    { label: 'Preguntas Frecuentes', href: '/#preguntas' },
   ];
 
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -38,33 +36,33 @@ export const Navbar: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           {/* Brand Logo */}
           <a
             href="/"
-            className="group flex items-center gap-3 focus:outline-none"
+            className="group flex items-center gap-3 shrink-0 focus:outline-none"
             aria-label={BRAND_NAME}
           >
-            <div className="w-10 h-10 rounded-full border border-gold/40 bg-champagne/60 flex items-center justify-center text-gold-dark group-hover:bg-gold group-hover:text-ivory-50 transition-colors duration-300">
+            <div className="w-10 h-10 rounded-full border border-gold/40 bg-champagne/60 flex items-center justify-center text-gold-dark group-hover:bg-gold group-hover:text-ivory-50 transition-colors duration-300 shrink-0">
               <Sparkles className="w-4 h-4" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-serif text-2xl sm:text-[26px] tracking-wide text-charcoal leading-none font-medium">
+            <div className="flex flex-col justify-center">
+              <span className="font-serif text-xl sm:text-[23px] tracking-normal text-charcoal leading-snug font-medium whitespace-nowrap">
                 {BRAND_NAME}
               </span>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-charcoal-muted mt-0.5">
+              <span className="text-[10px] uppercase tracking-[0.22em] text-charcoal-muted leading-tight mt-0.5 whitespace-nowrap">
                 Alta Papelería Digital
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Navegación principal">
+          <nav className="hidden xl:flex items-center gap-7 2xl:gap-8 shrink-0" aria-label="Navegación principal">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-charcoal-light hover:text-gold-dark transition-colors tracking-wide font-normal"
+                className="text-sm text-charcoal-light hover:text-gold-dark transition-colors tracking-wide font-normal whitespace-nowrap py-1"
               >
                 {link.label}
               </a>
@@ -72,10 +70,10 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Desktop CTA Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-2.5 shrink-0">
             <a
               href="/#catalogo"
-              className="text-xs uppercase tracking-[0.16em] text-charcoal px-4 py-2.5 border border-charcoal/20 hover:border-gold hover:bg-champagne/40 transition-all flex items-center gap-1.5"
+              className="hidden 2xl:flex text-xs uppercase tracking-[0.16em] text-charcoal px-3.5 py-2.5 border border-charcoal/20 hover:border-gold hover:bg-champagne/40 transition-all items-center gap-1.5 whitespace-nowrap"
             >
               <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
               <span>Ver Diseños</span>
@@ -84,7 +82,7 @@ export const Navbar: React.FC = () => {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.16em] px-5 py-2.5 transition-all duration-300 flex items-center gap-2 shadow-sm"
+              className="bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.16em] px-4 sm:px-5 py-2.5 transition-all duration-300 flex items-center gap-2 shadow-sm whitespace-nowrap"
             >
               <FaWhatsapp className="w-4 h-4 text-[#A7D7B8]" />
               <span>Asesoría en WhatsApp</span>
@@ -96,7 +94,7 @@ export const Navbar: React.FC = () => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2.5 text-charcoal hover:text-gold-dark border border-ivory-300 bg-ivory-50/80 focus:outline-none"
+            className="xl:hidden p-2.5 text-charcoal hover:text-gold-dark border border-ivory-300 bg-ivory-50/80 focus:outline-none shrink-0"
             aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -106,7 +104,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-ivory-50 border-b border-ivory-300 px-6 pt-4 pb-6 space-y-4 shadow-editorial">
+        <div className="xl:hidden bg-ivory-50 border-b border-ivory-300 px-6 pt-4 pb-6 space-y-4 shadow-editorial">
           <nav className="flex flex-col space-y-3">
             {navLinks.map((link) => (
               <a

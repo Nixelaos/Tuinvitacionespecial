@@ -163,7 +163,7 @@ export const FeaturesGrid: React.FC = () => {
               </p>
               <div className="mt-5 pt-4 border-t border-ivory-200 flex items-center justify-between">
                 <span className="text-[11px] font-mono text-charcoal-muted truncate">
-                  lateliernupcial.com/boda?inv={encodeURIComponent(guestFamilyName || 'Invitado')}&amp;p={guestPassesCount}
+                  tuinvitacionespecial.com/boda?inv={encodeURIComponent(guestFamilyName || 'Invitado')}&amp;p={guestPassesCount}
                 </span>
                 <button
                   type="button"

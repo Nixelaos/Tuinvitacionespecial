@@ -473,7 +473,7 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
             </div>
 
             <div className="pb-4 text-xs tracking-widest uppercase opacity-60">
-              Colección Marfil Menta · L&apos;Atelier Nupcial
+              Colección Marfil Menta · Tu Invitación Especial
             </div>
           </div>
         ) : (

@@ -389,7 +389,7 @@ export const FullWeddingInvitation: React.FC = () => {
 
         {/* Bottom Footnote */}
         <div className="relative z-20 text-center pb-2 text-[11px] uppercase tracking-[0.25em] text-charcoal-muted">
-          Colección Alta Costura · L&apos;Atelier Nupcial
+          Colección Alta Costura · Tu Invitación Especial
         </div>
       </div>
     );
@@ -1377,7 +1377,7 @@ export const FullWeddingInvitation: React.FC = () => {
           <div className="mt-16 pt-10 border-t border-ivory-200/15 flex flex-col sm:flex-row items-center justify-between gap-4 text-left bg-ivory-50/5 p-6 border border-gold/25">
             <div>
               <span className="text-[10px] uppercase tracking-[0.22em] text-gold-light block">
-                Diseñado por L&apos;Atelier Nupcial
+                Diseñado por Tu Invitación Especial
               </span>
               <p className="font-serif text-xl text-ivory-50">
                 ¿Te gustaría una invitación digital como esta para tu boda?

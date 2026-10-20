@@ -8,7 +8,7 @@ import type {
 } from '../types/wedding';
 
 export const WHATSAPP_NUMBER = '5215512345678'; // Configurable por el estudio
-export const BRAND_NAME = "L'Atelier Nupcial";
+export const BRAND_NAME = 'Tu Invitación Especial';
 
 export const INVITATION_TEMPLATES: InvitationTemplate[] = [
   {

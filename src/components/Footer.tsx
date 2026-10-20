@@ -18,11 +18,11 @@ export const Footer: React.FC = () => {
               <div className="w-10 h-10 rounded-full border border-gold/50 bg-ivory-50/5 flex items-center justify-center text-gold-light">
                 <Sparkles className="w-4 h-4" />
               </div>
-              <div>
-                <span className="font-serif text-2xl tracking-wide text-ivory-50 block leading-none">
+              <div className="flex flex-col justify-center">
+                <span className="font-serif text-2xl tracking-normal text-ivory-50 block leading-snug font-medium whitespace-nowrap">
                   {BRAND_NAME}
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.26em] text-gold-light">
+                <span className="text-[10px] uppercase tracking-[0.24em] text-gold-light leading-tight mt-0.5 whitespace-nowrap">
                   Alta Papelería Digital Nupcial
                 </span>
               </div>
@@ -30,8 +30,8 @@ export const Footer: React.FC = () => {
 
             <p className="text-sm text-ivory-200/75 leading-relaxed max-w-sm">
               Diseñamos invitaciones web interactivas para parejas que cuidan cada detalle.
-              Estética editorial, tecnología intuitiva de confirmación RSVP y atención artesanal
-              para bodas en México, España y toda Latinoamérica.
+              Estética editorial, confirmación directa y fácil a WhatsApp y atención artesanal
+              para bodas en México, España, Chile y toda Latinoamérica.
             </p>
 
             <div className="flex items-center gap-3 pt-2">
@@ -134,7 +134,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-start gap-2.5">
                 <Mail className="w-4 h-4 text-gold-light shrink-0 mt-0.5" />
-                <span>concierge@lateliernupcial.com</span>
+                <span>contacto@tuinvitacionespecial.com</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-gold-light shrink-0 mt-0.5" />

@@ -262,7 +262,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
         </div>
 
         <div className="relative z-30 text-center pb-2 text-xs font-serif italic text-[#3A2B22]">
-          Papelería Digital en Algodón Artesanal · L&apos;Atelier Nupcial
+          Papelería Digital en Algodón Artesanal · Tu Invitación Especial
         </div>
       </div>
     );
