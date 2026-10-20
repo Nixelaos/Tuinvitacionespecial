@@ -32,6 +32,7 @@ export type DeviceMode = 'desktop' | 'tablet' | 'mobile';
 export interface MintPalette {
   id: string;
   name: string;
+  swatchColor: string;
   bgHex: string;
   cardHex: string;
   primaryHex: string;
@@ -46,72 +47,90 @@ export interface MintPalette {
 export const MINT_PALETTES: MintPalette[] = [
   {
     id: 'menta-marfil',
-    name: 'Menta & Marfil Puro',
-    bgHex: '#F6F8F6',
+    name: 'Verde Menta & Marfil',
+    swatchColor: '#558A70',
+    bgHex: '#F4F7F5',
     cardHex: '#FCFDFB',
-    primaryHex: '#68947F',
-    secondaryHex: '#E2ECE6',
-    textHex: '#1E2D25',
-    mutedHex: '#587063',
+    primaryHex: '#4F7C66',
+    secondaryHex: '#E3EFE9',
+    textHex: '#1A2921',
+    mutedHex: '#526D60',
     borderHex: '#BCD1C6',
-    heartColor: '#8EBAA5',
-    sealGradient: 'from-[#7AA490] via-[#5F8874] to-[#466958]',
+    heartColor: '#79A891',
+    sealGradient: 'from-[#6E9E86] via-[#4F7C66] to-[#365A48]',
   },
   {
     id: 'menta-oro',
-    name: 'Menta & Oro Antiguo',
-    bgHex: '#F7F6F1',
-    cardHex: '#FDFCF8',
-    primaryHex: '#5B7F6E',
-    secondaryHex: '#EDE5D2',
-    textHex: '#252F29',
-    mutedHex: '#64746B',
-    borderHex: '#D5C4A0',
-    heartColor: '#BFA873',
-    sealGradient: 'from-[#C4A764] via-[#9E8344] to-[#78612A]',
+    name: 'Oro Champán & Vainilla',
+    swatchColor: '#B89758',
+    bgHex: '#F9F7F2',
+    cardHex: '#FFFDF9',
+    primaryHex: '#A38140',
+    secondaryHex: '#F5EEDC',
+    textHex: '#2C2518',
+    mutedHex: '#786749',
+    borderHex: '#DCCBA8',
+    heartColor: '#C9AA6A',
+    sealGradient: 'from-[#CCA963] via-[#A88643] to-[#7A5E28]',
   },
   {
     id: 'menta-rosa',
-    name: 'Menta & Rosa Cuarzo',
-    bgHex: '#FAF6F6',
-    cardHex: '#FFFDFD',
-    primaryHex: '#739B88',
-    secondaryHex: '#F4E5E4',
-    textHex: '#2E2728',
-    mutedHex: '#746768',
-    borderHex: '#DEBFC0',
-    heartColor: '#D89FA4',
-    sealGradient: 'from-[#739B88] via-[#B88E91] to-[#8F6367]',
+    name: 'Rosa Cuarzo & Crema',
+    swatchColor: '#C27481',
+    bgHex: '#FAF5F6',
+    cardHex: '#FFFDFC',
+    primaryHex: '#B05E6C',
+    secondaryHex: '#F7E4E7',
+    textHex: '#2F1E22',
+    mutedHex: '#7C585F',
+    borderHex: '#E5C0C7',
+    heartColor: '#D68996',
+    sealGradient: 'from-[#D17C8B] via-[#B2606E] to-[#803945]',
   },
   {
-    id: 'menta-glaciar',
-    name: 'Menta Glaciar & Sereno',
-    bgHex: '#F2F7F7',
-    cardHex: '#FAFCFC',
-    primaryHex: '#538484',
-    secondaryHex: '#D8E8E8',
-    textHex: '#1B2C2D',
-    mutedHex: '#536E70',
-    borderHex: '#B1CFD1',
-    heartColor: '#75A6A6',
-    sealGradient: 'from-[#5D9191] via-[#487373] to-[#305353]',
+    id: 'menta-sereno',
+    name: 'Azul Sereno & Perla',
+    swatchColor: '#4B7B94',
+    bgHex: '#F3F6F8',
+    cardHex: '#FBFCFD',
+    primaryHex: '#3C6C85',
+    secondaryHex: '#DFEAF0',
+    textHex: '#18252C',
+    mutedHex: '#546A76',
+    borderHex: '#B6CBD7',
+    heartColor: '#6795AE',
+    sealGradient: 'from-[#5A8DA7] via-[#3C6C85] to-[#254A5D]',
   },
   {
-    id: 'menta-bosque',
-    name: 'Menta Bosque & Champán',
-    bgHex: '#EFF4F1',
-    cardHex: '#F9FCFA',
-    primaryHex: '#3A5B49',
-    secondaryHex: '#E4DFCE',
-    textHex: '#17271D',
-    mutedHex: '#486152',
-    borderHex: '#B2C4B9',
-    heartColor: '#4F7962',
-    sealGradient: 'from-[#4D755F] via-[#3A5B49] to-[#253D30]',
+    id: 'menta-terracota',
+    name: 'Terracota Cálido & Almendra',
+    swatchColor: '#B86246',
+    bgHex: '#F9F5F3',
+    cardHex: '#FFFCFA',
+    primaryHex: '#A85236',
+    secondaryHex: '#F7E6E0',
+    textHex: '#2E1E19',
+    mutedHex: '#775246',
+    borderHex: '#DFBFB4',
+    heartColor: '#CE785D',
+    sealGradient: 'from-[#CA6C4F] via-[#A85236] to-[#78331D]',
   },
 ];
 
 export const MintHeartsWeddingInvitation: React.FC = () => {
+  // Hero Preview detection (iframe or query param ?hero=true)
+  const [isHero, setIsHero] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isInsideIframe = window.self !== window.top;
+      const hasHeroParam = window.location.search.includes('hero=true');
+      if (isInsideIframe || hasHeroParam) {
+        setIsHero(true);
+      }
+    }
+  }, []);
+
   // Opening seal state
   const [opened, setOpened] = useState(false);
   const [openingAnim, setOpeningAnim] = useState(false);
@@ -211,6 +230,9 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
 
   // Device wrapper classes
   const getContainerWrapper = () => {
+    if (isHero) {
+      return 'w-full min-h-screen';
+    }
     switch (deviceMode) {
       case 'mobile':
         return 'max-w-[400px] mx-auto my-8 border-[12px] border-charcoal rounded-[54px] shadow-2xl overflow-hidden relative';
@@ -254,28 +276,73 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
         </div>
       )}
 
-      {/* FLOATING TOP TOOLBAR: Return, Device Switcher, 5-Color Picker & Audio */}
-      <div className="fixed top-3 inset-x-3 z-50 pointer-events-none">
-        <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2.5">
-          {/* Left Buttons: Return to catalog & Re-close seal */}
-          <div className="flex items-center gap-2 pointer-events-auto">
-            <a
-              href="/#catalogo"
-              className="px-3.5 py-2 rounded-full text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-sm"
+      {/* FLOATING TOP TOOLBAR */}
+      <div className="fixed top-3 inset-x-2 sm:inset-x-4 z-50 pointer-events-none">
+        {isHero ? (
+          /* HERO PREVIEW TOOLBAR: Centered palette swatches + action buttons, NO device buttons */
+          <div className="flex items-center justify-center gap-1.5 max-w-full mx-auto">
+            {/* 5 Colors Swatches Bar */}
+            <div
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full shadow-md pointer-events-auto backdrop-blur-md"
               style={{
                 backgroundColor: currentTheme.cardHex,
-                border: `1px solid ${currentTheme.borderHex}`,
-                color: currentTheme.textHex,
+                border: `1.5px solid ${currentTheme.borderHex}`,
               }}
+              title="Elige tu color preferido en tiempo real"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Catálogo</span>
-            </a>
+              <Palette className="w-3.5 h-3.5 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
+              {MINT_PALETTES.map((pal, idx) => (
+                <button
+                  key={pal.id}
+                  type="button"
+                  onClick={() => setSelectedPaletteIndex(idx)}
+                  className={`w-5 h-5 rounded-full transition-all duration-300 ${
+                    selectedPaletteIndex === idx
+                      ? 'scale-125 ring-2 ring-charcoal shadow-sm'
+                      : 'hover:scale-110 opacity-85'
+                  }`}
+                  style={{ backgroundColor: pal.swatchColor }}
+                  title={pal.name}
+                  aria-label={pal.name}
+                />
+              ))}
+            </div>
 
+            {/* If opened: small re-close button */}
             {opened && (
               <button
                 type="button"
                 onClick={() => setOpened(false)}
+                className="p-1.5 rounded-full transition shadow-md pointer-events-auto backdrop-blur-md"
+                style={{
+                  backgroundColor: currentTheme.cardHex,
+                  border: `1.5px solid ${currentTheme.borderHex}`,
+                  color: currentTheme.primaryHex,
+                }}
+                title="Ver Sobre / Reiniciar"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+            )}
+
+            {/* Music Toggle */}
+            <button
+              type="button"
+              onClick={() => setAudioActive(!audioActive)}
+              className="p-1.5 rounded-full text-ivory-50 transition shadow-md pointer-events-auto"
+              style={{ backgroundColor: currentTheme.primaryHex }}
+              title={audioActive ? 'Pausar música' : 'Activar música'}
+            >
+              {audioActive ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+            </button>
+          </div>
+        ) : (
+          /* STANDALONE PAGE TOOLBAR: Full controls with catalog return, device switcher & color picker */
+          <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2.5">
+            {/* Left Buttons: Return to catalog & Re-close seal */}
+            <div className="flex items-center gap-2 pointer-events-auto">
+              <a
+                href="/#catalogo"
                 className="px-3.5 py-2 rounded-full text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-sm"
                 style={{
                   backgroundColor: currentTheme.cardHex,
@@ -283,124 +350,141 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                   color: currentTheme.textHex,
                 }}
               >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Ver Sobre</span>
-              </button>
-            )}
-          </div>
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Catálogo</span>
+              </a>
 
-          {/* Center: Device Viewport Switcher (Móvil, Tablet, Desktop) */}
-          <div
-            className="flex items-center p-1 rounded-full shadow-sm pointer-events-auto"
-            style={{
-              backgroundColor: currentTheme.cardHex,
-              border: `1px solid ${currentTheme.borderHex}`,
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setDeviceMode('mobile')}
-              className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
-                deviceMode === 'mobile'
-                  ? 'bg-charcoal text-ivory-50 font-medium'
-                  : 'hover:opacity-80'
-              }`}
-              title="Ver en vista de Celular (Smartphone)"
-            >
-              <Smartphone className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Móvil</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setDeviceMode('tablet')}
-              className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
-                deviceMode === 'tablet'
-                  ? 'bg-charcoal text-ivory-50 font-medium'
-                  : 'hover:opacity-80'
-              }`}
-              title="Ver en vista de Tablet"
-            >
-              <Tablet className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Tablet</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setDeviceMode('desktop')}
-              className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
-                deviceMode === 'desktop'
-                  ? 'bg-charcoal text-ivory-50 font-medium'
-                  : 'hover:opacity-80'
-              }`}
-              title="Ver en Pantalla Completa"
-            >
-              <Monitor className="w-3.5 h-3.5" />
-              <span className="hidden md:inline">Completa</span>
-            </button>
-          </div>
-
-          {/* Right: 5 Color Palettes Selector + Heart Rain Toggle + Music */}
-          <div className="flex items-center gap-2 pointer-events-auto">
-            {/* 5 Colors Swatches Bar */}
-            <div
-              className="flex items-center gap-1.5 p-1.5 rounded-full shadow-sm"
-              style={{
-                backgroundColor: currentTheme.cardHex,
-                border: `1px solid ${currentTheme.borderHex}`,
-              }}
-              title="Elige entre 5 paletas de color en tiempo real"
-            >
-              <Palette className="w-3.5 h-3.5 ml-1.5 opacity-70" />
-              {MINT_PALETTES.map((pal, idx) => (
+              {opened && (
                 <button
-                  key={pal.id}
                   type="button"
-                  onClick={() => setSelectedPaletteIndex(idx)}
-                  className={`w-6 h-6 rounded-full transition-transform ${
-                    selectedPaletteIndex === idx
-                      ? 'scale-125 ring-2 ring-charcoal shadow-sm'
-                      : 'hover:scale-110'
-                  }`}
-                  style={{ backgroundColor: pal.primaryHex }}
-                  title={pal.name}
-                />
-              ))}
+                  onClick={() => setOpened(false)}
+                  className="px-3.5 py-2 rounded-full text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-sm"
+                  style={{
+                    backgroundColor: currentTheme.cardHex,
+                    border: `1px solid ${currentTheme.borderHex}`,
+                    color: currentTheme.textHex,
+                  }}
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Ver Sobre</span>
+                </button>
+              )}
             </div>
 
-            {/* Toggle Heart Rain Button */}
-            <button
-              type="button"
-              onClick={() => setRainEnabled(!rainEnabled)}
-              className="p-2 rounded-full transition shadow-sm"
+            {/* Center: Device Viewport Switcher (Móvil, Tablet, Desktop) */}
+            <div
+              className="flex items-center p-1 rounded-full shadow-sm pointer-events-auto"
               style={{
                 backgroundColor: currentTheme.cardHex,
                 border: `1px solid ${currentTheme.borderHex}`,
-                color: rainEnabled ? currentTheme.primaryHex : currentTheme.mutedHex,
               }}
-              title={rainEnabled ? 'Pausar lluvia de corazones' : 'Activar lluvia de corazones'}
             >
-              <Droplets className="w-4 h-4" />
-            </button>
+              <button
+                type="button"
+                onClick={() => setDeviceMode('mobile')}
+                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
+                  deviceMode === 'mobile'
+                    ? 'bg-charcoal text-ivory-50 font-medium'
+                    : 'hover:opacity-80'
+                }`}
+                title="Ver en vista de Celular (Smartphone)"
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Móvil</span>
+              </button>
 
-            {/* Music Toggle */}
-            <button
-              type="button"
-              onClick={() => setAudioActive(!audioActive)}
-              className="p-2 rounded-full text-ivory-50 transition shadow-sm"
-              style={{ backgroundColor: currentTheme.primaryHex }}
-              title={audioActive ? 'Pausar música' : 'Activar música'}
-            >
-              {audioActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-            </button>
+              <button
+                type="button"
+                onClick={() => setDeviceMode('tablet')}
+                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
+                  deviceMode === 'tablet'
+                    ? 'bg-charcoal text-ivory-50 font-medium'
+                    : 'hover:opacity-80'
+                }`}
+                title="Ver en vista de Tablet"
+              >
+                <Tablet className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Tablet</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setDeviceMode('desktop')}
+                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
+                  deviceMode === 'desktop'
+                    ? 'bg-charcoal text-ivory-50 font-medium'
+                    : 'hover:opacity-80'
+                }`}
+                title="Ver en Pantalla Completa"
+              >
+                <Monitor className="w-3.5 h-3.5" />
+                <span className="hidden md:inline">Completa</span>
+              </button>
+            </div>
+
+            {/* Right: 5 Color Palettes Selector + Heart Rain Toggle + Music */}
+            <div className="flex items-center gap-2 pointer-events-auto">
+              {/* 5 Colors Swatches Bar */}
+              <div
+                className="flex items-center gap-1.5 p-1.5 rounded-full shadow-sm"
+                style={{
+                  backgroundColor: currentTheme.cardHex,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+                title="Elige entre 5 paletas de color en tiempo real"
+              >
+                <Palette className="w-3.5 h-3.5 ml-1.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
+                {MINT_PALETTES.map((pal, idx) => (
+                  <button
+                    key={pal.id}
+                    type="button"
+                    onClick={() => setSelectedPaletteIndex(idx)}
+                    className={`w-6 h-6 rounded-full transition-transform ${
+                      selectedPaletteIndex === idx
+                        ? 'scale-125 ring-2 ring-charcoal shadow-sm'
+                        : 'hover:scale-110'
+                    }`}
+                    style={{ backgroundColor: pal.swatchColor }}
+                    title={pal.name}
+                    aria-label={pal.name}
+                  />
+                ))}
+              </div>
+
+              {/* Toggle Heart Rain Button */}
+              <button
+                type="button"
+                onClick={() => setRainEnabled(!rainEnabled)}
+                className="p-2 rounded-full transition shadow-sm"
+                style={{
+                  backgroundColor: currentTheme.cardHex,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                  color: rainEnabled ? currentTheme.primaryHex : currentTheme.mutedHex,
+                }}
+                title={rainEnabled ? 'Pausar lluvia de corazones' : 'Activar lluvia de corazones'}
+              >
+                <Droplets className="w-4 h-4" />
+              </button>
+
+              {/* Music Toggle */}
+              <button
+                type="button"
+                onClick={() => setAudioActive(!audioActive)}
+                className="p-2 rounded-full text-ivory-50 transition shadow-sm"
+                style={{ backgroundColor: currentTheme.primaryHex }}
+                title={audioActive ? 'Pausar música' : 'Activar música'}
+              >
+                {audioActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* INNER WRAPPER (RESPONSIVE OR DEVICE MOCKUP FRAME) */}
       <div className={getContainerWrapper()}>
         {/* Device Speaker Notch in Mobile Simulator */}
-        {deviceMode === 'mobile' && (
+        {!isHero && deviceMode === 'mobile' && (
           <div className="w-36 h-5 bg-charcoal rounded-b-2xl mx-auto z-40 relative flex items-center justify-center">
             <div className="w-10 h-1 bg-charcoal-light rounded-full" />
           </div>
@@ -419,7 +503,7 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 className="text-[11px] uppercase tracking-[0.3em] font-semibold"
                 style={{ color: currentTheme.primaryHex }}
               >
-                Invitación Nupcial en Marfil &amp; Menta
+                {currentTheme.name}
               </span>
               <h1 className="font-serif text-5xl sm:text-7xl font-normal tracking-wide">
                 Isabella <span className="italic font-light">&amp;</span> Tomás
@@ -464,10 +548,10 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
 
               <div className="mt-8 space-y-1">
                 <p className="text-xs uppercase tracking-[0.22em] font-semibold" style={{ color: currentTheme.primaryHex }}>
-                  Efecto de Lluvia de Corazones Menta
+                  Efecto de Lluvia de Corazones Flotantes
                 </p>
                 <p className="text-[11px] italic" style={{ color: currentTheme.mutedHex }}>
-                  Incluye selección de 5 colores y vista adaptable en vivo
+                  Personalizable con 5 paletas de color en tiempo real
                 </p>
               </div>
             </div>

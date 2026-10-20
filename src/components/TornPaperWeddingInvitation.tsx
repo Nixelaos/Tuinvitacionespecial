@@ -21,7 +21,7 @@ import {
   ExternalLink,
   Feather,
   Flower2,
-  SlidersHorizontal,
+  Palette,
   MessageSquareHeart,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
@@ -35,6 +35,136 @@ import { BACKEND_URL } from '../config/api';
 
 const STORAGE_KEY = 'atelier_wedding_gifts_v1';
 
+export interface TornPaperPalette {
+  id: string;
+  name: string;
+  swatchColor: string;
+  primaryHex: string;
+  primaryDark: string;
+  primaryLight: string;
+  ribbonGradient: string;
+  sealGradient: string;
+  bgOuter: string;
+  bgMain: string;
+  bgHeaderFrom: string;
+  bgHeaderTo: string;
+  bgCard: string;
+  bgCardAlt: string;
+  accentDark: string;
+  footerBg: string;
+  textDark: string;
+  textMuted: string;
+  borderHex: string;
+}
+
+export const TORN_PAPER_PALETTES: TornPaperPalette[] = [
+  {
+    id: 'terracota',
+    name: 'Terracota & Seda Cálida',
+    swatchColor: '#A86448',
+    primaryHex: '#A86448',
+    primaryDark: '#7D3F26',
+    primaryLight: '#EED7C5',
+    ribbonGradient: 'from-[#9E583D] via-[#B86B4D] to-[#9E583D]',
+    sealGradient: 'from-[#C47756] via-[#A85D3E] to-[#7D3F26]',
+    bgOuter: '#E8DEC8',
+    bgMain: '#F4ECE1',
+    bgHeaderFrom: '#EAE0D0',
+    bgHeaderTo: '#F4ECE1',
+    bgCard: '#FCF9F2',
+    bgCardAlt: '#EFE5D8',
+    accentDark: '#3A2B22',
+    footerBg: '#2C221E',
+    textDark: '#2C221E',
+    textMuted: '#69564A',
+    borderHex: '#D8C7B2',
+  },
+  {
+    id: 'olivo',
+    name: 'Verde Olivo & Lino Silvestre',
+    swatchColor: '#557252',
+    primaryHex: '#557252',
+    primaryDark: '#344B32',
+    primaryLight: '#D8E5D6',
+    ribbonGradient: 'from-[#476044] via-[#5C7D59] to-[#476044]',
+    sealGradient: 'from-[#6E926A] via-[#557252] to-[#344B32]',
+    bgOuter: '#DFE6DC',
+    bgMain: '#EEF2EC',
+    bgHeaderFrom: '#E1E9DD',
+    bgHeaderTo: '#EEF2EC',
+    bgCard: '#FAFBF9',
+    bgCardAlt: '#E2EBE0',
+    accentDark: '#263625',
+    footerBg: '#1B261A',
+    textDark: '#1C271B',
+    textMuted: '#576755',
+    borderHex: '#C4D4C1',
+  },
+  {
+    id: 'rosa',
+    name: 'Rosa Palo & Seda Antigua',
+    swatchColor: '#B36B78',
+    primaryHex: '#B36B78',
+    primaryDark: '#7F3A47',
+    primaryLight: '#F5DBDF',
+    ribbonGradient: 'from-[#A15865] via-[#BF7482] to-[#A15865]',
+    sealGradient: 'from-[#CF808E] via-[#B36B78] to-[#7F3A47]',
+    bgOuter: '#ECE0E3',
+    bgMain: '#F7EFF0',
+    bgHeaderFrom: '#F0E2E4',
+    bgHeaderTo: '#F7EFF0',
+    bgCard: '#FDF9FA',
+    bgCardAlt: '#EFE0E3',
+    accentDark: '#3B2228',
+    footerBg: '#2A181C',
+    textDark: '#2C191E',
+    textMuted: '#6F4E55',
+    borderHex: '#DFC3C8',
+  },
+  {
+    id: 'anil',
+    name: 'Azul Añil Rústico & Algodón',
+    swatchColor: '#4B6B82',
+    primaryHex: '#4B6B82',
+    primaryDark: '#284153',
+    primaryLight: '#D5E2EC',
+    ribbonGradient: 'from-[#3C586D] via-[#52758E] to-[#3C586D]',
+    sealGradient: 'from-[#5F839C] via-[#4B6B82] to-[#284153]',
+    bgOuter: '#DEE6EC',
+    bgMain: '#EEF3F6',
+    bgHeaderFrom: '#DFE8EE',
+    bgHeaderTo: '#EEF3F6',
+    bgCard: '#FAFCFD',
+    bgCardAlt: '#DFE8EE',
+    accentDark: '#1F303D',
+    footerBg: '#15212A',
+    textDark: '#16232D',
+    textMuted: '#4E6270',
+    borderHex: '#BFD0DC',
+  },
+  {
+    id: 'oro',
+    name: 'Oro Viejo & Trigo Silvestre',
+    swatchColor: '#A58238',
+    primaryHex: '#A58238',
+    primaryDark: '#73571E',
+    primaryLight: '#F3E4C4',
+    ribbonGradient: 'from-[#93712B] via-[#B59142] to-[#93712B]',
+    sealGradient: 'from-[#C4A050] via-[#A58238] to-[#73571E]',
+    bgOuter: '#ECE5D5',
+    bgMain: '#F6F3EC',
+    bgHeaderFrom: '#ECE6D6',
+    bgHeaderTo: '#F6F3EC',
+    bgCard: '#FDFBF7',
+    bgCardAlt: '#EFE7D6',
+    accentDark: '#382D16',
+    footerBg: '#261F10',
+    textDark: '#27200E',
+    textMuted: '#6C5E43',
+    borderHex: '#DAD0B7',
+  },
+];
+
 /**
  * Reusable SVG Torn Handmade Paper Divider so sections never have straight boxy lines
  */
@@ -44,7 +174,7 @@ const TornPaperDivider: React.FC<{
   className?: string;
 }> = ({ fill, flip = false, className = '' }) => (
   <div
-    className={`w-full overflow-hidden leading-none select-none pointer-events-none ${
+    className={`w-full overflow-hidden leading-none select-none pointer-events-none transition-colors duration-500 ${
       flip ? 'rotate-180' : ''
     } ${className}`}
     aria-hidden="true"
@@ -71,14 +201,31 @@ const TornPaperDivider: React.FC<{
 );
 
 export const TornPaperWeddingInvitation: React.FC = () => {
-  // 1. Unfurling Torn-Paper Scroll & Silk Ribbon State
+  // 0. Hero Preview Detection
+  const [isHero, setIsHero] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isInsideIframe = window.self !== window.top;
+      const hasHeroParam = window.location.search.includes('hero=true');
+      if (isInsideIframe || hasHeroParam) {
+        setIsHero(true);
+      }
+    }
+  }, []);
+
+  // 1. Color Palettes State (5 Handcrafted Palettes)
+  const [selectedPaletteIndex, setSelectedPaletteIndex] = useState(0);
+  const currentTheme = TORN_PAPER_PALETTES[selectedPaletteIndex];
+
+  // 2. Unfurling Torn-Paper Scroll & Silk Ribbon State
   const [scrollOpened, setScrollOpened] = useState(false);
   const [untyingRibbon, setUntyingRibbon] = useState(false);
 
-  // 2. Audio Ambiance
+  // 3. Audio Ambiance
   const [musicOn, setMusicOn] = useState(false);
 
-  // 3. Live Countdown State (Nov 6, 2027 16:00)
+  // 4. Live Countdown State (Nov 6, 2027 16:00)
   const [timeLeft, setTimeLeft] = useState({
     days: 381,
     hours: 15,
@@ -86,10 +233,10 @@ export const TornPaperWeddingInvitation: React.FC = () => {
     seconds: 22,
   });
 
-  // 4. Gifts Preview loaded from Backend / LocalStorage for the Planilla
+  // 5. Gifts Preview loaded from Backend / LocalStorage for the Planilla
   const [coupleGifts, setCoupleGifts] = useState<WeddingGiftItem[]>(INITIAL_GIFTS_FALLBACK);
 
-  // 5. WhatsApp RSVP State
+  // 6. WhatsApp RSVP State
   const [guestName, setGuestName] = useState('');
   const [attending, setAttending] = useState<'si' | 'no'>('si');
   const [passes, setPasses] = useState('2');
@@ -126,16 +273,16 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             return;
           }
         } catch {
-          // fallback to localStorage
+          // silently fallback to storage or defaults
         }
       }
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try {
-          setCoupleGifts(JSON.parse(saved));
-        } catch {
-          setCoupleGifts(INITIAL_GIFTS_FALLBACK);
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          setCoupleGifts(JSON.parse(stored));
         }
+      } catch {
+        // keep fallback
       }
     };
     loadGifts();
@@ -177,7 +324,10 @@ export const TornPaperWeddingInvitation: React.FC = () => {
   // ============================================================================
   if (!scrollOpened) {
     return (
-      <div className="min-h-screen bg-[#E8DEC8] flex flex-col justify-between p-4 sm:p-8 relative overflow-hidden select-none">
+      <div
+        className="min-h-screen flex flex-col justify-between p-4 sm:p-8 relative overflow-hidden select-none transition-colors duration-500"
+        style={{ backgroundColor: currentTheme.bgOuter }}
+      >
         {/* Soft Botanical Background Texture */}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-25 blur-[1px]"
@@ -186,59 +336,142 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               'url(https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80)',
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#3A2B22]/30 via-transparent to-[#3A2B22]/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/30 via-transparent to-charcoal/40" />
 
-        {/* Top Bar */}
-        <div className="relative z-30 flex items-center justify-between max-w-5xl w-full mx-auto pt-2">
-          <a
-            href="/#catalogo"
-            className="px-4 py-2 deckle-pill bg-[#FCF9F2]/90 text-xs uppercase tracking-[0.18em] text-[#3A2B22] hover:bg-[#3A2B22] hover:text-ivory-50 transition flex items-center gap-1.5 shadow-sm"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Volver al Catálogo</span>
-          </a>
-          <span className="px-4 py-1.5 deckle-pill bg-[#FCF9F2]/90 text-[10px] uppercase tracking-[0.24em] text-[#A86448] font-semibold">
-            3.ª Invitación · Papel Algodón Cortado a Mano
-          </span>
+        {/* Top Controls Bar */}
+        <div className="relative z-30 max-w-5xl w-full mx-auto pt-2">
+          {isHero ? (
+            /* HERO PREVIEW TOP BAR: Centered 5-color swatches */
+            <div className="flex items-center justify-center gap-1.5">
+              <div
+                className="flex items-center gap-1.5 px-3 py-1.5 deckle-pill shadow-md backdrop-blur-md"
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  border: `1.5px solid ${currentTheme.borderHex}`,
+                }}
+                title="Elige tu color artesanal favorito"
+              >
+                <Palette className="w-3.5 h-3.5 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
+                {TORN_PAPER_PALETTES.map((pal, idx) => (
+                  <button
+                    key={pal.id}
+                    type="button"
+                    onClick={() => setSelectedPaletteIndex(idx)}
+                    className={`w-5 h-5 rounded-full transition-all duration-300 ${
+                      selectedPaletteIndex === idx
+                        ? 'scale-125 ring-2 ring-[#2C221E] shadow-sm'
+                        : 'hover:scale-110 opacity-85'
+                    }`}
+                    style={{ backgroundColor: pal.swatchColor }}
+                    title={pal.name}
+                    aria-label={pal.name}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            /* STANDALONE PAGE TOP BAR */
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <a
+                href="/#catalogo"
+                className="px-4 py-2 deckle-pill text-xs uppercase tracking-[0.18em] transition flex items-center gap-1.5 shadow-sm"
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  color: currentTheme.textDark,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Volver al Catálogo</span>
+              </a>
+
+              {/* 5 Colors Swatches Bar */}
+              <div
+                className="flex items-center gap-1.5 px-3 py-1.5 deckle-pill shadow-sm"
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+                title="Elige entre 5 paletas de color en tiempo real"
+              >
+                <Palette className="w-3.5 h-3.5 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
+                {TORN_PAPER_PALETTES.map((pal, idx) => (
+                  <button
+                    key={pal.id}
+                    type="button"
+                    onClick={() => setSelectedPaletteIndex(idx)}
+                    className={`w-6 h-6 rounded-full transition-transform ${
+                      selectedPaletteIndex === idx
+                        ? 'scale-125 ring-2 ring-[#2C221E] shadow-sm'
+                        : 'hover:scale-110'
+                    }`}
+                    style={{ backgroundColor: pal.swatchColor }}
+                    title={pal.name}
+                    aria-label={pal.name}
+                  />
+                ))}
+              </div>
+
+              <span
+                className="px-4 py-1.5 deckle-pill text-[10px] uppercase tracking-[0.24em] font-semibold hidden md:inline-block shadow-sm"
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  color: currentTheme.primaryHex,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+              >
+                Papel Algodón Cortado a Mano · Bordes Rasgados
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Center Unfurling Torn-Paper Pliego with Silk Ribbon */}
         <div className="relative z-20 my-auto max-w-xl w-full mx-auto py-6">
           <div
-            className={`deckle-card p-8 sm:p-12 text-center relative transition-all duration-700 ${
+            className={`deckle-card p-8 sm:p-12 text-center relative transition-all duration-700 shadow-editorial-lg ${
               untyingRibbon ? 'scale-105 opacity-0 -translate-y-8' : 'scale-100 opacity-100'
             }`}
+            style={{
+              backgroundColor: currentTheme.bgCard,
+              border: `1px solid ${currentTheme.borderHex}`,
+            }}
           >
             {/* Upper Paper Layer */}
             <div className="space-y-2 pb-10">
-              <Flower2 className="w-6 h-6 text-[#A86448] mx-auto opacity-80" />
-              <span className="text-[10px] uppercase tracking-[0.32em] text-[#8C6D53] block">
-                Pliego Nupcial Artesanal
+              <Flower2 className="w-6 h-6 mx-auto opacity-85" style={{ color: currentTheme.primaryHex }} />
+              <span
+                className="text-[10px] uppercase tracking-[0.32em] block font-medium"
+                style={{ color: currentTheme.primaryHex }}
+              >
+                Pliego Nupcial Artesanal · {currentTheme.name}
               </span>
               <h1 className="font-serif text-4xl sm:text-6xl text-[#2C221E] font-normal">
-                Lucía <span className="italic text-[#A86448]">&amp;</span> Rodrigo
+                Lucía <span className="italic font-light" style={{ color: currentTheme.primaryHex }}>&amp;</span> Rodrigo
               </h1>
-              <p className="text-xs uppercase tracking-[0.24em] text-[#69564A]">
+              <p className="text-xs uppercase tracking-[0.24em]" style={{ color: currentTheme.textMuted }}>
                 06 de Noviembre de 2027 · Hacienda Temozón
               </p>
             </div>
 
-            {/* Horizontal Terracotta Silk Ribbon Across the Paper */}
+            {/* Horizontal Silk Ribbon Across the Paper */}
             <div className="relative my-4 flex items-center justify-center">
               {/* Silk Ribbon Strip */}
-              <div className="w-full h-9 bg-gradient-to-r from-[#9E583D] via-[#B86B4D] to-[#9E583D] shadow-md rounded-full opacity-95" />
+              <div
+                className={`w-full h-9 bg-gradient-to-r ${currentTheme.ribbonGradient} shadow-md rounded-full opacity-95 transition-all duration-500`}
+              />
 
               {/* Pressed Botanical Terracotta Wax Seal */}
               <button
                 type="button"
                 onClick={handleUntieScroll}
-                className="group absolute w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-br from-[#C47756] via-[#A85D3E] to-[#7D3F26] text-ivory-50 shadow-editorial-lg border-4 border-[#EED7C5]/80 flex flex-col items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                className={`group absolute w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-br ${currentTheme.sealGradient} text-ivory-50 shadow-editorial-lg border-4 border-white/70 flex flex-col items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer`}
                 aria-label="Desatar cinta de seda y abrir pliego de invitación"
               >
-                <div className="absolute inset-2 rounded-full border border-dashed border-[#EED7C5]/45 pointer-events-none" />
-                <Flower2 className="w-5 h-5 text-[#F7E5D8] mb-0.5" />
+                <div className="absolute inset-2 rounded-full border border-dashed border-white/45 pointer-events-none" />
+                <Flower2 className="w-5 h-5 text-ivory-100 mb-0.5" />
                 <span className="font-serif text-3xl sm:text-4xl tracking-widest">L&amp;R</span>
-                <span className="text-[9px] uppercase tracking-[0.22em] text-[#F7E5D8] mt-1">
+                <span className="text-[9px] uppercase tracking-[0.22em] text-ivory-200 mt-1">
                   Desatar Cinta
                 </span>
               </button>
@@ -246,22 +479,23 @@ export const TornPaperWeddingInvitation: React.FC = () => {
 
             {/* Lower Paper Layer */}
             <div className="pt-12 space-y-2">
-              <p className="font-serif italic text-2xl text-[#3A2B22]">
+              <p className="font-serif italic text-2xl" style={{ color: currentTheme.textDark }}>
                 Para: Nuestra Querida Familia y Amigos
               </p>
               <button
                 type="button"
                 onClick={handleUntieScroll}
-                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-[#A86448] font-semibold hover:text-[#2C221E] transition pt-2"
+                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] font-semibold transition pt-2 hover:opacity-80"
+                style={{ color: currentTheme.primaryHex }}
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Toca el sello de lacre terracota para desplegar el papel</span>
+                <span>Toca el sello de lacre para desplegar el papel</span>
               </button>
             </div>
           </div>
         </div>
 
-        <div className="relative z-30 text-center pb-2 text-xs font-serif italic text-[#3A2B22]">
+        <div className="relative z-30 text-center pb-2 text-xs font-serif italic" style={{ color: currentTheme.textMuted }}>
           Papelería Digital en Algodón Artesanal · Tu Invitación Especial
         </div>
       </div>
@@ -272,81 +506,199 @@ export const TornPaperWeddingInvitation: React.FC = () => {
   // 2. OPENED TORN-PAPER ARTISTIC LANDING PAGE
   // ============================================================================
   return (
-    <div className="min-h-screen bg-[#F4ECE1] text-[#2C221E] relative overflow-x-hidden">
-      {/* FLOATING TOP CONTROLS (ORGANIC PILLS) */}
-      <div className="fixed top-4 left-4 right-4 z-50 pointer-events-none">
-        <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 pointer-events-auto">
-            <a
-              href="/#catalogo"
-              className="px-4 py-2 deckle-pill bg-[#FCF9F2]/95 backdrop-blur-md shadow-sm text-xs uppercase tracking-[0.16em] text-[#2C221E] hover:bg-[#3A2B22] hover:text-ivory-50 transition flex items-center gap-1.5"
+    <div
+      className="min-h-screen relative overflow-x-hidden transition-colors duration-500"
+      style={{ backgroundColor: currentTheme.bgMain, color: currentTheme.textDark }}
+    >
+      {/* FLOATING TOP CONTROLS */}
+      <div className="fixed top-4 inset-x-2 sm:inset-x-4 z-50 pointer-events-none">
+        {isHero ? (
+          /* HERO PREVIEW CONTROLS: Clean, centered palette swatches, reset and music */
+          <div className="flex items-center justify-center gap-1.5 max-w-full mx-auto">
+            {/* 5 Colors Swatches Bar */}
+            <div
+              className="flex items-center gap-1.5 px-3 py-1.5 deckle-pill shadow-md pointer-events-auto backdrop-blur-md"
+              style={{
+                backgroundColor: currentTheme.bgCard,
+                border: `1.5px solid ${currentTheme.borderHex}`,
+              }}
+              title="Elige tu color preferido en vivo"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Catálogo</span>
-            </a>
+              <Palette className="w-3.5 h-3.5 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
+              {TORN_PAPER_PALETTES.map((pal, idx) => (
+                <button
+                  key={pal.id}
+                  type="button"
+                  onClick={() => setSelectedPaletteIndex(idx)}
+                  className={`w-5 h-5 rounded-full transition-all duration-300 ${
+                    selectedPaletteIndex === idx
+                      ? 'scale-125 ring-2 ring-charcoal shadow-sm'
+                      : 'hover:scale-110 opacity-85'
+                  }`}
+                  style={{ backgroundColor: pal.swatchColor }}
+                  title={pal.name}
+                  aria-label={pal.name}
+                />
+              ))}
+            </div>
 
+            {/* Re-close scroll button */}
             <button
               type="button"
               onClick={() => setScrollOpened(false)}
-              className="px-4 py-2 deckle-pill bg-[#FCF9F2]/95 backdrop-blur-md shadow-sm text-xs uppercase tracking-[0.16em] text-[#2C221E] hover:bg-[#EFE5D8] transition flex items-center gap-1.5"
+              className="p-1.5 rounded-full transition shadow-md pointer-events-auto backdrop-blur-md"
+              style={{
+                backgroundColor: currentTheme.bgCard,
+                border: `1.5px solid ${currentTheme.borderHex}`,
+                color: currentTheme.primaryHex,
+              }}
+              title="Cerrar Pliego"
             >
-              <RotateCcw className="w-3.5 h-3.5 text-[#A86448]" />
-              <span>Cerrar Pliego</span>
+              <RotateCcw className="w-3.5 h-3.5" />
+            </button>
+
+            {/* Music Toggle */}
+            <button
+              type="button"
+              onClick={() => setMusicOn(!musicOn)}
+              className="p-1.5 rounded-full text-ivory-50 transition shadow-md pointer-events-auto"
+              style={{ backgroundColor: currentTheme.accentDark }}
+              title={musicOn ? 'Pausar música' : 'Activar música'}
+            >
+              {musicOn ? <Volume2 className="w-3.5 h-3.5 animate-pulse" /> : <VolumeX className="w-3.5 h-3.5" />}
             </button>
           </div>
+        ) : (
+          /* STANDALONE PAGE CONTROLS: Return to catalog + Cerrar Pliego + 5 Swatches + Music */
+          <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2.5">
+            <div className="flex items-center gap-2 pointer-events-auto">
+              <a
+                href="/#catalogo"
+                className="px-4 py-2 deckle-pill shadow-sm text-xs uppercase tracking-[0.16em] transition flex items-center gap-1.5"
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  color: currentTheme.textDark,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Catálogo</span>
+              </a>
 
-          <button
-            type="button"
-            onClick={() => setMusicOn(!musicOn)}
-            className="pointer-events-auto px-5 py-2 deckle-pill bg-[#3A2B22] text-ivory-50 shadow-editorial flex items-center gap-2 text-xs hover:bg-[#A86448] transition"
-          >
-            {musicOn ? (
-              <>
-                <Volume2 className="w-4 h-4 text-[#EED7C5] animate-pulse" />
-                <span className="text-[11px] tracking-wider hidden sm:inline">
-                  Guitarra Clásica · Activa
-                </span>
-              </>
-            ) : (
-              <>
-                <VolumeX className="w-4 h-4 opacity-70" />
-                <span className="text-[11px] tracking-wider">Música en Pausa</span>
-              </>
-            )}
-          </button>
-        </div>
+              <button
+                type="button"
+                onClick={() => setScrollOpened(false)}
+                className="px-4 py-2 deckle-pill shadow-sm text-xs uppercase tracking-[0.16em] transition flex items-center gap-1.5"
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  color: currentTheme.textDark,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+              >
+                <RotateCcw className="w-3.5 h-3.5" style={{ color: currentTheme.primaryHex }} />
+                <span>Cerrar Pliego</span>
+              </button>
+            </div>
+
+            {/* 5 Colors Swatches Bar */}
+            <div
+              className="flex items-center gap-1.5 px-3 py-1.5 deckle-pill shadow-sm pointer-events-auto"
+              style={{
+                backgroundColor: currentTheme.bgCard,
+                border: `1px solid ${currentTheme.borderHex}`,
+              }}
+              title="Elige entre 5 paletas de color en tiempo real"
+            >
+              <Palette className="w-3.5 h-3.5 ml-1 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
+              {TORN_PAPER_PALETTES.map((pal, idx) => (
+                <button
+                  key={pal.id}
+                  type="button"
+                  onClick={() => setSelectedPaletteIndex(idx)}
+                  className={`w-6 h-6 rounded-full transition-transform ${
+                    selectedPaletteIndex === idx
+                      ? 'scale-125 ring-2 ring-charcoal shadow-sm'
+                      : 'hover:scale-110'
+                  }`}
+                  style={{ backgroundColor: pal.swatchColor }}
+                  title={pal.name}
+                  aria-label={pal.name}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setMusicOn(!musicOn)}
+              className="pointer-events-auto px-5 py-2 deckle-pill text-ivory-50 shadow-editorial flex items-center gap-2 text-xs transition"
+              style={{ backgroundColor: currentTheme.accentDark }}
+            >
+              {musicOn ? (
+                <>
+                  <Volume2 className="w-4 h-4 text-[#EED7C5] animate-pulse" />
+                  <span className="text-[11px] tracking-wider hidden sm:inline">
+                    Guitarra Clásica · Activa
+                  </span>
+                </>
+              ) : (
+                <>
+                  <VolumeX className="w-4 h-4 opacity-70" />
+                  <span className="text-[11px] tracking-wider">Música en Pausa</span>
+                </>
+              )}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* ========================================================================
           SECCIÓN 1: NOMBRES DE LOS NOVIOS + FOTOGRAFÍA EN MÁSCARA ORGÁNICA
       ======================================================================== */}
-      <section className="pt-24 pb-16 px-4 sm:px-8 relative bg-gradient-to-b from-[#EAE0D0] to-[#F4ECE1]">
+      <section
+        className="pt-24 pb-16 px-4 sm:px-8 relative transition-colors duration-500"
+        style={{
+          background: `linear-gradient(to bottom, ${currentTheme.bgHeaderFrom}, ${currentTheme.bgHeaderTo})`,
+        }}
+      >
         <div className="max-w-5xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-5 py-2 deckle-pill bg-[#FCF9F2] text-xs uppercase tracking-[0.26em] text-[#A86448] shadow-sm">
+          <div
+            className="inline-flex items-center gap-2 px-5 py-2 deckle-pill text-xs uppercase tracking-[0.26em] shadow-sm font-semibold"
+            style={{
+              backgroundColor: currentTheme.bgCard,
+              color: currentTheme.primaryHex,
+              border: `1px solid ${currentTheme.borderHex}`,
+            }}
+          >
             <Flower2 className="w-4 h-4" />
             <span>Nuestra Boda · 06 de Noviembre de 2027</span>
           </div>
 
-          <h1 className="font-serif text-6xl sm:text-8xl text-[#2C221E] font-normal tracking-tight leading-none">
-            Lucía <span className="italic text-[#A86448] font-light">&amp;</span> Rodrigo
+          <h1 className="font-serif text-6xl sm:text-8xl font-normal tracking-tight leading-none" style={{ color: currentTheme.textDark }}>
+            Lucía <span className="italic font-light" style={{ color: currentTheme.primaryHex }}>&amp;</span> Rodrigo
           </h1>
 
-          <p className="text-xs sm:text-sm uppercase tracking-[0.28em] text-[#69564A]">
+          <p className="text-xs sm:text-sm uppercase tracking-[0.28em]" style={{ color: currentTheme.textMuted }}>
             Hacienda Temozón Sur · Mérida, Yucatán
           </p>
 
           {/* Organic Pebble / Handmade Paper Framed Couple Portrait */}
           <div className="max-w-2xl mx-auto pt-2">
-            <div className="deckle-card p-5 sm:p-8 animate-float-gentle">
+            <div
+              className="deckle-card p-5 sm:p-8 animate-float-gentle shadow-editorial"
+              style={{
+                backgroundColor: currentTheme.bgCard,
+                border: `1px solid ${currentTheme.borderHex}`,
+              }}
+            >
               <div className="relative h-[380px] sm:h-[460px] overflow-hidden organic-photo-mask shadow-inner">
                 <img
                   src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=85"
                   alt="Lucía y Rodrigo"
                   className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2C221E]/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
                 <div className="absolute bottom-6 inset-x-6 text-ivory-50">
-                  <p className="font-serif italic text-2xl sm:text-3xl">
+                  <p className="font-serif italic text-2xl sm:text-3xl drop-shadow">
                     «Contigo cada camino se convierte en nuestra mejor historia»
                   </p>
                 </div>
@@ -357,40 +709,58 @@ export const TornPaperWeddingInvitation: React.FC = () => {
       </section>
 
       {/* TORN PAPER EDGE INTO QUOTE SECTION */}
-      <TornPaperDivider fill="#FCF9F2" />
+      <TornPaperDivider fill={currentTheme.bgCard} />
 
       {/* ========================================================================
           SECCIÓN 2: FRASE CARACTERÍSTICA EN PLIEGO DE PAPEL ALGODÓN
       ======================================================================== */}
-      <section className="py-16 sm:py-24 px-4 sm:px-8 bg-[#FCF9F2]">
+      <section
+        className="py-16 sm:py-24 px-4 sm:px-8 transition-colors duration-500"
+        style={{ backgroundColor: currentTheme.bgCard }}
+      >
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div className="max-w-3xl mx-auto space-y-5">
-            <Feather className="w-7 h-7 text-[#A86448] mx-auto" />
-            <blockquote className="font-serif italic text-3xl sm:text-5xl text-[#2C221E] leading-[1.22]">
+            <Feather className="w-7 h-7 mx-auto" style={{ color: currentTheme.primaryHex }} />
+            <blockquote
+              className="font-serif italic text-3xl sm:text-5xl leading-[1.22]"
+              style={{ color: currentTheme.textDark }}
+            >
               «Nos amamos no solo por lo que somos, sino por lo que construimos cuando estamos
               juntos. Hoy comienza el capítulo más hermoso de nuestras vidas.»
             </blockquote>
-            <p className="text-xs uppercase tracking-[0.28em] text-[#A86448] font-semibold">
+            <p className="text-xs uppercase tracking-[0.28em] font-semibold" style={{ color: currentTheme.primaryHex }}>
               — Con la bendición de Dios y de nuestros padres
             </p>
           </div>
 
           {/* Parents Cards with Torn Paper Edges */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            <div className="deckle-card !bg-[#F4ECE1] p-7 space-y-1.5">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-[#A86448] font-semibold">
+            <div
+              className="deckle-card p-7 space-y-1.5 shadow-sm"
+              style={{
+                backgroundColor: currentTheme.bgCardAlt,
+                border: `1px solid ${currentTheme.borderHex}`,
+              }}
+            >
+              <span className="text-[10px] uppercase tracking-[0.25em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
                 Padres de la Novia
               </span>
-              <p className="font-serif text-2xl text-[#2C221E]">Sr. Ricardo Valenzuela</p>
-              <p className="font-serif text-2xl text-[#2C221E]">Sra. Clara Montes de Valenzuela</p>
+              <p className="font-serif text-2xl" style={{ color: currentTheme.textDark }}>Sr. Ricardo Valenzuela</p>
+              <p className="font-serif text-2xl" style={{ color: currentTheme.textDark }}>Sra. Clara Montes de Valenzuela</p>
             </div>
 
-            <div className="deckle-card !bg-[#F4ECE1] p-7 space-y-1.5">
-              <span className="text-[10px] uppercase tracking-[0.25em] text-[#A86448] font-semibold">
+            <div
+              className="deckle-card p-7 space-y-1.5 shadow-sm"
+              style={{
+                backgroundColor: currentTheme.bgCardAlt,
+                border: `1px solid ${currentTheme.borderHex}`,
+              }}
+            >
+              <span className="text-[10px] uppercase tracking-[0.25em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
                 Padres del Novio
               </span>
-              <p className="font-serif text-2xl text-[#2C221E]">Sr. Gonzalo Peñaloza</p>
-              <p className="font-serif text-2xl text-[#2C221E]">
+              <p className="font-serif text-2xl" style={{ color: currentTheme.textDark }}>Sr. Gonzalo Peñaloza</p>
+              <p className="font-serif text-2xl" style={{ color: currentTheme.textDark }}>
                 Sra. Sofía Mendizábal de Peñaloza
               </p>
             </div>
@@ -399,15 +769,24 @@ export const TornPaperWeddingInvitation: React.FC = () => {
       </section>
 
       {/* TORN PAPER EDGE INTO TIMER SECTION */}
-      <TornPaperDivider fill="#3A2B22" />
+      <TornPaperDivider fill={currentTheme.accentDark} />
 
       {/* ========================================================================
           SECCIÓN 3: TIMER (CUENTA REGRESIVA) + FECHA + UBICACIONES EN PAPEL CORTADO
       ======================================================================== */}
-      <section className="py-16 sm:py-24 px-4 sm:px-8 bg-[#3A2B22] text-ivory-50">
+      <section
+        className="py-16 sm:py-24 px-4 sm:px-8 transition-colors duration-500"
+        style={{ backgroundColor: currentTheme.accentDark, color: '#F9F6F0' }}
+      >
         <div className="max-w-5xl mx-auto text-center space-y-12">
           <div className="space-y-3">
-            <span className="inline-flex items-center gap-2 px-5 py-1.5 deckle-pill bg-ivory-50/10 text-xs uppercase tracking-[0.25em] text-[#EED7C5]">
+            <span
+              className="inline-flex items-center gap-2 px-5 py-1.5 deckle-pill text-xs uppercase tracking-[0.25em]"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                color: currentTheme.primaryLight,
+              }}
+            >
               <Calendar className="w-3.5 h-3.5" />
               <span>Cuenta Regresiva</span>
             </span>
@@ -429,12 +808,17 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             ].map((item) => (
               <div
                 key={item.label}
-                className="deckle-card !bg-[#FCF9F2] text-[#2C221E] py-7 px-4 flex flex-col items-center justify-center"
+                className="deckle-card py-7 px-4 flex flex-col items-center justify-center shadow-md"
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                  color: currentTheme.textDark,
+                }}
               >
-                <span className="font-serif text-5xl sm:text-6xl text-[#A86448] font-normal leading-none">
+                <span className="font-serif text-5xl sm:text-6xl font-normal leading-none" style={{ color: currentTheme.primaryHex }}>
                   {item.value}
                 </span>
-                <span className="text-[11px] uppercase tracking-[0.25em] text-[#69564A] mt-2 font-medium">
+                <span className="text-[11px] uppercase tracking-[0.25em] mt-2 font-medium" style={{ color: currentTheme.textMuted }}>
                   {item.label}
                 </span>
               </div>
@@ -443,20 +827,33 @@ export const TornPaperWeddingInvitation: React.FC = () => {
 
           {/* Ceremony & Reception Torn Paper Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 text-left">
-            <div className="deckle-card p-8 text-[#2C221E] flex flex-col justify-between space-y-5">
+            <div
+              className="deckle-card p-8 flex flex-col justify-between space-y-5 shadow-editorial"
+              style={{
+                backgroundColor: currentTheme.bgCard,
+                color: currentTheme.textDark,
+                border: `1px solid ${currentTheme.borderHex}`,
+              }}
+            >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase tracking-[0.22em] text-[#A86448] font-semibold">
+                  <span className="text-xs uppercase tracking-[0.22em] font-semibold" style={{ color: currentTheme.primaryHex }}>
                     16:00 Hrs · Ceremonia
                   </span>
-                  <div className="w-10 h-10 rounded-full bg-[#EFE5D8] flex items-center justify-center text-[#A86448]">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{
+                      backgroundColor: currentTheme.bgCardAlt,
+                      color: currentTheme.primaryHex,
+                    }}
+                  >
                     <Church className="w-5 h-5" />
                   </div>
                 </div>
-                <h3 className="font-serif text-3xl text-[#2C221E]">
+                <h3 className="font-serif text-3xl" style={{ color: currentTheme.textDark }}>
                   Capilla Colonial de la Hacienda
                 </h3>
-                <p className="text-xs sm:text-sm text-[#69564A] leading-relaxed">
+                <p className="text-xs sm:text-sm leading-relaxed" style={{ color: currentTheme.textMuted }}>
                   Km 182 Carretera Mérida–Uxmal, Temozón Sur, Yucatán.
                 </p>
               </div>
@@ -464,7 +861,8 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                 href="https://maps.google.com/?q=Hacienda+Temozon+Sur+Yucatan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 deckle-pill bg-[#3A2B22] hover:bg-[#A86448] text-ivory-50 text-xs uppercase tracking-[0.18em] text-center transition flex items-center justify-center gap-2"
+                className="w-full py-3 deckle-pill text-ivory-50 text-xs uppercase tracking-[0.18em] text-center transition flex items-center justify-center gap-2 shadow-sm hover:opacity-90"
+                style={{ backgroundColor: currentTheme.accentDark }}
               >
                 <MapPin className="w-3.5 h-3.5" />
                 <span>Ver Mapa de Ceremonia</span>
@@ -472,20 +870,33 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               </a>
             </div>
 
-            <div className="deckle-card p-8 text-[#2C221E] flex flex-col justify-between space-y-5">
+            <div
+              className="deckle-card p-8 flex flex-col justify-between space-y-5 shadow-editorial"
+              style={{
+                backgroundColor: currentTheme.bgCard,
+                color: currentTheme.textDark,
+                border: `1px solid ${currentTheme.borderHex}`,
+              }}
+            >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase tracking-[0.22em] text-[#A86448] font-semibold">
+                  <span className="text-xs uppercase tracking-[0.22em] font-semibold" style={{ color: currentTheme.primaryHex }}>
                     17:30 Hrs · Recepción &amp; Fiesta
                   </span>
-                  <div className="w-10 h-10 rounded-full bg-[#EFE5D8] flex items-center justify-center text-[#A86448]">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{
+                      backgroundColor: currentTheme.bgCardAlt,
+                      color: currentTheme.primaryHex,
+                    }}
+                  >
                     <PartyPopper className="w-5 h-5" />
                   </div>
                 </div>
-                <h3 className="font-serif text-3xl text-[#2C221E]">
+                <h3 className="font-serif text-3xl" style={{ color: currentTheme.textDark }}>
                   Jardín de los Flamboyanes
                 </h3>
-                <p className="text-xs sm:text-sm text-[#69564A] leading-relaxed">
+                <p className="text-xs sm:text-sm leading-relaxed" style={{ color: currentTheme.textMuted }}>
                   Cóctel de bienvenida en el patio de los naranjos y cena de gala al aire libre.
                 </p>
               </div>
@@ -493,7 +904,8 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                 href="https://maps.google.com/?q=Hacienda+Temozon+Sur+Yucatan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 deckle-pill bg-[#3A2B22] hover:bg-[#A86448] text-ivory-50 text-xs uppercase tracking-[0.18em] text-center transition flex items-center justify-center gap-2"
+                className="w-full py-3 deckle-pill text-ivory-50 text-xs uppercase tracking-[0.18em] text-center transition flex items-center justify-center gap-2 shadow-sm hover:opacity-90"
+                style={{ backgroundColor: currentTheme.accentDark }}
               >
                 <MapPin className="w-3.5 h-3.5" />
                 <span>Ver Mapa de Recepción</span>
@@ -505,44 +917,68 @@ export const TornPaperWeddingInvitation: React.FC = () => {
       </section>
 
       {/* TORN PAPER EDGE INTO DRESS CODE SECTION */}
-      <TornPaperDivider fill="#F4ECE1" />
+      <TornPaperDivider fill={currentTheme.bgMain} />
 
       {/* ========================================================================
           SECCIÓN 4: CÓDIGO DE VESTIMENTA ÚNICO (SIN SELECTOR DE ESTACIONES)
       ======================================================================== */}
-      <section className="py-16 sm:py-24 px-4 sm:px-8 bg-[#F4ECE1]">
+      <section
+        className="py-16 sm:py-24 px-4 sm:px-8 transition-colors duration-500"
+        style={{ backgroundColor: currentTheme.bgMain }}
+      >
         <div className="max-w-4xl mx-auto">
-          <div className="deckle-card p-8 sm:p-12 text-center space-y-8">
+          <div
+            className="deckle-card p-8 sm:p-12 text-center space-y-8 shadow-editorial"
+            style={{
+              backgroundColor: currentTheme.bgCard,
+              border: `1px solid ${currentTheme.borderHex}`,
+            }}
+          >
             <div className="space-y-3 max-w-2xl mx-auto">
-              <div className="w-12 h-12 rounded-full bg-[#EFE5D8] flex items-center justify-center text-[#A86448] mx-auto">
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto"
+                style={{
+                  backgroundColor: currentTheme.bgCardAlt,
+                  color: currentTheme.primaryHex,
+                }}
+              >
                 <Shirt className="w-5 h-5" />
               </div>
-              <span className="text-xs uppercase tracking-[0.28em] text-[#A86448] font-semibold block">
+              <span className="text-xs uppercase tracking-[0.28em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
                 Protocolo de Vestimenta
               </span>
-              <h2 className="font-serif text-4xl sm:text-5xl text-[#2C221E] font-normal">
+              <h2 className="font-serif text-4xl sm:text-5xl font-normal" style={{ color: currentTheme.textDark }}>
                 Código de Vestimenta: Formal de Hacienda
               </h2>
-              <p className="text-sm sm:text-base text-[#69564A] leading-relaxed">
+              <p className="text-sm sm:text-base leading-relaxed" style={{ color: currentTheme.textMuted }}>
                 Les invitamos a vestir con elegancia y frescura para disfrutar cómodamente de los
                 jardines y terrazas coloniales de la hacienda:
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-              <div className="deckle-card !bg-[#F4ECE1] p-6 space-y-3">
-                <h3 className="font-serif text-2xl text-[#2C221E] border-b border-[#D8C7B2] pb-2">
+              <div
+                className="deckle-card p-6 space-y-3"
+                style={{
+                  backgroundColor: currentTheme.bgCardAlt,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+              >
+                <h3
+                  className="font-serif text-2xl pb-2 border-b"
+                  style={{ color: currentTheme.textDark, borderBottomColor: currentTheme.borderHex }}
+                >
                   Damas · Vestido Largo
                 </h3>
-                <ul className="space-y-2 text-xs sm:text-sm text-[#5C493E]">
+                <ul className="space-y-2 text-xs sm:text-sm" style={{ color: currentTheme.textMuted }}>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#A86448] shrink-0 mt-0.5" />
+                    <Check className="w-4 h-4 shrink-0 mt-0.5" style={{ color: currentTheme.primaryHex }} />
                     <span>
                       Vestido largo fluido en telas vaporosas (seda, gasa, lino fino o crepé).
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#A86448] shrink-0 mt-0.5" />
+                    <Check className="w-4 h-4 shrink-0 mt-0.5" style={{ color: currentTheme.primaryHex }} />
                     <span>
                       Se sugiere tacón ancho o cuña para caminar con total comodidad en los
                       jardines.
@@ -551,20 +987,29 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                 </ul>
               </div>
 
-              <div className="deckle-card !bg-[#F4ECE1] p-6 space-y-3">
-                <h3 className="font-serif text-2xl text-[#2C221E] border-b border-[#D8C7B2] pb-2">
+              <div
+                className="deckle-card p-6 space-y-3"
+                style={{
+                  backgroundColor: currentTheme.bgCardAlt,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+              >
+                <h3
+                  className="font-serif text-2xl pb-2 border-b"
+                  style={{ color: currentTheme.textDark, borderBottomColor: currentTheme.borderHex }}
+                >
                   Caballeros · Traje Formal o Lino
                 </h3>
-                <ul className="space-y-2 text-xs sm:text-sm text-[#5C493E]">
+                <ul className="space-y-2 text-xs sm:text-sm" style={{ color: currentTheme.textMuted }}>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#A86448] shrink-0 mt-0.5" />
+                    <Check className="w-4 h-4 shrink-0 mt-0.5" style={{ color: currentTheme.primaryHex }} />
                     <span>
                       Traje formal de lino sastre o lana ligera en tonos arena, beige, azul marino
                       o gris.
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-[#A86448] shrink-0 mt-0.5" />
+                    <Check className="w-4 h-4 shrink-0 mt-0.5" style={{ color: currentTheme.primaryHex }} />
                     <span>
                       Guayabera presidencial de lino de manga larga también bienvenida.
                     </span>
@@ -574,8 +1019,14 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             </div>
 
             {/* Reserved Colors Note */}
-            <div className="p-4 deckle-pill bg-[#EFE5D8] inline-block px-8">
-              <p className="text-xs text-[#3A2B22] font-medium">
+            <div
+              className="p-4 deckle-pill inline-block px-8"
+              style={{
+                backgroundColor: currentTheme.bgCardAlt,
+                border: `1px solid ${currentTheme.borderHex}`,
+              }}
+            >
+              <p className="text-xs font-medium" style={{ color: currentTheme.textDark }}>
                 🤍 <strong>Nota importante:</strong> Los tonos blanco, marfil, hueso y beige muy
                 claro están reservados exclusivamente para la novia.
               </p>
@@ -585,25 +1036,40 @@ export const TornPaperWeddingInvitation: React.FC = () => {
       </section>
 
       {/* TORN PAPER EDGE INTO RSVP SECTION */}
-      <TornPaperDivider fill="#EAE0D0" />
+      <TornPaperDivider fill={currentTheme.bgCardAlt} />
 
       {/* ========================================================================
           SECCIÓN 5: CONFIRMACIÓN POR WHATSAPP MÁS UN MENSAJE
       ======================================================================== */}
-      <section className="py-16 sm:py-24 px-4 sm:px-8 bg-[#EAE0D0]">
+      <section
+        className="py-16 sm:py-24 px-4 sm:px-8 transition-colors duration-500"
+        style={{ backgroundColor: currentTheme.bgCardAlt }}
+      >
         <div className="max-w-3xl mx-auto">
-          <div className="deckle-card p-8 sm:p-12 space-y-6">
+          <div
+            className="deckle-card p-8 sm:p-12 space-y-6 shadow-editorial"
+            style={{
+              backgroundColor: currentTheme.bgCard,
+              border: `1px solid ${currentTheme.borderHex}`,
+            }}
+          >
             <div className="text-center space-y-2">
-              <div className="w-12 h-12 rounded-full bg-[#EFE5D8] flex items-center justify-center text-[#A86448] mx-auto">
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto"
+                style={{
+                  backgroundColor: currentTheme.bgCardAlt,
+                  color: currentTheme.primaryHex,
+                }}
+              >
                 <MessageSquareHeart className="w-5 h-5" />
               </div>
-              <span className="text-xs uppercase tracking-[0.26em] text-[#A86448] font-semibold block">
+              <span className="text-xs uppercase tracking-[0.26em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
                 Confirmación de Asistencia
               </span>
-              <h2 className="font-serif text-4xl sm:text-5xl text-[#2C221E] font-normal">
+              <h2 className="font-serif text-4xl sm:text-5xl font-normal" style={{ color: currentTheme.textDark }}>
                 Confirma por WhatsApp y Déjanos un Mensaje
               </h2>
-              <p className="text-sm text-[#69564A] max-w-lg mx-auto">
+              <p className="text-sm max-w-lg mx-auto" style={{ color: currentTheme.textMuted }}>
                 Por favor confírmanos tu asistencia antes del <strong>06 de Octubre</strong> y
                 regálanos unas palabras de cariño para este gran paso.
               </p>
@@ -617,7 +1083,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               className="space-y-4"
             >
               <div>
-                <label className="block text-xs uppercase tracking-wider text-[#5C493E] mb-1.5">
+                <label className="block text-xs uppercase tracking-wider mb-1.5" style={{ color: currentTheme.textMuted }}>
                   Nombre completo o Familia *
                 </label>
                 <input
@@ -626,7 +1092,12 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                   value={guestName}
                   onChange={(e) => setGuestName(e.target.value)}
                   placeholder="Ej. Familia Villalobos / Andrea y Carlos"
-                  className="w-full px-5 py-3 deckle-pill bg-[#F4ECE1] border border-[#D8C7B2] text-sm text-[#2C221E] focus:outline-none focus:border-[#A86448]"
+                  className="w-full px-5 py-3 deckle-pill text-sm focus:outline-none"
+                  style={{
+                    backgroundColor: currentTheme.bgCardAlt,
+                    border: `1px solid ${currentTheme.borderHex}`,
+                    color: currentTheme.textDark,
+                  }}
                 />
               </div>
 
@@ -634,11 +1105,12 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setAttending('si')}
-                  className={`py-3 px-5 deckle-pill text-xs uppercase tracking-wider font-medium transition flex items-center justify-center gap-2 ${
-                    attending === 'si'
-                      ? 'bg-[#3A2B22] text-ivory-50 shadow-sm'
-                      : 'bg-[#F4ECE1] text-[#5C493E] border border-[#D8C7B2]'
-                  }`}
+                  className="py-3 px-5 deckle-pill text-xs uppercase tracking-wider font-medium transition flex items-center justify-center gap-2"
+                  style={{
+                    backgroundColor: attending === 'si' ? currentTheme.accentDark : currentTheme.bgCardAlt,
+                    color: attending === 'si' ? '#FFF' : currentTheme.textMuted,
+                    border: `1px solid ${currentTheme.borderHex}`,
+                  }}
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   <span>¡Sí, los acompañaremos!</span>
@@ -646,11 +1118,12 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setAttending('no')}
-                  className={`py-3 px-5 deckle-pill text-xs uppercase tracking-wider font-medium transition flex items-center justify-center gap-2 ${
-                    attending === 'no'
-                      ? 'bg-[#3A2B22] text-ivory-50 shadow-sm'
-                      : 'bg-[#F4ECE1] text-[#5C493E] border border-[#D8C7B2]'
-                  }`}
+                  className="py-3 px-5 deckle-pill text-xs uppercase tracking-wider font-medium transition flex items-center justify-center gap-2"
+                  style={{
+                    backgroundColor: attending === 'no' ? currentTheme.accentDark : currentTheme.bgCardAlt,
+                    color: attending === 'no' ? '#FFF' : currentTheme.textMuted,
+                    border: `1px solid ${currentTheme.borderHex}`,
+                  }}
                 >
                   <Heart className="w-4 h-4" />
                   <span>No podremos asistir</span>
@@ -660,13 +1133,18 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               {attending === 'si' && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#5C493E] mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider mb-1.5" style={{ color: currentTheme.textMuted }}>
                       Número de asistentes
                     </label>
                     <select
                       value={passes}
                       onChange={(e) => setPasses(e.target.value)}
-                      className="w-full px-5 py-3 deckle-pill bg-[#F4ECE1] border border-[#D8C7B2] text-sm text-[#2C221E] focus:outline-none"
+                      className="w-full px-5 py-3 deckle-pill text-sm focus:outline-none"
+                      style={{
+                        backgroundColor: currentTheme.bgCardAlt,
+                        border: `1px solid ${currentTheme.borderHex}`,
+                        color: currentTheme.textDark,
+                      }}
                     >
                       <option value="1">1 Persona</option>
                       <option value="2">2 Personas</option>
@@ -675,7 +1153,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs uppercase tracking-wider text-[#5C493E] mb-1.5">
+                    <label className="block text-xs uppercase tracking-wider mb-1.5" style={{ color: currentTheme.textMuted }}>
                       Restricción alimentaria
                     </label>
                     <input
@@ -683,14 +1161,19 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                       value={dietary}
                       onChange={(e) => setDietary(e.target.value)}
                       placeholder="Ej. Vegetariano / Ninguna"
-                      className="w-full px-5 py-3 deckle-pill bg-[#F4ECE1] border border-[#D8C7B2] text-sm text-[#2C221E] focus:outline-none"
+                      className="w-full px-5 py-3 deckle-pill text-sm focus:outline-none"
+                      style={{
+                        backgroundColor: currentTheme.bgCardAlt,
+                        border: `1px solid ${currentTheme.borderHex}`,
+                        color: currentTheme.textDark,
+                      }}
                     />
                   </div>
                 </div>
               )}
 
               <div>
-                <label className="block text-xs uppercase tracking-wider text-[#5C493E] mb-1.5">
+                <label className="block text-xs uppercase tracking-wider mb-1.5" style={{ color: currentTheme.textMuted }}>
                   Tu mensaje para Lucía &amp; Rodrigo *
                 </label>
                 <textarea
@@ -699,13 +1182,19 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Déjanos aquí tus mejores deseos..."
-                  className="w-full px-5 py-3.5 rounded-[24px] bg-[#F4ECE1] border border-[#D8C7B2] text-sm text-[#2C221E] focus:outline-none focus:border-[#A86448]"
+                  className="w-full px-5 py-3.5 rounded-[24px] text-sm focus:outline-none"
+                  style={{
+                    backgroundColor: currentTheme.bgCardAlt,
+                    border: `1px solid ${currentTheme.borderHex}`,
+                    color: currentTheme.textDark,
+                  }}
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full py-4 deckle-pill bg-[#3A2B22] hover:bg-[#A86448] text-ivory-50 text-xs uppercase tracking-[0.2em] font-medium transition flex items-center justify-center gap-2.5 shadow-editorial"
+                className="w-full py-4 deckle-pill text-ivory-50 text-xs uppercase tracking-[0.2em] font-medium transition flex items-center justify-center gap-2.5 shadow-editorial hover:opacity-90"
+                style={{ backgroundColor: currentTheme.accentDark }}
               >
                 <FaWhatsapp className="w-5 h-5 text-[#A7D7B8]" />
                 <span>Confirmar por WhatsApp con Mensaje</span>
@@ -716,18 +1205,28 @@ export const TornPaperWeddingInvitation: React.FC = () => {
       </section>
 
       {/* TORN PAPER EDGE INTO GRATITUDE SECTION */}
-      <TornPaperDivider fill="#2C221E" />
+      <TornPaperDivider fill={currentTheme.footerBg} />
 
       {/* ========================================================================
-          SECCIÓN 7: AGRADECIMIENTOS FINALES
+          SECCIÓN 6: AGRADECIMIENTOS FINALES
       ======================================================================== */}
-      <section className="py-20 sm:py-28 px-4 sm:px-8 bg-[#2C221E] text-ivory-50 text-center">
+      <section
+        className="py-20 sm:py-28 px-4 sm:px-8 text-center transition-colors duration-500"
+        style={{ backgroundColor: currentTheme.footerBg, color: '#F9F6F0' }}
+      >
         <div className="max-w-3xl mx-auto space-y-8">
-          <div className="w-16 h-16 rounded-full bg-[#A86448]/25 border border-[#EED7C5]/40 flex items-center justify-center mx-auto text-[#EED7C5] font-serif text-2xl">
+          <div
+            className="w-16 h-16 rounded-full border flex items-center justify-center mx-auto font-serif text-2xl shadow-inner"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.08)',
+              borderColor: 'rgba(255, 255, 255, 0.25)',
+              color: currentTheme.primaryLight,
+            }}
+          >
             L&amp;R
           </div>
 
-          <span className="text-xs uppercase tracking-[0.3em] text-[#EED7C5] block">
+          <span className="text-xs uppercase tracking-[0.3em] block" style={{ color: currentTheme.primaryLight }}>
             Agradecimientos
           </span>
 
@@ -740,7 +1239,10 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             para acompañarnos y por llenar de alegría el inicio de nuestro matrimonio.
           </p>
 
-          <div className="max-w-md mx-auto deckle-card !bg-[#3A2B22] p-4">
+          <div
+            className="max-w-md mx-auto deckle-card p-4 shadow-editorial-lg"
+            style={{ backgroundColor: currentTheme.accentDark }}
+          >
             <img
               src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
               alt="Lucía y Rodrigo agradecimiento"
@@ -750,7 +1252,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
           </div>
 
           <div className="pt-4 space-y-1">
-            <p className="font-serif italic text-3xl text-[#EED7C5]">
+            <p className="font-serif italic text-3xl" style={{ color: currentTheme.primaryLight }}>
               Con todo nuestro amor, Lucía &amp; Rodrigo
             </p>
             <p className="text-[11px] uppercase tracking-[0.28em] text-ivory-200/50">

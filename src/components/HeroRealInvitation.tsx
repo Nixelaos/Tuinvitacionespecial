@@ -11,18 +11,11 @@ interface InvitationOption {
 
 const INVITATION_OPTIONS: InvitationOption[] = [
   {
-    id: 'sobre-real',
-    label: 'Sobre Real',
-    slug: 'invitacion-completa',
-    couple: 'Valentina & Sebastián',
-    style: 'Lacre Dorado',
-  },
-  {
-    id: 'orangerie',
-    label: 'Orangerie',
-    slug: 'invitacion-artistica',
-    couple: 'Camila & Mateo',
-    style: 'Puertas de Cristal',
+    id: 'marfil-menta',
+    label: 'Marfil & Menta',
+    slug: 'invitacion-marfil-menta',
+    couple: 'Isabella & Tomás',
+    style: 'Lluvia de Corazones',
   },
   {
     id: 'papel-artesanal',
@@ -30,13 +23,6 @@ const INVITATION_OPTIONS: InvitationOption[] = [
     slug: 'invitacion-papel-artesanal',
     couple: 'Lucía & Rodrigo',
     style: 'Bordes Rasgados',
-  },
-  {
-    id: 'marfil-menta',
-    label: 'Marfil & Menta',
-    slug: 'invitacion-marfil-menta',
-    couple: 'Isabella & Tomás',
-    style: 'Lluvia de Corazones',
   },
 ];
 
@@ -101,7 +87,7 @@ export const HeroRealInvitation: React.FC = () => {
           {/* Real Invitation embedded via iframe */}
           <iframe
             key={selectedInvitation.slug}
-            src={`/disenos/${selectedInvitation.slug}`}
+            src={`/disenos/${selectedInvitation.slug}?hero=true`}
             title={`Invitación Real de ${selectedInvitation.couple}`}
             className={`w-full h-full border-0 transition-opacity duration-300 ${
               isLoading ? 'opacity-40' : 'opacity-100'

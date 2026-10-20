@@ -24,8 +24,6 @@ import { INVITATION_TEMPLATES, WHATSAPP_NUMBER, BRAND_NAME } from '../data/weddi
 
 const CATEGORIES: StyleCategory[] = [
   'Todos',
-  'Editorial Clásico',
-  'Botánico & Salvia',
   'Minimalista Lujo',
   'Hacienda & Romántico',
 ];
