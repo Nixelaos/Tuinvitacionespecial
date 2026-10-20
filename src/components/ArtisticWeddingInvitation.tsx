@@ -10,12 +10,7 @@ import {
   VolumeX,
   Sun,
   Moon,
-  CloudSun,
-  Leaf,
-  Snowflake,
   Shirt,
-  Gift,
-  Copy,
   Check,
   CheckCircle2,
   Church,
@@ -23,7 +18,6 @@ import {
   Utensils,
   PartyPopper,
   Camera,
-  Plane,
   RotateCcw,
   ArrowLeft,
   ExternalLink,
@@ -32,7 +26,6 @@ import {
   Compass,
   Flame,
   Wine,
-  Sailboat,
 } from 'lucide-react';
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa6';
 import { WHATSAPP_NUMBER } from '../data/weddingData';
@@ -281,30 +274,6 @@ const LOVE_STORY_CHAPTERS = [
   },
 ];
 
-const HONEYMOON_EXPERIENCES = [
-  {
-    id: 'exp-velero',
-    title: 'Paseo Privado en Velero al Atardecer',
-    place: 'Isla de Capri, Italia',
-    suggested: '$120 USD',
-    Icon: Sailboat,
-  },
-  {
-    id: 'exp-cava',
-    title: 'Cena Maridaje en Cava Histórica',
-    place: 'Montepulciano, Toscana',
-    suggested: '$95 USD',
-    Icon: Wine,
-  },
-  {
-    id: 'exp-vuelo',
-    title: 'Noche Romántica Frente al Mar',
-    place: 'Positano, Costa Amalfitana',
-    suggested: '$150 USD',
-    Icon: Plane,
-  },
-];
-
 export const ArtisticWeddingInvitation: React.FC = () => {
   // 1. Gatefold Vellum Envelope State
   const [doorsOpened, setDoorsOpened] = useState(false);
@@ -336,11 +305,7 @@ export const ArtisticWeddingInvitation: React.FC = () => {
   const [songWish, setSongWish] = useState('');
   const [messageText, setMessageText] = useState('');
 
-  // 7. Gift Registry & Honeymoon Wish State
-  const [selectedExperience, setSelectedExperience] = useState<string | null>(null);
-  const [copiedClabe, setCopiedClabe] = useState(false);
-
-  // 8. Final Sparkler / Candle Wish Counter in Gratitude Section
+  // 7. Final Sparkler / Candle Wish Counter in Gratitude Section
   const [wishesCount, setWishesCount] = useState(148);
   const [hasLitSparkler, setHasLitSparkler] = useState(false);
 
@@ -370,16 +335,6 @@ export const ArtisticWeddingInvitation: React.FC = () => {
       setMusicPlaying(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 850);
-  };
-
-  const handleCopyClabe = () => {
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(
-        'Banco: Santander | Titulares: Camila Valdés & Mateo Soler | CLABE/IBAN: 014180654321987654'
-      );
-    }
-    setCopiedClabe(true);
-    setTimeout(() => setCopiedClabe(false), 3000);
   };
 
   const currentSeasonData = ARTISTIC_SEASONS[season];
@@ -979,60 +934,28 @@ export const ArtisticWeddingInvitation: React.FC = () => {
       </section>
 
       {/* ========================================================================
-          SECCIÓN 4: CÓDIGO DE VESTIMENTA POR ESTACIÓN + PROBADOR DE ARMONÍA DE COLOR
+          SECCIÓN 4: CÓDIGO DE VESTIMENTA (UNIFICADO) + PROBADOR DE ARMONÍA DE COLOR
       ======================================================================== */}
       <section className="py-20 sm:py-28 px-4 sm:px-8 border-b border-gold/25">
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <span className="text-xs uppercase tracking-[0.28em] text-gold-dark font-semibold block">
-              Estilismo &amp; Protocolo Estacional
+              Estilismo &amp; Protocolo · Viñedo &amp; Orangerie
             </span>
             <h2 className="font-serif text-4xl sm:text-5xl font-normal">
-              Código de Vestimenta según la Estación
+              Código de Vestimenta
             </h2>
             <p
               className={`text-sm sm:text-base ${
                 nightMode ? 'text-ivory-200/80' : 'text-charcoal-muted'
               }`}
             >
-              Explora nuestras sugerencias de vestuario adaptadas al clima de cada estación y toca
-              cualquier círculo cromático para descubrir consejos de combinación:
+              Para que disfruten con plenitud de los viñedos y la cena en el invernadero de cristal,
+              les compartimos nuestras recomendaciones de etiqueta y armonía cromática:
             </p>
           </div>
 
-          {/* 4 Seasons Selector Pills */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {[
-              { id: 'verano', name: 'Verano (Boda)', Icon: Sun },
-              { id: 'primavera', name: 'Primavera', Icon: CloudSun },
-              { id: 'otono', name: 'Otoño', Icon: Leaf },
-              { id: 'invierno', name: 'Invierno', Icon: Snowflake },
-            ].map((item) => {
-              const isSelected = season === item.id;
-              return (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => {
-                    setSeason(item.id as SeasonKey);
-                    setActiveSwatchIndex(0);
-                  }}
-                  className={`p-4 border transition flex items-center justify-center gap-2.5 ${
-                    isSelected
-                      ? 'bg-[#2B3728] text-ivory-50 border-gold shadow-editorial'
-                      : nightMode
-                      ? 'bg-ivory-50/5 text-ivory-100 border-gold/25 hover:border-gold'
-                      : 'bg-ivory-50 text-charcoal border-ivory-300 hover:border-gold'
-                  }`}
-                >
-                  <item.Icon className="w-4 h-4 text-gold-light" />
-                  <span className="font-serif text-xl">{item.name}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Interactive Seasonal Moodboard Card */}
+          {/* Interactive Moodboard Card */}
           <div
             className={`p-7 sm:p-11 border border-gold/40 shadow-editorial space-y-8 ${
               nightMode ? 'bg-[#212A22]' : 'bg-ivory-50'
@@ -1332,114 +1255,7 @@ export const ArtisticWeddingInvitation: React.FC = () => {
         </div>
       </section>
 
-      {/* ========================================================================
-          SECCIÓN 6: MENSAJE DE REGALOS & EXPERIENCIAS DE LUNA DE MIEL
-      ======================================================================== */}
-      <section className="py-20 sm:py-28 px-4 sm:px-8 border-b border-gold/25">
-        <div className="max-w-5xl mx-auto text-center space-y-12">
-          <div className="max-w-2xl mx-auto space-y-3">
-            <Gift className="w-7 h-7 text-gold mx-auto" />
-            <span className="text-xs uppercase tracking-[0.28em] text-gold-dark font-semibold block">
-              Cofre de Deseos &amp; Mesa de Regalos
-            </span>
-            <h2 className="font-serif text-4xl sm:text-5xl font-normal">
-              El Regalo de su Presencia
-            </h2>
-            <p
-              className={`text-sm sm:text-base leading-relaxed ${
-                nightMode ? 'text-ivory-200/80' : 'text-charcoal-muted'
-              }`}
-            >
-              Tenerlos con nosotros es nuestro mayor tesoro. Si desean obsequiarnos un detalle para
-              nuestra luna de miel por la costa italiana o nuestro hogar, pueden elegir una
-              experiencia o usar nuestra cuenta nupcial:
-            </p>
-          </div>
-
-          {/* Interactive Honeymoon Experiences Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            {HONEYMOON_EXPERIENCES.map((exp) => {
-              const isChosen = selectedExperience === exp.title;
-              return (
-                <div
-                  key={exp.id}
-                  className={`p-6 border transition flex flex-col justify-between ${
-                    isChosen
-                      ? 'border-gold bg-gold/15 shadow-editorial'
-                      : nightMode
-                      ? 'border-gold/25 bg-[#212A22]'
-                      : 'border-ivory-300 bg-ivory-50'
-                  }`}
-                >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="w-10 h-10 rounded-full bg-champagne text-gold-dark flex items-center justify-center">
-                        <exp.Icon className="w-5 h-5" />
-                      </div>
-                      <span className="font-serif text-xl text-gold-dark font-semibold">
-                        Sugerido: {exp.suggested}
-                      </span>
-                    </div>
-                    <h3 className="font-serif text-2xl">{exp.title}</h3>
-                    <p className="text-xs opacity-75">{exp.place}</p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setSelectedExperience(isChosen ? null : exp.title)
-                    }
-                    className={`mt-5 w-full py-2.5 text-xs uppercase tracking-widest transition ${
-                      isChosen
-                        ? 'bg-[#2B3728] text-ivory-50'
-                        : 'border border-gold/40 hover:bg-gold hover:text-ivory-50'
-                    }`}
-                  >
-                    {isChosen ? '✓ Experiencia Seleccionada' : 'Elegir este Detalle'}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Bank Transfer Box */}
-          <div
-            className={`max-w-2xl mx-auto p-7 sm:p-9 border border-gold/45 shadow-editorial flex flex-col sm:flex-row items-center justify-between gap-6 text-left ${
-              nightMode ? 'bg-[#212A22]' : 'bg-ivory-50'
-            }`}
-          >
-            <div className="space-y-1">
-              <span className="text-[10px] uppercase tracking-[0.24em] text-gold-dark font-semibold">
-                Sobre Digital · Transferencia Directa
-              </span>
-              <h4 className="font-serif text-2xl">
-                Banco Santander · Camila Valdés &amp; Mateo Soler
-              </h4>
-              <p className="font-mono text-xs sm:text-sm opacity-85">
-                CLABE / IBAN: 0141 8065 4321 9876 54
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleCopyClabe}
-              className="px-6 py-3.5 bg-[#2B3728] hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.18em] shrink-0 flex items-center gap-2 transition"
-            >
-              {copiedClabe ? (
-                <>
-                  <Check className="w-4 h-4 text-[#A7D7B8]" />
-                  <span>¡CLABE Copiada!</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-4 h-4" />
-                  <span>Copiar Cuenta</span>
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </section>
+      {/* SECCIÓN DE REGALOS ELIMINADA POR SOLICITUD */}
 
       {/* ========================================================================
           SECCIÓN 7: AGRADECIMIENTOS Y RITUAL INTERACTIVO DE LUZ (BENGALITA)

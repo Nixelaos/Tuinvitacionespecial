@@ -8,13 +8,7 @@ import {
   Music,
   Volume2,
   VolumeX,
-  Sun,
-  CloudSun,
-  Leaf,
-  Snowflake,
   Shirt,
-  Gift,
-  Copy,
   Check,
   CheckCircle2,
   Church,
@@ -22,7 +16,6 @@ import {
   Utensils,
   PartyPopper,
   Camera,
-  Plane,
   MailOpen,
   RotateCcw,
   ArrowLeft,
@@ -189,9 +182,6 @@ export const FullWeddingInvitation: React.FC = () => {
     seconds: 45,
   });
 
-  // Seasonal dress code state
-  const [selectedSeason, setSelectedSeason] = useState<SeasonKey>('primavera');
-
   // RSVP via WhatsApp state
   const [guestName, setGuestName] = useState('');
   const [attendance, setAttendance] = useState<'si' | 'no'>('si');
@@ -201,10 +191,8 @@ export const FullWeddingInvitation: React.FC = () => {
   const [personalMessage, setPersonalMessage] = useState('');
   const [rsvpPreviewSent, setRsvpPreviewSent] = useState(false);
 
-  // Gift Registry copy states
-  const [copiedBank, setCopiedBank] = useState(false);
+  // Hashtag copy state
   const [copiedHashtag, setCopiedHashtag] = useState(false);
-  const [activeGiftTab, setActiveGiftTab] = useState<'sobre' | 'mesas' | 'lunademiel'>('sobre');
 
   // Real-time countdown effect
   useEffect(() => {
@@ -237,16 +225,6 @@ export const FullWeddingInvitation: React.FC = () => {
       setIsMusicPlaying(true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 650);
-  };
-
-  const handleCopyBankDetails = () => {
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(
-        'Banco: BBVA / Santander | Titular: Valentina Montemayor & Sebastián De la Vega | CLABE/IBAN: 012180004589123456'
-      );
-    }
-    setCopiedBank(true);
-    setTimeout(() => setCopiedBank(false), 3000);
   };
 
   const handleCopyHashtag = () => {
@@ -282,8 +260,6 @@ export const FullWeddingInvitation: React.FC = () => {
 
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
   };
-
-  const currentDressCode = SEASONAL_DRESS_CODES[selectedSeason];
 
   // ============================================================================
   // 1. INITIAL FULL-SCREEN ENVELOPE VIEW (ANTES DE ABRIR LA INVITACIÓN)
@@ -741,83 +717,33 @@ export const FullWeddingInvitation: React.FC = () => {
       </section>
 
       {/* ========================================================================
-          SECCIÓN 4: CÓDIGO DE VESTIMENTA DEPENDIENDO DE LA ESTACIÓN
+          SECCIÓN 4: CÓDIGO DE VESTIMENTA (DRESS CODE UNIFICADO)
       ======================================================================== */}
       <section className="py-20 sm:py-28 px-4 sm:px-8 bg-ivory-100 border-b border-ivory-300">
         <div className="max-w-5xl mx-auto space-y-10">
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-champagne border border-gold/35 text-[11px] uppercase tracking-[0.24em] text-gold-dark font-medium">
               <Shirt className="w-3.5 h-3.5" />
-              <span>Guía de Estilo &amp; Clima para Invitados</span>
+              <span>Guía de Estilo &amp; Protocolo para Invitados</span>
             </div>
             <h2 className="font-serif text-4xl sm:text-5xl text-charcoal font-normal">
-              Código de Vestimenta según la Estación
+              Código de Vestimenta
             </h2>
             <p className="text-sm sm:text-base text-charcoal-muted leading-relaxed">
-              Queremos que se sientan espectaculares y cómodos durante toda la celebración.
-              Selecciona la estación del año para explorar las recomendaciones de protocolo,
-              telas sugeridas y paleta de colores:
+              Queremos que se sientan cómodos y radiantes durante toda la celebración. A continuación
+              compartimos nuestras recomendaciones de etiqueta y armonía de color:
             </p>
           </div>
 
-          {/* Interactive Season Selector Tabs */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-3xl mx-auto">
-            {[
-              { id: 'primavera', label: 'Primavera', Icon: CloudSun, sub: '24°C · Jardín' },
-              { id: 'verano', label: 'Verano', Icon: Sun, sub: '28°C · Terraza' },
-              { id: 'otono', label: 'Otoño', Icon: Leaf, sub: '20°C · Hacienda' },
-              { id: 'invierno', label: 'Invierno', Icon: Snowflake, sub: '15°C · Salón Gala' },
-            ].map((s) => {
-              const active = selectedSeason === s.id;
-              return (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => setSelectedSeason(s.id as SeasonKey)}
-                  className={`p-4 border text-left transition-all flex flex-col justify-between ${
-                    active
-                      ? 'bg-charcoal text-ivory-50 border-charcoal shadow-editorial'
-                      : 'bg-ivory-50 text-charcoal border-ivory-300 hover:border-gold'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <s.Icon
-                      className={`w-5 h-5 ${active ? 'text-gold-light' : 'text-gold-dark'}`}
-                    />
-                    {s.id === 'primavera' && (
-                      <span
-                        className={`text-[9px] uppercase tracking-widest px-2 py-0.5 ${
-                          active ? 'bg-gold text-ivory-50' : 'bg-champagne text-gold-dark'
-                        }`}
-                      >
-                        Nuestra Boda
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <span className="font-serif text-xl font-medium block">{s.label}</span>
-                    <span
-                      className={`text-[11px] ${
-                        active ? 'text-ivory-200/80' : 'text-charcoal-muted'
-                      }`}
-                    >
-                      {s.sub}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Detailed Seasonal Dress Code Card */}
+          {/* Detailed Dress Code Card */}
           <div className="bg-ivory-50 border border-gold/40 p-7 sm:p-10 shadow-editorial space-y-8">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-ivory-200">
               <div>
                 <span className="text-xs uppercase tracking-[0.22em] text-gold-dark font-semibold">
-                  Estación Seleccionada: {currentDressCode.name} ({currentDressCode.months})
+                  Protocolo Oficial · Riguroso Etiqueta
                 </span>
                 <h3 className="font-serif text-3xl sm:text-4xl text-charcoal mt-1">
-                  {currentDressCode.etiquetteTitle}
+                  Riguroso Etiqueta · Damas de Largo &amp; Caballeros de Traje / Smoking
                 </h3>
               </div>
               <div className="px-4 py-2.5 bg-champagne/70 border border-gold/30 text-right shrink-0">
@@ -825,13 +751,13 @@ export const FullWeddingInvitation: React.FC = () => {
                   Clima Estimado
                 </span>
                 <span className="font-serif text-xl font-semibold text-charcoal">
-                  {currentDressCode.temperature}
+                  24°C al atardecer · 16°C noche
                 </span>
               </div>
             </div>
 
             <p className="text-sm text-charcoal-muted italic font-serif text-lg">
-              «{currentDressCode.weatherSummary}»
+              «Una velada mágica al aire libre y en salones de hacienda bajo las estrellas.»
             </p>
 
             {/* Ladies & Gentlemen Columns */}
@@ -841,7 +767,11 @@ export const FullWeddingInvitation: React.FC = () => {
                   Damas · Recomendaciones
                 </h4>
                 <ul className="space-y-2.5">
-                  {currentDressCode.ladiesAdvice.map((tip) => (
+                  {[
+                    'Vestido largo de noche en telas fluidas (gasa, crepé, seda natural o satén)',
+                    'Sugerimos tacón ancho o cuña para caminar cómodamente por las áreas empedradas y jardines',
+                    'Accesorios sofisticados y chal o estola ligera para la brisa nocturna',
+                  ].map((tip) => (
                     <li key={tip} className="text-xs sm:text-sm text-charcoal-light flex gap-2.5">
                       <Check className="w-4 h-4 text-gold-dark shrink-0 mt-0.5" />
                       <span>{tip}</span>
@@ -855,7 +785,11 @@ export const FullWeddingInvitation: React.FC = () => {
                   Caballeros · Recomendaciones
                 </h4>
                 <ul className="space-y-2.5">
-                  {currentDressCode.gentlemenAdvice.map((tip) => (
+                  {[
+                    'Smoking clásico o traje formal en tonos oscuros (azul marino, marengo o negro)',
+                    'Camisa blanca de vestir con corbata sobria o pajarita / moño de seda',
+                    'Calzado formal de cuero lustrado en color negro',
+                  ].map((tip) => (
                     <li key={tip} className="text-xs sm:text-sm text-charcoal-light flex gap-2.5">
                       <Check className="w-4 h-4 text-sage shrink-0 mt-0.5" />
                       <span>{tip}</span>
@@ -869,10 +803,17 @@ export const FullWeddingInvitation: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-2">
               <div className="lg:col-span-7 space-y-3">
                 <span className="text-xs uppercase tracking-[0.2em] text-charcoal font-semibold block">
-                  Paleta de Colores Sugerida para Invitados ({currentDressCode.name}):
+                  Paleta de Colores Sugerida para Invitados:
                 </span>
                 <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-                  {currentDressCode.colorPalette.map((swatch) => (
+                  {[
+                    { name: 'Oro Viejo', hex: '#B89758' },
+                    { name: 'Champagne', hex: '#E7D7C1' },
+                    { name: 'Salvia', hex: '#879782' },
+                    { name: 'Azul Noche', hex: '#233247' },
+                    { name: 'Terracota', hex: '#A86448' },
+                    { name: 'Rosa Empolvado', hex: '#D8B4A6' },
+                  ].map((swatch) => (
                     <div key={swatch.name} className="flex flex-col items-center text-center">
                       <div
                         className="w-12 h-12 rounded-full border border-charcoal/20 shadow-sm mb-1.5"
@@ -891,10 +832,10 @@ export const FullWeddingInvitation: React.FC = () => {
                   Nota Importante de Protocolo
                 </span>
                 <p className="text-xs text-charcoal leading-relaxed">
-                  {currentDressCode.reservedColorsNote}
+                  Rogamos reservar los tonos blanco, marfil puro y crudo exclusivamente para la novia.
                 </p>
                 <p className="text-[11px] text-charcoal-muted pt-1">
-                  <strong>Textiles ideales:</strong> {currentDressCode.recommendedFabrics}
+                  <strong>Textiles ideales:</strong> Seda, satén, crepé y lino fino para trajes.
                 </p>
               </div>
             </div>
@@ -1094,201 +1035,7 @@ export const FullWeddingInvitation: React.FC = () => {
         </div>
       </section>
 
-      {/* ========================================================================
-          SECCIÓN 6: MENSAJE DE REGALOS, SOBRE DIGITAL Y MESA DE REGALOS
-      ======================================================================== */}
-      <section className="py-20 sm:py-28 px-4 sm:px-8 bg-ivory-50 border-b border-ivory-300">
-        <div className="max-w-4xl mx-auto text-center space-y-10">
-          <div className="space-y-3 max-w-2xl mx-auto">
-            <div className="w-12 h-12 rounded-full bg-champagne border border-gold/35 flex items-center justify-center text-gold-dark mx-auto">
-              <Gift className="w-5 h-5" />
-            </div>
-            <span className="text-xs uppercase tracking-[0.26em] text-gold-dark font-semibold block">
-              Detalle de Cariño · Mesa de Regalos
-            </span>
-            <h2 className="font-serif text-4xl sm:text-5xl text-charcoal font-normal">
-              Su presencia es nuestro mejor regalo
-            </h2>
-            <p className="text-sm sm:text-base text-charcoal-muted leading-relaxed">
-              El mayor obsequio que podemos recibir es compartir junto a ustedes el inicio de
-              nuestro matrimonio. Si además desean tener un detalle con nosotros para nuestro nuevo
-              hogar o nuestra luna de miel, hemos dispuesto estas opciones con todo nuestro
-              agradecimiento:
-            </p>
-          </div>
-
-          {/* Gift Type Tabs */}
-          <div className="inline-flex flex-wrap justify-center bg-ivory-100 border border-ivory-300 p-1.5 gap-1">
-            <button
-              type="button"
-              onClick={() => setActiveGiftTab('sobre')}
-              className={`px-5 py-2.5 text-xs uppercase tracking-[0.16em] transition ${
-                activeGiftTab === 'sobre'
-                  ? 'bg-charcoal text-ivory-50 font-medium'
-                  : 'text-charcoal-muted hover:text-charcoal'
-              }`}
-            >
-              Transferencia / Sobre Digital
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveGiftTab('mesas')}
-              className={`px-5 py-2.5 text-xs uppercase tracking-[0.16em] transition ${
-                activeGiftTab === 'mesas'
-                  ? 'bg-charcoal text-ivory-50 font-medium'
-                  : 'text-charcoal-muted hover:text-charcoal'
-              }`}
-            >
-              Tiendas &amp; Mesas de Regalos
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveGiftTab('lunademiel')}
-              className={`px-5 py-2.5 text-xs uppercase tracking-[0.16em] transition ${
-                activeGiftTab === 'lunademiel'
-                  ? 'bg-charcoal text-ivory-50 font-medium'
-                  : 'text-charcoal-muted hover:text-charcoal'
-              }`}
-            >
-              Fondo Luna de Miel
-            </button>
-          </div>
-
-          {/* Tab 1: Bank Transfer */}
-          {activeGiftTab === 'sobre' && (
-            <div className="max-w-2xl mx-auto bg-ivory-100 border border-gold/40 p-7 sm:p-10 shadow-editorial text-left space-y-6">
-              <div className="flex items-center justify-between border-b border-ivory-300 pb-4">
-                <div>
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold-dark font-semibold">
-                    Cuenta Nupcial Mancomunada
-                  </span>
-                  <h3 className="font-serif text-2xl sm:text-3xl text-charcoal">
-                    Transferencia Bancaria o Lluvia de Sobres
-                  </h3>
-                </div>
-                <Gift className="w-6 h-6 text-gold-dark shrink-0" />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                <div className="p-3.5 bg-ivory-50 border border-ivory-200">
-                  <span className="text-[10px] uppercase tracking-widest text-charcoal-muted block">
-                    Banco
-                  </span>
-                  <strong className="text-charcoal font-medium">BBVA / Santander</strong>
-                </div>
-                <div className="p-3.5 bg-ivory-50 border border-ivory-200">
-                  <span className="text-[10px] uppercase tracking-widest text-charcoal-muted block">
-                    Titulares
-                  </span>
-                  <strong className="text-charcoal font-medium">
-                    Valentina Montemayor &amp; Sebastián De la Vega
-                  </strong>
-                </div>
-                <div className="sm:col-span-2 p-3.5 bg-ivory-50 border border-ivory-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div>
-                    <span className="text-[10px] uppercase tracking-widest text-charcoal-muted block">
-                      CLABE / IBAN / CBU
-                    </span>
-                    <code className="font-mono text-sm text-charcoal font-semibold">
-                      0121 8000 4589 1234 56
-                    </code>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={handleCopyBankDetails}
-                    className="px-4 py-2 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition"
-                  >
-                    {copiedBank ? (
-                      <>
-                        <Check className="w-3.5 h-3.5 text-[#A7D7B8]" />
-                        <span>¡Datos Copiados!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5" />
-                        <span>Copiar Datos</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <p className="text-xs text-charcoal-muted italic text-center">
-                * También contaremos con un buzón físico de sobres en la recepción para quienes lo
-                prefieran.
-              </p>
-            </div>
-          )}
-
-          {/* Tab 2: Department Stores */}
-          {activeGiftTab === 'mesas' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              <div className="p-7 bg-ivory-100 border border-ivory-300 flex flex-col justify-between text-center space-y-4">
-                <div>
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold-dark font-semibold">
-                    Evento N.º 5148920
-                  </span>
-                  <h3 className="font-serif text-3xl text-charcoal mt-1">
-                    Liverpool / El Corte Inglés / Falabella
-                  </h3>
-                  <p className="text-xs text-charcoal-muted mt-2">
-                    Artículos seleccionados para la decoración y cocina de nuestro nuevo hogar.
-                  </p>
-                </div>
-                <a
-                  href="#confirmacion-rsvp"
-                  className="py-3 px-5 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.18em] inline-flex items-center justify-center gap-2 transition"
-                >
-                  <span>Ver Mesa de Regalos</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-
-              <div className="p-7 bg-ivory-100 border border-ivory-300 flex flex-col justify-between text-center space-y-4">
-                <div>
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-gold-dark font-semibold">
-                    Envío Directo a Casa
-                  </span>
-                  <h3 className="font-serif text-3xl text-charcoal mt-1">Amazon Wedding Registry</h3>
-                  <p className="text-xs text-charcoal-muted mt-2">
-                    Lista internacional de regalos y experiencias para nuestra vida juntos.
-                  </p>
-                </div>
-                <a
-                  href="#confirmacion-rsvp"
-                  className="py-3 px-5 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.18em] inline-flex items-center justify-center gap-2 transition"
-                >
-                  <span>Abrir Lista en Amazon</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
-              </div>
-            </div>
-          )}
-
-          {/* Tab 3: Honeymoon Fund */}
-          {activeGiftTab === 'lunademiel' && (
-            <div className="max-w-2xl mx-auto bg-ivory-100 border border-gold/40 p-7 sm:p-10 shadow-editorial space-y-4">
-              <Plane className="w-7 h-7 text-gold-dark mx-auto" />
-              <h3 className="font-serif text-3xl text-charcoal">
-                Nuestra Luna de Miel: Costa Amalfitana &amp; Toscana
-              </h3>
-              <p className="text-sm text-charcoal-muted leading-relaxed">
-                Soñamos con recorrer los pueblos costeros de Italia y brindar por nuestro
-                matrimonio mirando al mar Tirreno. Si deseas regalarnos una cena frente al mar en
-                Positano o una visita a los viñedos de Florencia, puedes hacerlo mediante nuestra
-                cuenta nupcial indicando en el concepto <strong>«Luna de Miel»</strong>.
-              </p>
-              <button
-                type="button"
-                onClick={() => setActiveGiftTab('sobre')}
-                className="px-6 py-3 bg-charcoal text-ivory-50 text-xs uppercase tracking-[0.18em] hover:bg-gold-dark transition"
-              >
-                Ver Datos Bancarios para Luna de Miel
-              </button>
-            </div>
-          )}
-        </div>
-      </section>
+      {/* SECCIÓN DE REGALOS ELIMINADA POR SOLICITUD */}
 
       {/* ========================================================================
           SECCIÓN 7: ÁLBUM COLABORATIVO & HASHTAG DE LA BODA

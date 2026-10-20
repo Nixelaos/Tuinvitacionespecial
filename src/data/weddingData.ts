@@ -22,7 +22,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
     badge: 'Lacre Dorado & Cuerdas',
     isPopular: true,
     shortDescription:
-      'Sobre animado con sello de lacre dorado V&S, cuenta regresiva, dress code por estación, confirmación por WhatsApp y agradecimientos.',
+      'Sobre animado con sello de lacre dorado V&S, cuenta regresiva, dress code formal unificado, confirmación por WhatsApp y agradecimientos.',
     description:
       'Experiencia inmersiva que inicia con la apertura del sobre con sello de lacre en relieve, música clásica de fondo, timer en vivo y mapa interactivo.',
     coupleDemo: {
@@ -57,7 +57,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
       'Apertura animada de sobre con lacre dorado',
       'Música de fondo con reproductor flotante',
       'Timer con cuenta regresiva en vivo',
-      'Dress Code estacional interactivo',
+      'Dress Code formal unificado',
       'Confirmación directa a WhatsApp con dedicatoria',
     ],
     itinerary: [
@@ -147,12 +147,12 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
     category: 'Hacienda & Romántico',
     price: 135,
     originalPrice: 175,
-    badge: 'Bordes Rasgados & Mesa de Regalos',
+    badge: 'Papel Algodón & Bordes Rasgados',
     isPopular: true,
     shortDescription:
-      'Pliego con cinta de seda terracota, límites orgánicos rasgados (no cuadrados), un solo Dress Code y planilla conectada al backend de regalos.',
+      'Pliego con cinta de seda terracota, límites orgánicos rasgados (no cuadrados), un solo Dress Code y confirmación directa a WhatsApp.',
     description:
-      'Límites y tarjetas de papel cortado a mano (Deckle Edge), sin cuenta bancaria, con lista de regalos interactiva administrable por los novios en backend.',
+      'Límites y tarjetas de papel cortado a mano (Deckle Edge), con tipografía artesanal, cuenta regresiva e itinerario de hacienda.',
     coupleDemo: {
       bride: 'Lucía',
       groom: 'Rodrigo',
@@ -185,8 +185,8 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
       'Bordes orgánicos de papel cortado a mano (Deckle Edge)',
       'Apertura con cinta de seda terracota',
       '1 solo Dress Code unificado',
-      'Planilla de regalos conectada a backend /panel',
-      'Sin cuenta bancaria visible',
+      'Confirmación personalizada a WhatsApp',
+      'Itinerario colonial con mapas interactivos',
     ],
     itinerary: [
       {
