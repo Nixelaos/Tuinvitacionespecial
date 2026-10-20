@@ -52,13 +52,16 @@ export interface WeddingGiftItem {
   description: string;
 }
 
+export const formatCLP = (amount: number) =>
+  `$${Math.round(amount).toLocaleString('es-CL')}`;
+
 export const INITIAL_GIFTS_FALLBACK: WeddingGiftItem[] = [
   {
     id: 'gift-1',
     title: 'Cafetera Espresso Barista Italiana',
     category: 'Hogar & Cocina',
     iconName: 'Coffee',
-    price: 240,
+    price: 220000,
     quantity: 1,
     reservedCount: 0,
     imageUrl:
@@ -71,7 +74,7 @@ export const INITIAL_GIFTS_FALLBACK: WeddingGiftItem[] = [
     title: 'Cena Romántica Frente al Mar en Amalfi',
     category: 'Luna de Miel',
     iconName: 'Wine',
-    price: 150,
+    price: 140000,
     quantity: 3,
     reservedCount: 1,
     imageUrl:
@@ -83,7 +86,7 @@ export const INITIAL_GIFTS_FALLBACK: WeddingGiftItem[] = [
     title: 'Juego de Cama de Lino Orgánico Belga',
     category: 'Dormitorio & Relax',
     iconName: 'Bed',
-    price: 190,
+    price: 180000,
     quantity: 2,
     reservedCount: 0,
     imageUrl:
@@ -96,7 +99,7 @@ export const INITIAL_GIFTS_FALLBACK: WeddingGiftItem[] = [
     title: 'Vajilla Artesanal de Cerámica de Autor (12 Pzas)',
     category: 'Hogar & Cocina',
     iconName: 'Utensils',
-    price: 165,
+    price: 150000,
     quantity: 2,
     reservedCount: 1,
     imageUrl:
@@ -108,7 +111,7 @@ export const INITIAL_GIFTS_FALLBACK: WeddingGiftItem[] = [
     title: 'Aporte para Boletos de Avión Luna de Miel',
     category: 'Luna de Miel',
     iconName: 'Plane',
-    price: 300,
+    price: 280000,
     quantity: 4,
     reservedCount: 1,
     imageUrl:
@@ -120,7 +123,7 @@ export const INITIAL_GIFTS_FALLBACK: WeddingGiftItem[] = [
     title: 'Cámara Instantánea Vintage para Recuerdos',
     category: 'Experiencias',
     iconName: 'Camera',
-    price: 135,
+    price: 120000,
     quantity: 1,
     reservedCount: 0,
     imageUrl:
@@ -197,7 +200,7 @@ export const WeddingGiftRegistryApp: React.FC = () => {
   const [formTitle, setFormTitle] = useState('');
   const [formCategory, setFormCategory] = useState('Hogar & Cocina');
   const [formIcon, setFormIcon] = useState<GiftIconName>('Gift');
-  const [formPrice, setFormPrice] = useState(150);
+  const [formPrice, setFormPrice] = useState(140000);
   const [formQuantity, setFormQuantity] = useState(1);
   const [formReserved, setFormReserved] = useState(0);
   const [formImage, setFormImage] = useState('');
@@ -250,7 +253,7 @@ export const WeddingGiftRegistryApp: React.FC = () => {
     setFormTitle('');
     setFormCategory('Hogar & Cocina');
     setFormIcon('Gift');
-    setFormPrice(120);
+    setFormPrice(100000);
     setFormQuantity(1);
     setFormReserved(0);
     setFormImage(
@@ -278,7 +281,7 @@ export const WeddingGiftRegistryApp: React.FC = () => {
       title: formTitle.trim() || 'Regalo de Boda',
       category: formCategory,
       iconName: formIcon,
-      price: Number(formPrice) || 100,
+      price: Number(formPrice) || 100000,
       quantity: Math.max(1, Number(formQuantity) || 1),
       reservedCount: Math.max(0, Number(formReserved) || 0),
       imageUrl:
@@ -384,7 +387,7 @@ export const WeddingGiftRegistryApp: React.FC = () => {
       `¡Hola Lucía & Rodrigo! 🎁✨`,
       `Queremos hacerles un regalo de su Lista de Bodas:`,
       ``,
-      `• *Regalo elegido:* ${selectedGiftForGuest.title} ($${selectedGiftForGuest.price} USD)`,
+      `• *Regalo elegido:* ${selectedGiftForGuest.title} (${formatCLP(selectedGiftForGuest.price)} CLP)`,
       `• *De parte de:* ${guestGiverName.trim() || 'Familia Invitada'}`,
       guestDedication.trim() ? `• *Dedicatoria:* "${guestDedication.trim()}"` : '',
     ]
@@ -608,7 +611,7 @@ export const WeddingGiftRegistryApp: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-xs uppercase tracking-wider text-[#5C493E] mb-1">
-                      Precio Estimado ($ USD) *
+                      Precio Estimado (CLP $) *
                     </label>
                     <input
                       type="number"
@@ -742,7 +745,7 @@ export const WeddingGiftRegistryApp: React.FC = () => {
                     {selectedGiftForGuest.title}
                   </h3>
                   <p className="text-sm font-semibold text-[#A86448] mt-0.5">
-                    Valor estimado: ${selectedGiftForGuest.price} USD
+                    Valor estimado: {formatCLP(selectedGiftForGuest.price)} CLP
                   </p>
                 </div>
                 <button
@@ -827,7 +830,7 @@ export const WeddingGiftRegistryApp: React.FC = () => {
                     {/* Price Tag */}
                     <div className="absolute bottom-3.5 left-3.5 right-3.5 flex items-end justify-between text-ivory-50">
                       <span className="font-serif text-3xl font-semibold drop-shadow">
-                        ${gift.price} <span className="text-xs font-sans font-normal">USD</span>
+                        {formatCLP(gift.price)} <span className="text-xs font-sans font-normal">CLP</span>
                       </span>
                       <span
                         className={`px-3 py-1 rounded-full text-[10px] uppercase tracking-wider font-semibold ${

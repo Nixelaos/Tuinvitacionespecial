@@ -30,31 +30,33 @@ export const OrderQuoteSection: React.FC = () => {
   const [notes, setNotes] = useState('');
   const [submittedOnline, setSubmittedOnline] = useState(false);
 
+  const formatCLP = (amount: number) => `$${Math.round(amount).toLocaleString('es-CL')} CLP`;
+
   const currentPlan =
     PRICING_PLANS.find((p) => p.id === selectedPlanId) || PRICING_PLANS[1];
 
-  const totalUsd =
+  const totalClp =
     currentPlan.price +
-    (extraExpress ? 25 : 0) +
-    (extraBilingual ? 30 : 0) +
-    (extraIllustration ? 35 : 0);
+    (extraExpress ? 20000 : 0) +
+    (extraBilingual ? 25000 : 0) +
+    (extraIllustration ? 30000 : 0);
 
-  const depositUsd = Math.round(totalUsd / 2);
+  const depositClp = Math.round(totalClp / 2);
 
   const buildWhatsAppMessage = () => {
     const extras: string[] = [];
-    if (extraExpress) extras.push('Entrega Exprés 24h (+$25 USD)');
-    if (extraBilingual) extras.push('Versión Bilingüe Español/Inglés (+$30 USD)');
-    if (extraIllustration) extras.push('Ilustración Acuarela del Lugar (+$35 USD)');
+    if (extraExpress) extras.push('Entrega Exprés 24h (+$20.000 CLP)');
+    if (extraBilingual) extras.push('Versión Bilingüe Español/Inglés (+$25.000 CLP)');
+    if (extraIllustration) extras.push('Ilustración Acuarela del Lugar (+$30.000 CLP)');
 
     return [
       `¡Hola ${BRAND_NAME}! Queremos reservar nuestra invitación de boda digital:`,
       `• Novios: ${coupleNames || 'Por definir'}`,
       `• Fecha de boda: ${weddingDate || 'Por confirmar'}`,
       `• Diseño elegido: ${selectedTemplate}`,
-      `• Plan seleccionado: ${currentPlan.name} ($${currentPlan.price} USD)`,
+      `• Plan seleccionado: ${currentPlan.name} (${formatCLP(currentPlan.price)})`,
       extras.length > 0 ? `• Extras: ${extras.join(', ')}` : `• Extras: Ninguno`,
-      `• Total estimado: $${totalUsd} USD (Reserva con 50%: $${depositUsd} USD)`,
+      `• Total estimado: ${formatCLP(totalClp)} (Reserva con 50%: ${formatCLP(depositClp)})`,
       notes ? `• Comentarios: ${notes}` : '',
     ]
       .filter(Boolean)
@@ -80,10 +82,10 @@ export const OrderQuoteSection: React.FC = () => {
               Cotizador &amp; Reserva Personalizada
             </span>
             <h3 className="font-serif text-3xl sm:text-4xl text-charcoal">
-              Configura la invitación de vuestros sueños
+              Configura la invitación de sus sueños
             </h3>
             <p className="text-sm text-charcoal-muted mt-1">
-              Selecciona vuestro diseño favorito, el plan ideal y envíanos tu pedido por WhatsApp o
+              Selecciona su diseño favorito, el plan ideal y envíanos tu pedido por WhatsApp o
               solicita contacto directo.
             </p>
           </div>
@@ -155,7 +157,7 @@ export const OrderQuoteSection: React.FC = () => {
                   >
                     {PRICING_PLANS.map((plan) => (
                       <option key={plan.id} value={plan.id}>
-                        {plan.name} (${plan.price} USD)
+                        {plan.name} ({formatCLP(plan.price)})
                       </option>
                     ))}
                   </select>
@@ -179,7 +181,7 @@ export const OrderQuoteSection: React.FC = () => {
                   >
                     <div className="flex items-center justify-between mb-1">
                       <Zap className="w-4 h-4 text-gold-dark" />
-                      <span className="text-xs font-semibold text-charcoal">+$25 USD</span>
+                      <span className="text-xs font-semibold text-charcoal">+$20.000 CLP</span>
                     </div>
                     <span className="text-xs font-medium text-charcoal block">
                       Entrega Exprés 24h
@@ -197,7 +199,7 @@ export const OrderQuoteSection: React.FC = () => {
                   >
                     <div className="flex items-center justify-between mb-1">
                       <Globe className="w-4 h-4 text-gold-dark" />
-                      <span className="text-xs font-semibold text-charcoal">+$30 USD</span>
+                      <span className="text-xs font-semibold text-charcoal">+$25.000 CLP</span>
                     </div>
                     <span className="text-xs font-medium text-charcoal block">
                       Versión Bilingüe (ES/EN)
@@ -215,7 +217,7 @@ export const OrderQuoteSection: React.FC = () => {
                   >
                     <div className="flex items-center justify-between mb-1">
                       <Brush className="w-4 h-4 text-gold-dark" />
-                      <span className="text-xs font-semibold text-charcoal">+$35 USD</span>
+                      <span className="text-xs font-semibold text-charcoal">+$30.000 CLP</span>
                     </div>
                     <span className="text-xs font-medium text-charcoal block">
                       Acuarela del Lugar
@@ -234,7 +236,7 @@ export const OrderQuoteSection: React.FC = () => {
                     required
                     value={emailOrPhone}
                     onChange={(e) => setEmailOrPhone(e.target.value)}
-                    placeholder="Ej. +52 55 1234 5678 o correo@ejemplo.com"
+                    placeholder="Ej. +56 9 1234 5678 o correo@ejemplo.cl"
                     className="w-full px-4 py-2.5 bg-ivory-100 border border-ivory-300 text-sm text-charcoal focus:outline-none focus:border-gold"
                   />
                 </div>
@@ -275,12 +277,12 @@ export const OrderQuoteSection: React.FC = () => {
             <div className="p-8 bg-champagne/50 border border-gold/40 text-center space-y-4 my-4">
               <CheckCircle2 className="w-12 h-12 text-sage mx-auto" />
               <h4 className="font-serif text-3xl text-charcoal">
-                ¡Solicitud Recibida para {coupleNames || 'Vuestra Boda'}!
+                ¡Solicitud Recibida para {coupleNames || 'Su Boda'}!
               </h4>
               <p className="text-sm text-charcoal-muted max-w-md mx-auto">
-                Hemos registrado vuestra configuración con el diseño{' '}
+                Hemos registrado su configuración con el diseño{' '}
                 <strong>{selectedTemplate}</strong> ({currentPlan.name}). Una diseñadora de nuestro
-                atelier os contactará a <strong>{emailOrPhone}</strong> en menos de 2 horas.
+                atelier los contactará a <strong>{emailOrPhone}</strong> en menos de 2 horas.
               </p>
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <a
@@ -313,7 +315,7 @@ export const OrderQuoteSection: React.FC = () => {
                   Resumen de Atelier
                 </span>
                 <h4 className="font-serif text-2xl text-ivory-50 mt-0.5">
-                  {coupleNames.trim() || 'Vuestra Invitación Nupcial'}
+                  {coupleNames.trim() || 'Su Invitación Nupcial'}
                 </h4>
               </div>
               <Sparkles className="w-5 h-5 text-gold-light" />
@@ -327,7 +329,7 @@ export const OrderQuoteSection: React.FC = () => {
               <div className="flex items-center justify-between py-2 border-b border-ivory-200/10">
                 <span className="text-ivory-200/70">Colección:</span>
                 <span className="font-medium text-ivory-50">
-                  {currentPlan.name} (${currentPlan.price} USD)
+                  {currentPlan.name} ({formatCLP(currentPlan.price)})
                 </span>
               </div>
               {weddingDate && (
@@ -342,19 +344,19 @@ export const OrderQuoteSection: React.FC = () => {
               {extraExpress && (
                 <div className="flex items-center justify-between text-xs text-ivory-200">
                   <span>+ Entrega Exprés 24 horas</span>
-                  <span>$25 USD</span>
+                  <span>$20.000 CLP</span>
                 </div>
               )}
               {extraBilingual && (
                 <div className="flex items-center justify-between text-xs text-ivory-200">
                   <span>+ Versión Bilingüe Español/Inglés</span>
-                  <span>$30 USD</span>
+                  <span>$25.000 CLP</span>
                 </div>
               )}
               {extraIllustration && (
                 <div className="flex items-center justify-between text-xs text-ivory-200">
                   <span>+ Ilustración Acuarela Personalizada</span>
-                  <span>$35 USD</span>
+                  <span>$30.000 CLP</span>
                 </div>
               )}
             </div>
@@ -365,16 +367,16 @@ export const OrderQuoteSection: React.FC = () => {
                   Inversión Total (Pago Único)
                 </span>
                 <span className="font-serif text-4xl font-semibold text-gold-light">
-                  ${totalUsd} USD
+                  {formatCLP(totalClp)}
                 </span>
               </div>
               <div className="flex items-center justify-between text-xs text-ivory-200/80 pt-2 border-t border-ivory-200/10">
-                <span>Aparta hoy con el 50%:</span>
-                <strong className="text-ivory-50">${depositUsd} USD</strong>
+                <span>Reserva hoy con el 50%:</span>
+                <strong className="text-ivory-50">{formatCLP(depositClp)}</strong>
               </div>
               <div className="flex items-center justify-between text-xs text-ivory-200/80">
                 <span>50% restante al aprobar tu diseño:</span>
-                <strong className="text-ivory-50">${totalUsd - depositUsd} USD</strong>
+                <strong className="text-ivory-50">{formatCLP(totalClp - depositClp)}</strong>
               </div>
             </div>
           </div>

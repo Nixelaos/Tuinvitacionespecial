@@ -7,36 +7,36 @@ import type {
   FaqItem,
 } from '../types/wedding';
 
-export const WHATSAPP_NUMBER = '5215512345678'; // Configurable por el estudio
+export const WHATSAPP_NUMBER = '56912345678'; // Número chileno (+56 9 XXXX XXXX) — configurable por el estudio
 export const BRAND_NAME = 'Tu Invitación Especial';
 
 export const INVITATION_TEMPLATES: InvitationTemplate[] = [
   {
     id: 'invitacion-papel-artesanal',
     slug: 'invitacion-papel-artesanal',
-    name: 'Papel Algodón Cortado a Mano',
+    name: 'Cinta de Seda & Bordes Rasgados',
     collection: 'Colección Texturas Artesanales',
     category: 'Hacienda & Romántico',
-    price: 135,
-    originalPrice: 175,
-    badge: 'Papel Algodón & Bordes Rasgados',
+    price: 99990,
+    originalPrice: 129990,
+    badge: 'Cinta de Seda & Bordes Orgánicos',
     isPopular: true,
     shortDescription:
-      'Pliego con cinta de seda terracota, límites orgánicos rasgados (no cuadrados), un solo Dress Code y confirmación directa a WhatsApp.',
+      'Invitación digital que se abre desatando una cinta de seda, con tarjetas de bordes orgánicos rasgados, un solo Dress Code y confirmación directa a WhatsApp.',
     description:
-      'Límites y tarjetas de papel cortado a mano (Deckle Edge), con tipografía artesanal, cuenta regresiva e itinerario de hacienda.',
+      'Invitación web con estética artesanal: tarjetas de bordes rasgados, tipografía romántica, cuenta regresiva e itinerario de campo.',
     coupleDemo: {
       bride: 'Lucía',
       groom: 'Rodrigo',
       initials: 'L & R',
       date: '2027-11-06T16:00:00',
       displayDate: 'Sábado, 06 de Noviembre de 2027',
-      city: 'Mérida, Yucatán',
-      ceremonyVenue: 'Capilla Colonial de la Hacienda',
+      city: 'Valle de Casablanca',
+      ceremonyVenue: 'Capilla de la Viña',
       ceremonyTime: '16:00 hrs',
-      receptionVenue: 'Jardín de los Flamboyanes',
+      receptionVenue: 'Terraza de los Parrones',
       receptionTime: '17:30 hrs',
-      dressCode: 'Formal de Hacienda',
+      dressCode: 'Formal de Campo',
       quote: '«Contigo cada camino se convierte en nuestra mejor historia.»',
       songTitle: 'Bésame Mucho (Guitarra)',
       songArtist: 'Ensamble de Cuerdas',
@@ -54,22 +54,22 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
     secondaryImage:
       'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80',
     includedFeatures: [
-      'Bordes orgánicos de papel cortado a mano (Deckle Edge)',
-      'Apertura con cinta de seda terracota',
+      'Tarjetas digitales con bordes orgánicos rasgados',
+      'Apertura animada desatando una cinta de seda',
       '1 solo Dress Code unificado',
       'Confirmación personalizada a WhatsApp',
-      'Itinerario colonial con mapas interactivos',
+      'Itinerario con mapas interactivos',
     ],
     itinerary: [
       {
         time: '16:00 hrs',
-        title: 'Ceremonia en Capilla Colonial',
-        location: 'Hacienda Temozón',
+        title: 'Ceremonia en la Capilla',
+        location: 'Viña Los Aromos',
         iconType: 'ceremony',
       },
       {
         time: '17:30 hrs',
-        title: 'Banquete en los Flamboyanes',
+        title: 'Banquete bajo los Parrones',
         location: 'Terraza Principal',
         iconType: 'dinner',
       },
@@ -81,8 +81,8 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
     name: 'Lluvia de Corazones Menta & Marfil',
     collection: 'Colección Sensorial 2027',
     category: 'Minimalista Lujo',
-    price: 145,
-    originalPrice: 185,
+    price: 109990,
+    originalPrice: 139990,
     badge: 'Corazones Etéreos & 5 Paletas',
     isPopular: true,
     shortDescription:
@@ -95,7 +95,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
       initials: 'I & T',
       date: '2027-09-18T17:00:00',
       displayDate: 'Sábado, 18 de Septiembre de 2027',
-      city: 'San Cristóbal / Antigua',
+      city: 'Pirque, Región Metropolitana',
       ceremonyVenue: 'Parroquia Santa María de las Rosas',
       ceremonyTime: '17:00 hrs',
       receptionVenue: 'Jardín de las Hortensias',
@@ -145,52 +145,52 @@ export const PRICING_PLANS: PricingPlan[] = [
   {
     id: 'plan-esencial',
     name: 'Colección Esencial',
-    tagline: 'Elegancia pura para anunciar vuestro gran día con estilo.',
-    price: 89,
-    originalPrice: 119,
-    currency: 'USD',
+    tagline: 'Elegancia pura para anunciar su gran día con estilo.',
+    price: 69990,
+    originalPrice: 89990,
+    currency: 'CLP',
     billingNote: 'Pago único · Envíos ilimitados',
     deliveryDays: 'Entrega en 48 horas hábiles',
     description:
-      'Ideal para bodas íntimas o civiles que buscan una invitación web impecable con toda la información esencial y confirmación directa.',
+      'Ideal para matrimonios íntimos o civiles que buscan una invitación web impecable con toda la información esencial y confirmación directa.',
     features: [
       { label: 'Elección de cualquier diseño de nuestro catálogo', included: true },
       { label: 'Portada personalizada con nombres, fecha y frase', included: true },
       { label: 'Cuenta regresiva en tiempo real', included: true },
-      { label: 'Ubicación de ceremonia y recepción con Google Maps y Waze', included: true },
+      { label: 'Ubicación de ceremonia y recepción con mapa directo', included: true },
       { label: 'Itinerario de actividades y código de vestimenta', included: true },
-      { label: 'Mesa de regalos y datos bancarios con copiado rápido', included: true },
+      { label: 'Lista de regalos y datos de transferencia con copiado rápido', included: true },
       { label: 'Confirmación de asistencia (RSVP) directo a WhatsApp', included: true },
       { label: 'Música de fondo y apertura con sobre animado', included: false },
       { label: 'Pases personalizados con nombre de cada invitado', included: false },
-      { label: 'Panel de control de invitados en tiempo real (Excel/Web)', included: false },
+      { label: 'Panel de control de invitados en tiempo real', included: false },
     ],
     ctaLabel: 'Elegir Plan Esencial',
   },
   {
     id: 'plan-atelier',
     name: 'Colección Atelier',
-    tagline: 'La experiencia interactiva completa favorita de nuestras parejas.',
-    price: 129,
-    originalPrice: 169,
-    currency: 'USD',
+    tagline: 'La experiencia interactiva completa favorita de nuestras parejas en Chile.',
+    price: 99990,
+    originalPrice: 129990,
+    currency: 'CLP',
     billingNote: 'Pago único · Envíos ilimitados',
     badge: 'Más Elegido',
     highlighted: true,
     deliveryDays: 'Entrega en 48 a 72 horas hábiles',
     description:
-      'Incluye apertura de sobre con sello de lacre, música romántica, galería fotográfica y gestión inteligente de confirmaciones.',
+      'Incluye apertura de sobre con sello de lacre o cinta de seda, música romántica, galería fotográfica y confirmación directa a WhatsApp.',
     features: [
       { label: 'Todo lo incluido en la Colección Esencial', included: true, highlight: true },
       { label: 'Sobre digital interactivo con sello de lacre e iniciales', included: true, highlight: true },
-      { label: 'Música de fondo con vuestra canción especial', included: true },
-      { label: 'Galería editorial hasta con 12 fotografías de preboda', included: true },
+      { label: 'Música de fondo con su canción especial', included: true },
+      { label: 'Galería editorial con fotografías de preboda', included: true },
       { label: 'Personalización de paleta de colores y tipografías', included: true },
       { label: 'Formulario RSVP con alergias alimentarias y canción sugerida', included: true },
-      { label: 'Panel en vivo de confirmados + recepción por WhatsApp', included: true, highlight: true },
-      { label: 'Pases personalizados con nombre de cada invitado y cupos', included: true },
-      { label: 'Guía de hoteles recomendados y transporte', included: true },
-      { label: 'Dominio propio (.com) y códigos QR de acceso en recepción', included: false },
+      { label: 'Confirmación inmediata a tu WhatsApp con mensaje especial', included: true, highlight: true },
+      { label: 'Lista de regalos interactiva administrable por los novios', included: true },
+      { label: 'Datos de transferencia bancaria / Cuenta RUT listos para copiar', included: true },
+      { label: 'Dominio propio (.cl / .com) y códigos QR de acceso en recepción', included: false },
     ],
     ctaLabel: 'Reservar Colección Atelier',
   },
@@ -198,25 +198,25 @@ export const PRICING_PLANS: PricingPlan[] = [
     id: 'plan-haute-couture',
     name: 'Haute Couture Bespoke',
     tagline: 'Diseño a medida con control de acceso QR y conserjería digital.',
-    price: 189,
-    originalPrice: 249,
-    currency: 'USD',
+    price: 149990,
+    originalPrice: 189990,
+    currency: 'CLP',
     billingNote: 'Pago único · Servicio VIP',
     badge: 'Todo Incluido VIP',
     deliveryDays: 'Prioridad VIP · Atención personalizada',
     description:
-      'Para bodas destino o de gran formato que requieren pases con código QR para wedding planners, versión bilingüe y ajustes ilimitados.',
+      'Para matrimonios que buscan diseño exclusivo a medida, pases con código QR, versión bilingüe opcional y ajustes ilimitados.',
     features: [
       { label: 'Todo lo incluido en la Colección Atelier', included: true, highlight: true },
       { label: 'Generador de pases individuales con Código QR para entrada', included: true, highlight: true },
-      { label: 'Versión bilingüe opcional (Español + Inglés / Francés)', included: true },
-      { label: 'Programa de Wedding Weekend (Preboda, Boda y Tornaboda)', included: true },
+      { label: 'Versión bilingüe opcional (Español + Inglés)', included: true },
+      { label: 'Programa completo de celebración', included: true },
       { label: 'Álbum digital QR para que los invitados suban sus fotos', included: true, highlight: true },
-      { label: 'Ilustración de venue o monograma exclusivo a medida', included: true },
+      { label: 'Ilustración del lugar o monograma exclusivo a medida', included: true },
       { label: 'Cambios de horario o detalles sin costo hasta el día de la boda', included: true },
       { label: 'Vigencia extendida por 12 meses después del evento', included: true },
       { label: 'Soporte prioritario directo con diseñador asignado', included: true },
-      { label: 'Dominio personalizado opcional (ej. valentinaysebastian.com)', included: true },
+      { label: 'Dominio personalizado opcional (.cl o .com)', included: true },
     ],
     ctaLabel: 'Solicitar Haute Couture',
   },
@@ -225,10 +225,10 @@ export const PRICING_PLANS: PricingPlan[] = [
 export const INTERACTIVE_FEATURES: InteractiveFeature[] = [
   {
     id: 'feat-rsvp',
-    title: 'Confirmación RSVP Inteligente',
-    subtitle: 'Control total de tu lista de invitados',
+    title: 'Confirmación RSVP Directa',
+    subtitle: 'Confirmación inmediata a tu WhatsApp',
     description:
-      'Tus invitados confirman asistencia en segundos indicando número de adultos, restricciones alimentarias y un mensaje de cariño. Recibe todo en WhatsApp y en tu tabla organizada.',
+      'Tus invitados confirman asistencia en segundos indicando número de asistentes, restricciones alimentarias y dedicándote un mensaje especial directo a tu WhatsApp.',
     iconName: 'CalendarCheck',
     badge: 'Imprescindible',
   },
@@ -237,86 +237,53 @@ export const INTERACTIVE_FEATURES: InteractiveFeature[] = [
     title: 'Apertura de Sobre & Lacre',
     subtitle: 'Emoción desde el primer segundo',
     description:
-      'Al abrir el enlace, tus invitados descubren un sobre de textura artesanal con vuestras iniciales en lacre dorado que, al tocarse, revela la invitación e inicia la música.',
+      'Al abrir el enlace, tus invitados descubren un sobre interactivo con sus iniciales en lacre o cinta de seda que, al tocarse, revela la invitación e inicia la música.',
     iconName: 'Sparkles',
     badge: 'Experiencia Sensorial',
   },
   {
     id: 'feat-music',
-    title: 'Banda Sonora Personalizada',
-    subtitle: 'Vuestra canción en cada pantalla',
+    title: 'Su Melodía Favorita',
+    subtitle: 'Su canción en cada pantalla',
     description:
-      'Integramos la melodía de vuestro primer baile o pieza instrumental favorita con un reproductor flotante sutil que acompaña la lectura de principio a fin.',
+      'Integramos la melodía de su primer baile o canción favorita con un reproductor flotante sutil que acompaña la lectura de principio a fin.',
     iconName: 'Music',
   },
   {
     id: 'feat-maps',
-    title: 'Ubicaciones GPS a Un Clic',
-    subtitle: 'Google Maps & Waze integrados',
+    title: 'Ubicaciones a Un Toque',
+    subtitle: 'Mapas directos al lugar que elijas',
     description:
-      'Nadie llegará tarde ni se perderá. Botones directos con coordenadas exactas de la ceremonia religiosa, el banquete y los hoteles sugeridos.',
+      'Nadie llegará tarde ni se perderá. Botones directos con la ubicación exacta de la ceremonia y la recepción.',
     iconName: 'MapPin',
   },
   {
     id: 'feat-countdown',
-    title: 'Cuenta Regresiva & Calendario',
+    title: 'Cuenta Regresiva en Vivo',
     subtitle: 'Días, horas, minutos y segundos',
     description:
-      'Un reloj editorial marca el tiempo restante para el «Sí, acepto» e incluye botón para agendar recordatorio automático en Apple Calendar y Google Calendar.',
+      'Un contador marca segundo a segundo el tiempo restante para su fecha especial.',
     iconName: 'Clock',
   },
   {
     id: 'feat-gifts',
-    title: 'Mesa de Regalos & Sobre Digital',
-    subtitle: 'Discreto, elegante y práctico',
+    title: 'Lista de Regalos & Transferencias',
+    subtitle: '100% adaptado a Chile (CLP $)',
     description:
-      'Vincula tus mesas de regalos (Amazon, Liverpool, El Corte Inglés, Palacio de Hierro) o comparte tu CLABE / IBAN bancario con botón de copiado instantáneo.',
+      'Incluye tu lista de regalos personalizada en Pesos Chilenos o comparte los datos de tu cuenta bancaria chilena / Cuenta RUT con copiado instantáneo.',
     iconName: 'Gift',
   },
 ];
 
-export const PROCESS_STEPS: ProcessStep[] = [
-  {
-    number: '01',
-    title: 'Elige tu Diseño y Colección',
-    duration: 'Día 1 · 5 minutos',
-    description:
-      'Explora nuestro catálogo interactivo, enamórate de una plantilla y selecciona el plan que mejor se adapte a vuestra celebración.',
-    iconName: 'Palette',
-  },
-  {
-    number: '02',
-    title: 'Comparte vuestros Detalles',
-    duration: 'Día 1 · Formulario guiado',
-    description:
-      'Te enviamos por WhatsApp una guía muy sencilla para que nos compartas nombres, fechas, ubicaciones, horarios, fotos y vuestra canción.',
-    iconName: 'FileText',
-  },
-  {
-    number: '03',
-    title: 'Diseño Artesanal en el Atelier',
-    duration: '24 a 48 horas',
-    description:
-      'Nuestros diseñadores maquetan tu invitación cuidando cada tipografía, encuadre fotográfico y color. Te enviamos el borrador en vivo para revisión.',
-    iconName: 'Sparkles',
-  },
-  {
-    number: '04',
-    title: 'Lista para Deslumbrar y Compartir',
-    duration: 'Envíos Ilimitados',
-    description:
-      'Con tu aprobación final, recibes tu enlace oficial con previsualización miniatura lista para enviar a todos tus invitados por WhatsApp.',
-    iconName: 'Send',
-  },
-];
+export const PROCESS_STEPS: ProcessStep[] = [];
 
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: 'test-1',
     couple: 'Mariana & Diego',
-    location: 'San Miguel de Allende, México',
+    location: 'Pirque, Región Metropolitana',
     weddingDate: 'Octubre 2026',
-    templateName: 'Villa Toscana',
+    templateName: 'Lluvia de Corazones',
     quote:
       '«Nuestros invitados no paraban de escribirnos para decirnos que era la invitación más hermosa que habían visto. El sobre animado con nuestras iniciales y la música hicieron llorar a nuestras mamás.»',
     guestCount: 240,
@@ -325,25 +292,25 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     id: 'test-2',
-    couple: 'Carlota & Álvaro',
-    location: 'Finca La Concepción, Marbella',
+    couple: 'Catalina & Álvaro',
+    location: 'Viña del Mar, Región de Valparaíso',
     weddingDate: 'Septiembre 2026',
-    templateName: 'Jardín de Salvia',
+    templateName: 'Cinta de Seda & Bordes Rasgados',
     quote:
-      '«Teníamos invitados viniendo de tres países distintos. La guía de hoteles, los mapas directos y el formulario de alergias alimentarias nos ahorraron semanas enteras de trabajo con la wedding planner.»',
+      '«La ubicación directa, la cuenta regresiva y el formulario de confirmación a WhatsApp con alergias alimentarias nos ahorraron semanas enteras de organización.»',
     guestCount: 185,
     avatarUrl:
       'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=300&q=80',
   },
   {
     id: 'test-3',
-    couple: 'Regina & Patricio',
-    location: 'Valle de Guadalupe, B.C.',
+    couple: 'Francisca & Patricio',
+    location: 'Puerto Varas, Región de Los Lagos',
     weddingDate: 'Agosto 2026',
-    templateName: 'Palazzo Champagne',
+    templateName: 'Lluvia de Corazones',
     quote:
-      '«Buscábamos algo sumamente sobrio y editorial, lejos de las invitaciones digitales recargadas. El resultado superó todo: parecía una editorial de revista y los pases con nombre por familia fueron un éxito.»',
-    guestCount: 310,
+      '«Buscábamos algo sumamente sobrio y elegante, lejos de las invitaciones digitales recargadas. El resultado superó todo y la lista de regalos en pesos chilenos fue un éxito.»',
+    guestCount: 210,
     avatarUrl:
       'https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=300&q=80',
   },
@@ -355,7 +322,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: 'Experiencia & Funciones',
     question: '¿Cómo funcionan las invitaciones digitales interactivas?',
     answer:
-      'Tus invitados reciben un enlace que abre una experiencia sensorial única: desde un sobre animado con sello de lacre, puertas botánicas o pliegos de seda, hasta su canción favorita sonando de fondo, mapa interactivo con un toque para Google Maps o Waze, e información detallada de la celebración, todo sin necesidad de descargar ninguna aplicación.',
+      'Tus invitados reciben un enlace que abre una experiencia sensorial única: desde un sobre animado con sello de lacre o una cinta de seda, hasta su canción favorita sonando de fondo, mapa interactivo para llegar directo a la ubicación que elijas, e información detallada de la celebración, todo sin necesidad de descargar ninguna aplicación.',
   },
   {
     id: 'faq-2',
@@ -367,29 +334,29 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: 'faq-3',
     category: 'Mesa de Regalos',
-    question: '¿Cómo funciona la Lista de Regalos y el panel para los novios?',
+    question: '¿Cómo funciona la Lista de Regalos y los pagos en Chile?',
     answer:
-      'Incluye una elegante planilla interactiva donde tus invitados pueden descubrir sus regalos y experiencias soñadas. Los novios disponen de un panel privado para agregar, editar fotos, valores y cantidades de regalos a su gusto, manteniendo todo organizado y a su medida.',
+      'Incluye una elegante lista de regalos interactiva en Pesos Chilenos (CLP $) donde tus invitados pueden elegir un obsequio y transferir directamente a tu cuenta bancaria chilena (Banco de Chile, Santander, BCI, BancoEstado / Cuenta RUT, etc.). Además, los novios disponen de un panel privado para agregar o editar sus regalos.',
   },
   {
     id: 'faq-4',
     category: 'Compatibilidad & Dispositivos',
-    question: '¿Se verá bien en celulares, tablets y computadoras?',
+    question: '¿Se verá bien en celulares, tablets y pantallas grandes?',
     answer:
-      'Totalmente. Cada diseño está optimizado para adaptarse con máxima nitidez y fluidez a cualquier dispositivo (iPhone, Android, iPad y computadoras). Además, modelos como Brisa Marfil & Menta incluyen un simulador en pantalla para visualizar cómo se ve en formato móvil y tablet.',
+      'Totalmente. Cada diseño está optimizado para adaptarse con máxima nitidez y fluidez a cualquier dispositivo (iPhone, Android, iPad y computadores). Además, todas nuestras invitaciones incluyen un selector en vivo para previsualizar en modalidad Celular, Tablet o Pantalla Grande.',
   },
   {
     id: 'faq-5',
     category: 'Valores & Moneda',
-    question: '¿En qué moneda estarán disponibles y cómo es el pago?',
+    question: '¿En qué moneda están los valores y cuáles son los medios de pago en Chile?',
     answer:
-      'Nuestras invitaciones estarán disponibles próximamente en Pesos Chilenos (CLP $). El servicio es de pago único, transparente y sin mensualidades ocultas.',
+      'Todos nuestros servicios y listas de regalos están expresados 100% en Pesos Chilenos (CLP $). Puedes reservar y pagar cómodamente mediante transferencia bancaria electrónica o tarjetas nacionales en un pago único y sin mensualidades.',
   },
   {
     id: 'faq-6',
     category: 'Envíos & Entrega',
     question: '¿A cuántos invitados puedo enviar la invitación? ¿Hay un límite?',
     answer:
-      '¡Los envíos son 100% ilimitados! Una vez lista tu invitación, puedes compartir el enlace cuantas veces quieras por WhatsApp, correo electrónico, Instagram o mensaje directo con todos tus seres queridos sin ningún costo adicional.',
+      '¡Los envíos son 100% ilimitados! Una vez lista tu invitación, puedes compartir el enlace cuantas veces quieras por WhatsApp, correo electrónico o Instagram con todos tus seres queridos en Chile y el mundo sin ningún costo adicional.',
   },
 ];

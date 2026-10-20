@@ -144,8 +144,8 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
   // 5 Color Palettes State
   const [selectedPaletteIndex, setSelectedPaletteIndex] = useState(0);
 
-  // Device Viewport Simulation State
-  const [deviceMode, setDeviceMode] = useState<DeviceMode>('desktop');
+  // Device Viewport Simulation State (Mobile 400 x 824 by default)
+  const [deviceMode, setDeviceMode] = useState<DeviceMode>('mobile');
 
   // Live Countdown (Sept 18, 2027 17:00)
   const [countdown, setCountdown] = useState({
@@ -228,16 +228,19 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
     { left: '95%', delay: '2.5s', duration: '16s', size: 19, opacity: 0.17 },
   ];
 
-  // Device wrapper classes
+  // Device wrapper classes (defaults to mobile 400 x 824)
+  const isMobile = isHero || deviceMode === 'mobile';
+  const isTablet = !isHero && deviceMode === 'tablet';
+
   const getContainerWrapper = () => {
     if (isHero) {
       return 'w-full min-h-screen';
     }
     switch (deviceMode) {
       case 'mobile':
-        return 'max-w-[400px] mx-auto my-8 border-[12px] border-charcoal rounded-[54px] shadow-2xl overflow-hidden relative';
+        return 'w-full max-w-[400px] min-h-[824px] mx-auto mt-24 sm:mt-20 mb-8 border-[10px] sm:border-[12px] border-charcoal rounded-[44px] sm:rounded-[52px] shadow-2xl overflow-hidden relative bg-charcoal';
       case 'tablet':
-        return 'max-w-[800px] mx-auto my-8 border-[14px] border-charcoal rounded-[40px] shadow-2xl overflow-hidden relative';
+        return 'w-full max-w-[768px] min-h-[1024px] mx-auto mt-24 sm:mt-20 mb-8 border-[12px] sm:border-[14px] border-charcoal rounded-[36px] sm:rounded-[40px] shadow-2xl overflow-hidden relative bg-charcoal';
       case 'desktop':
       default:
         return 'w-full min-h-screen';
@@ -371,7 +374,7 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
               )}
             </div>
 
-            {/* Center: Device Viewport Switcher (Móvil, Tablet, Desktop) */}
+            {/* Center: Device Viewport Switcher (Celular, Tablet, Pantalla Grande) */}
             <div
               className="flex items-center p-1 rounded-full shadow-sm pointer-events-auto"
               style={{
@@ -387,10 +390,10 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                     ? 'bg-charcoal text-ivory-50 font-medium'
                     : 'hover:opacity-80'
                 }`}
-                title="Ver en vista de Celular (Smartphone)"
+                title="Ver en vista de Celular"
               >
                 <Smartphone className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Móvil</span>
+                <span>Celular</span>
               </button>
 
               <button
@@ -404,7 +407,7 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 title="Ver en vista de Tablet"
               >
                 <Tablet className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Tablet</span>
+                <span>Tablet</span>
               </button>
 
               <button
@@ -415,10 +418,11 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                     ? 'bg-charcoal text-ivory-50 font-medium'
                     : 'hover:opacity-80'
                 }`}
-                title="Ver en Pantalla Completa"
+                title="Ver en Pantalla Grande"
               >
                 <Monitor className="w-3.5 h-3.5" />
-                <span className="hidden md:inline">Completa</span>
+                <span className="hidden sm:inline">Pantalla Grande</span>
+                <span className="sm:hidden">Grande</span>
               </button>
             </div>
 
@@ -495,27 +499,42 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
         ==================================================================== */}
         {!opened ? (
           <div
-            className="min-h-screen flex flex-col justify-between items-center text-center p-6 sm:p-12 relative select-none"
+            className={`flex flex-col justify-between items-center text-center relative select-none ${
+              isMobile
+                ? 'p-5 min-h-[780px]'
+                : isTablet
+                ? 'p-8 min-h-[960px]'
+                : 'p-6 sm:p-10 min-h-screen'
+            }`}
             style={{ backgroundColor: currentTheme.bgHex }}
           >
-            <div className="pt-16 sm:pt-20 space-y-2">
+            <div className={`${isMobile ? 'pt-6' : 'pt-10 sm:pt-14'} space-y-2`}>
               <span
-                className="text-[11px] uppercase tracking-[0.3em] font-semibold"
+                className="text-[11px] uppercase tracking-[0.28em] font-semibold block"
                 style={{ color: currentTheme.primaryHex }}
               >
                 {currentTheme.name}
               </span>
-              <h1 className="font-serif text-5xl sm:text-7xl font-normal tracking-wide">
+              <h1
+                className={`font-serif font-normal tracking-wide ${
+                  isMobile ? 'text-4xl' : isTablet ? 'text-5xl sm:text-6xl' : 'text-5xl sm:text-7xl'
+                }`}
+              >
                 Isabella <span className="italic font-light">&amp;</span> Tomás
               </h1>
-              <p className="text-xs uppercase tracking-[0.25em]" style={{ color: currentTheme.mutedHex }}>
+              <p
+                className="text-[11px] sm:text-xs uppercase tracking-[0.22em]"
+                style={{ color: currentTheme.mutedHex }}
+              >
                 18 de Septiembre de 2027 · Jardín de las Hortensias
               </p>
             </div>
 
             {/* Animated Seal Card */}
             <div
-              className={`my-auto p-8 sm:p-14 rounded-[36px] max-w-lg w-full shadow-editorial transition-all duration-700 ${
+              className={`my-auto rounded-[32px] max-w-lg w-full shadow-editorial transition-all duration-700 ${
+                isMobile ? 'p-6' : isTablet ? 'p-10' : 'p-8 sm:p-14'
+              } ${
                 openingAnim ? 'scale-105 opacity-0 -translate-y-6' : 'scale-100 opacity-100'
               }`}
               style={{
@@ -523,10 +542,12 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 border: `1px solid ${currentTheme.borderHex}`,
               }}
             >
-              <p className="text-xs uppercase tracking-[0.28em] mb-2" style={{ color: currentTheme.mutedHex }}>
+              <p className="text-xs uppercase tracking-[0.26em] mb-2" style={{ color: currentTheme.mutedHex }}>
                 Pase de Honor
               </p>
-              <h3 className="font-serif italic text-3xl mb-8">Apreciable Familia &amp; Amigos</h3>
+              <h3 className={`font-serif italic ${isMobile ? 'text-2xl mb-6' : 'text-3xl mb-8'}`}>
+                Apreciable Familia &amp; Amigos
+              </h3>
 
               <div className="relative inline-block">
                 <span
@@ -536,7 +557,9 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleOpenInvitation}
-                  className={`relative w-32 h-32 rounded-full bg-gradient-to-br ${currentTheme.sealGradient} text-ivory-50 shadow-editorial-lg border-4 border-white/60 flex flex-col items-center justify-center transition-transform hover:scale-105 active:scale-95`}
+                  className={`relative ${
+                    isMobile ? 'w-28 h-28' : 'w-32 h-32'
+                  } rounded-full bg-gradient-to-br ${currentTheme.sealGradient} text-ivory-50 shadow-editorial-lg border-4 border-white/60 flex flex-col items-center justify-center transition-transform hover:scale-105 active:scale-95`}
                 >
                   <Heart className="w-5 h-5 fill-current opacity-85 mb-0.5" />
                   <span className="font-serif text-3xl tracking-widest font-semibold">I&amp;T</span>
@@ -546,8 +569,8 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 </button>
               </div>
 
-              <div className="mt-8 space-y-1">
-                <p className="text-xs uppercase tracking-[0.22em] font-semibold" style={{ color: currentTheme.primaryHex }}>
+              <div className={`${isMobile ? 'mt-6' : 'mt-8'} space-y-1`}>
+                <p className="text-xs uppercase tracking-[0.2em] font-semibold" style={{ color: currentTheme.primaryHex }}>
                   Efecto de Lluvia de Corazones Flotantes
                 </p>
                 <p className="text-[11px] italic" style={{ color: currentTheme.mutedHex }}>
@@ -556,7 +579,7 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
               </div>
             </div>
 
-            <div className="pb-4 text-xs tracking-widest uppercase opacity-60">
+            <div className="pb-3 text-[11px] tracking-widest uppercase opacity-60">
               Colección Marfil Menta · Tu Invitación Especial
             </div>
           </div>
@@ -564,35 +587,62 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
           /* ====================================================================
               2. OPENED EXTENSIVE INVITATION SECTIONS
           ==================================================================== */
-          <div className="space-y-16 sm:space-y-24 pb-20">
+          <div
+            className={`${
+              isMobile ? 'space-y-12 pb-14' : isTablet ? 'space-y-16 pb-16' : 'space-y-16 sm:space-y-24 pb-20'
+            }`}
+          >
             {/* HERO SECTION: NAMES & COUPLE PORTRAIT */}
-            <section className="pt-24 sm:pt-28 px-6 text-center space-y-8">
+            <section
+              className={`${
+                isHero ? 'pt-16 px-4' : isMobile ? 'pt-8 px-4' : isTablet ? 'pt-12 px-6' : 'pt-24 sm:pt-28 px-6'
+              } text-center space-y-6`}
+            >
               <div className="space-y-3">
                 <span
-                  className="px-4 py-1.5 rounded-full text-xs uppercase tracking-[0.26em] font-semibold inline-block"
+                  className="px-3.5 py-1.5 rounded-full text-[11px] uppercase tracking-[0.22em] font-semibold inline-block"
                   style={{ backgroundColor: currentTheme.secondaryHex, color: currentTheme.primaryHex }}
                 >
                   ¡Nuestra Boda! · 18 · Septiembre · 2027
                 </span>
-                <h1 className="font-serif text-5xl sm:text-7xl lg:text-8xl font-normal leading-none">
+                <h1
+                  className={`font-serif font-normal leading-none ${
+                    isMobile
+                      ? 'text-4xl'
+                      : isTablet
+                      ? 'text-5xl sm:text-6xl'
+                      : 'text-5xl sm:text-7xl lg:text-8xl'
+                  }`}
+                >
                   Isabella <span className="italic font-light">&amp;</span> Tomás
                 </h1>
-                <p className="text-xs sm:text-sm uppercase tracking-[0.25em]" style={{ color: currentTheme.mutedHex }}>
-                  Jardín de las Hortensias · San Cristóbal
+                <p className="text-xs uppercase tracking-[0.22em]" style={{ color: currentTheme.mutedHex }}>
+                  Jardín de las Hortensias · Pirque
                 </p>
               </div>
 
               {/* Framed Photo with Soft Mint/Ivory Border */}
-              <div className="max-w-3xl mx-auto p-4 rounded-[40px] shadow-editorial" style={{ backgroundColor: currentTheme.cardHex, border: `1px solid ${currentTheme.borderHex}` }}>
-                <div className="relative h-[420px] sm:h-[500px] rounded-[32px] overflow-hidden">
+              <div
+                className="max-w-3xl mx-auto p-3 sm:p-4 rounded-[32px] shadow-editorial"
+                style={{ backgroundColor: currentTheme.cardHex, border: `1px solid ${currentTheme.borderHex}` }}
+              >
+                <div
+                  className={`relative ${
+                    isMobile ? 'h-[300px]' : isTablet ? 'h-[380px]' : 'h-[360px] sm:h-[500px]'
+                  } rounded-[24px] overflow-hidden`}
+                >
                   <img
                     src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1400&q=85"
                     alt="Isabella y Tomás"
                     className="w-full h-full object-cover object-center"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-6 inset-x-6 text-center text-ivory-50">
-                    <p className="font-serif italic text-2xl sm:text-3xl drop-shadow">
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/65 via-transparent to-transparent" />
+                  <div className="absolute bottom-4 inset-x-4 text-center text-ivory-50">
+                    <p
+                      className={`font-serif italic drop-shadow ${
+                        isMobile ? 'text-xl' : 'text-2xl sm:text-3xl'
+                      }`}
+                    >
                       «En tus ojos encontré mi lugar favorito en el mundo»
                     </p>
                   </div>
@@ -601,13 +651,19 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
             </section>
 
             {/* CHARACTERISTIC LOVE QUOTE */}
-            <section className="px-6 text-center">
+            <section className={`${isMobile ? 'px-4' : 'px-6'} text-center`}>
               <div
-                className="max-w-3xl mx-auto p-8 sm:p-12 rounded-[36px] shadow-sm space-y-4"
+                className={`max-w-3xl mx-auto ${
+                  isMobile ? 'p-6 rounded-[28px]' : 'p-8 sm:p-12 rounded-[36px]'
+                } shadow-sm space-y-4`}
                 style={{ backgroundColor: currentTheme.cardHex, border: `1px solid ${currentTheme.borderHex}` }}
               >
                 <Sparkles className="w-6 h-6 mx-auto" style={{ color: currentTheme.primaryHex }} />
-                <blockquote className="font-serif italic text-3xl sm:text-4xl leading-relaxed">
+                <blockquote
+                  className={`font-serif italic leading-relaxed ${
+                    isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-3xl sm:text-4xl'
+                  }`}
+                >
                   «El amor verdadero no se trata de no tener diferencias, sino de saber caminar
                   juntos hacia el mismo horizonte. Hoy comenzamos nuestra mayor aventura.»
                 </blockquote>
@@ -618,19 +674,27 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
             </section>
 
             {/* COUNTDOWN TIMER & CEREMONY/RECEPTION LOCATIONS */}
-            <section className="px-6">
-              <div className="max-w-4xl mx-auto space-y-10 text-center">
+            <section className={isMobile ? 'px-4' : 'px-6'}>
+              <div className="max-w-4xl mx-auto space-y-8 text-center">
                 <div className="space-y-2">
-                  <span className="text-xs uppercase tracking-[0.28em] font-semibold" style={{ color: currentTheme.primaryHex }}>
+                  <span className="text-xs uppercase tracking-[0.26em] font-semibold" style={{ color: currentTheme.primaryHex }}>
                     Cuenta Regresiva
                   </span>
-                  <h2 className="font-serif text-4xl sm:text-5xl font-normal">
+                  <h2
+                    className={`font-serif font-normal ${
+                      isMobile ? 'text-3xl' : isTablet ? 'text-4xl' : 'text-4xl sm:text-5xl'
+                    }`}
+                  >
                     Sábado, 18 de Septiembre de 2027
                   </h2>
                 </div>
 
                 {/* 4 Countdown Blocks */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-2xl mx-auto">
+                <div
+                  className={`grid ${
+                    isMobile ? 'grid-cols-2 gap-2.5' : 'grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4'
+                  } max-w-2xl mx-auto`}
+                >
                   {[
                     { label: 'Días', val: countdown.days },
                     { label: 'Horas', val: String(countdown.hours).padStart(2, '0') },
@@ -639,14 +703,18 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                   ].map((item) => (
                     <div
                       key={item.label}
-                      className="py-4 px-2 sm:py-6 sm:px-4 rounded-2xl sm:rounded-[28px] shadow-sm flex flex-col items-center justify-center text-center overflow-hidden min-w-0"
+                      className={`${
+                        isMobile ? 'py-3.5 px-2 rounded-2xl' : 'py-4 px-2 sm:py-6 sm:px-4 rounded-2xl sm:rounded-[28px]'
+                      } shadow-sm flex flex-col items-center justify-center text-center overflow-hidden min-w-0`}
                       style={{
                         backgroundColor: currentTheme.cardHex,
                         border: `1px solid ${currentTheme.borderHex}`,
                       }}
                     >
                       <span
-                        className="font-serif text-2xl sm:text-4xl lg:text-5xl font-semibold leading-none tracking-tight block max-w-full"
+                        className={`font-serif ${
+                          isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-2xl sm:text-4xl lg:text-5xl'
+                        } font-semibold leading-none tracking-tight block max-w-full tabular-nums`}
                         style={{ color: currentTheme.primaryHex }}
                       >
                         {item.val}
@@ -662,9 +730,15 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 </div>
 
                 {/* Ceremony & Reception Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <div
+                  className={`grid ${
+                    isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-2 gap-6'
+                  } text-left`}
+                >
                   <div
-                    className="p-7 rounded-[32px] shadow-sm space-y-4"
+                    className={`${
+                      isMobile ? 'p-5 rounded-[26px]' : 'p-7 rounded-[32px]'
+                    } shadow-sm space-y-3`}
                     style={{ backgroundColor: currentTheme.cardHex, border: `1px solid ${currentTheme.borderHex}` }}
                   >
                     <div className="flex items-center justify-between">
@@ -673,15 +747,17 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                       </span>
                       <Church className="w-5 h-5" style={{ color: currentTheme.primaryHex }} />
                     </div>
-                    <h3 className="font-serif text-2xl">Parroquia de Santa María de las Rosas</h3>
+                    <h3 className={`font-serif ${isMobile ? 'text-xl' : 'text-2xl'}`}>
+                      Parroquia de Santa María de las Rosas
+                    </h3>
                     <p className="text-xs" style={{ color: currentTheme.mutedHex }}>
-                      Av. de las Hortensias 450, Centro Histórico.
+                      Av. Virginia Subercaseaux 450, Pirque, Región Metropolitana.
                     </p>
                     <a
-                      href="https://maps.google.com"
+                      href="https://maps.google.com/?q=Pirque+Chile"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold hover:underline pt-2"
+                      className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold hover:underline pt-1"
                       style={{ color: currentTheme.primaryHex }}
                     >
                       <MapPin className="w-3.5 h-3.5" />
@@ -691,7 +767,9 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                   </div>
 
                   <div
-                    className="p-7 rounded-[32px] shadow-sm space-y-4"
+                    className={`${
+                      isMobile ? 'p-5 rounded-[26px]' : 'p-7 rounded-[32px]'
+                    } shadow-sm space-y-3`}
                     style={{ backgroundColor: currentTheme.cardHex, border: `1px solid ${currentTheme.borderHex}` }}
                   >
                     <div className="flex items-center justify-between">
@@ -700,15 +778,17 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                       </span>
                       <GlassWater className="w-5 h-5" style={{ color: currentTheme.primaryHex }} />
                     </div>
-                    <h3 className="font-serif text-2xl">Jardín de las Hortensias</h3>
+                    <h3 className={`font-serif ${isMobile ? 'text-xl' : 'text-2xl'}`}>
+                      Jardín de las Hortensias
+                    </h3>
                     <p className="text-xs" style={{ color: currentTheme.mutedHex }}>
-                      Salón Cristal &amp; Terraza de los Lirios.
+                      Salón Cristal &amp; Terraza de los Lirios, Pirque.
                     </p>
                     <a
-                      href="https://maps.google.com"
+                      href="https://maps.google.com/?q=Pirque+Chile"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold hover:underline pt-2"
+                      className="inline-flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold hover:underline pt-1"
                       style={{ color: currentTheme.primaryHex }}
                     >
                       <MapPin className="w-3.5 h-3.5" />
@@ -721,9 +801,11 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
             </section>
 
             {/* UNIFIED DRESS CODE (WITHOUT SEASON TABS) */}
-            <section className="px-6">
+            <section className={isMobile ? 'px-4' : 'px-6'}>
               <div
-                className="max-w-3xl mx-auto p-8 sm:p-12 rounded-[36px] text-center space-y-6 shadow-sm"
+                className={`max-w-3xl mx-auto ${
+                  isMobile ? 'p-6 rounded-[28px]' : 'p-8 sm:p-12 rounded-[36px]'
+                } text-center space-y-5 shadow-sm`}
                 style={{ backgroundColor: currentTheme.cardHex, border: `1px solid ${currentTheme.borderHex}` }}
               >
                 <Shirt className="w-6 h-6 mx-auto" style={{ color: currentTheme.primaryHex }} />
@@ -731,9 +813,15 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                   <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: currentTheme.primaryHex }}>
                     Protocolo de Vestimenta
                   </span>
-                  <h3 className="font-serif text-3xl sm:text-4xl">Formal Elegante · Jardín de Gala</h3>
+                  <h3 className={`font-serif ${isMobile ? 'text-2xl' : 'text-3xl sm:text-4xl'}`}>
+                    Formal Elegante · Jardín de Gala
+                  </h3>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left text-xs sm:text-sm">
+                <div
+                  className={`grid ${
+                    isMobile ? 'grid-cols-1 gap-3' : 'grid-cols-1 sm:grid-cols-2 gap-4'
+                  } text-left text-xs sm:text-sm`}
+                >
                   <div className="p-4 rounded-2xl" style={{ backgroundColor: currentTheme.secondaryHex }}>
                     <strong className="block mb-1 font-serif text-lg">Damas</strong>
                     <p style={{ color: currentTheme.textHex }}>
@@ -747,16 +835,18 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                     </p>
                   </div>
                 </div>
-                <p className="text-xs italic pt-2" style={{ color: currentTheme.mutedHex }}>
+                <p className="text-xs italic pt-1" style={{ color: currentTheme.mutedHex }}>
                   * El color blanco, marfil y tonos crudos están reservados con cariño para la novia.
                 </p>
               </div>
             </section>
 
             {/* RSVP SECTION DIRECT TO WHATSAPP */}
-            <section className="px-6">
+            <section className={isMobile ? 'px-4' : 'px-6'}>
               <div
-                className="max-w-3xl mx-auto p-8 sm:p-12 rounded-[36px] shadow-sm space-y-6"
+                className={`max-w-3xl mx-auto ${
+                  isMobile ? 'p-6 rounded-[28px]' : 'p-8 sm:p-12 rounded-[36px]'
+                } shadow-sm space-y-5`}
                 style={{ backgroundColor: currentTheme.cardHex, border: `1px solid ${currentTheme.borderHex}` }}
               >
                 <div className="text-center space-y-2">
@@ -764,7 +854,9 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                   <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: currentTheme.primaryHex }}>
                     R.S.V.P.
                   </span>
-                  <h3 className="font-serif text-3xl sm:text-4xl">Confirmación de Asistencia</h3>
+                  <h3 className={`font-serif ${isMobile ? 'text-2xl' : 'text-3xl sm:text-4xl'}`}>
+                    Confirmación de Asistencia
+                  </h3>
                   <p className="text-xs sm:text-sm" style={{ color: currentTheme.mutedHex }}>
                     Agradecemos confirmar antes del 18 de Agosto de 2027.
                   </p>
@@ -795,7 +887,11 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
+                  <div
+                    className={`grid ${
+                      isMobile ? 'grid-cols-1 gap-2.5' : 'grid-cols-1 sm:grid-cols-2 gap-3'
+                    }`}
+                  >
                     <button
                       type="button"
                       onClick={() => setAttending('si')}
@@ -833,7 +929,11 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                   </div>
 
                   {attending === 'si' && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div
+                      className={`grid ${
+                        isMobile ? 'grid-cols-1 gap-3' : 'grid-cols-1 sm:grid-cols-2 gap-3'
+                      }`}
+                    >
                       <div>
                         <label className="block text-xs uppercase tracking-wider mb-1">
                           Pases a confirmar
@@ -891,10 +991,10 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-4 rounded-2xl text-ivory-50 text-xs uppercase tracking-[0.2em] font-semibold transition flex items-center justify-center gap-2 shadow-md hover:opacity-95"
+                    className="w-full py-4 rounded-2xl text-ivory-50 text-xs uppercase tracking-[0.18em] font-semibold transition flex items-center justify-center gap-2 shadow-md hover:opacity-95"
                     style={{ backgroundColor: currentTheme.primaryHex }}
                   >
-                    <FaWhatsapp className="w-4 h-4 text-[#A7D7B8]" />
+                    <FaWhatsapp className="w-4 h-4 text-[#A7D7B8] shrink-0" />
                     <span>Confirmar Asistencia por WhatsApp</span>
                   </button>
                 </form>
@@ -902,41 +1002,49 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
             </section>
 
             {/* GIFT SECTION WITH BUTTON TO GIFT REGISTRY */}
-            <section className="px-6 text-center">
+            <section className={`${isMobile ? 'px-4' : 'px-6'} text-center`}>
               <div
-                className="max-w-3xl mx-auto p-8 sm:p-12 rounded-[36px] shadow-sm space-y-5"
+                className={`max-w-3xl mx-auto ${
+                  isMobile ? 'p-6 rounded-[28px]' : 'p-8 sm:p-12 rounded-[36px]'
+                } shadow-sm space-y-4`}
                 style={{ backgroundColor: currentTheme.cardHex, border: `1px solid ${currentTheme.borderHex}` }}
               >
                 <Gift className="w-7 h-7 mx-auto" style={{ color: currentTheme.primaryHex }} />
                 <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: currentTheme.primaryHex }}>
                   Mesa de Regalos
                 </span>
-                <h3 className="font-serif text-3xl sm:text-4xl">Lista de Regalos de los Novios</h3>
+                <h3 className={`font-serif ${isMobile ? 'text-2xl' : 'text-3xl sm:text-4xl'}`}>
+                  Lista de Regalos de los Novios
+                </h3>
                 <p className="text-xs sm:text-sm max-w-xl mx-auto" style={{ color: currentTheme.mutedHex }}>
                   El mejor obsequio es contar con su presencia. Si desean tener un detalle para
                   nuestro nuevo hogar o luna de miel, pueden consultar nuestra lista de regalos
                   personalizada:
                 </p>
 
-                <div className="pt-3">
+                <div className="pt-2">
                   <a
                     href="/disenos/mesa-de-regalos"
-                    className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl text-ivory-50 text-xs uppercase tracking-[0.18em] font-semibold shadow-md transition hover:opacity-95"
+                    className={`inline-flex items-center justify-center gap-2 ${
+                      isMobile ? 'px-5 py-3.5 w-full' : 'px-8 py-4'
+                    } rounded-2xl text-ivory-50 text-xs uppercase tracking-[0.16em] font-semibold shadow-md transition hover:opacity-95`}
                     style={{ backgroundColor: currentTheme.primaryHex }}
                   >
-                    <Gift className="w-4 h-4" />
+                    <Gift className="w-4 h-4 shrink-0" />
                     <span>Ver Lista de Regalos de los Novios</span>
-                    <ArrowUpRight className="w-4 h-4" />
+                    <ArrowUpRight className="w-4 h-4 shrink-0" />
                   </a>
                 </div>
               </div>
             </section>
 
             {/* GRATITUDE / CLOSING */}
-            <section className="px-6 text-center pt-8 pb-12">
+            <section className={`${isMobile ? 'px-4 pt-4 pb-8' : 'px-6 pt-8 pb-12'} text-center`}>
               <div className="max-w-2xl mx-auto space-y-4">
                 <Heart className="w-6 h-6 mx-auto fill-current" style={{ color: currentTheme.primaryHex }} />
-                <h3 className="font-serif text-4xl sm:text-5xl">¡Gracias por Acompañarnos!</h3>
+                <h3 className={`font-serif ${isMobile ? 'text-3xl' : 'text-4xl sm:text-5xl'}`}>
+                  ¡Gracias por Acompañarnos!
+                </h3>
                 <p className="text-sm font-light leading-relaxed" style={{ color: currentTheme.mutedHex }}>
                   A nuestras familias y amigos por llenar de luz este camino. Nos vemos el 18 de
                   Septiembre para celebrar el amor.

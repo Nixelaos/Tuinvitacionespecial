@@ -23,6 +23,9 @@ import {
   Flower2,
   Palette,
   MessageSquareHeart,
+  Smartphone,
+  Tablet,
+  Monitor,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { WHATSAPP_NUMBER } from '../data/weddingData';
@@ -123,7 +126,7 @@ export const TORN_PAPER_PALETTES: TornPaperPalette[] = [
   },
   {
     id: 'anil',
-    name: 'Azul Añil Rústico & Algodón',
+    name: 'Azul Añil Rústico & Lino',
     swatchColor: '#4B6B82',
     primaryHex: '#4B6B82',
     primaryDark: '#284153',
@@ -200,6 +203,8 @@ const TornPaperDivider: React.FC<{
   </div>
 );
 
+export type DeviceMode = 'desktop' | 'tablet' | 'mobile';
+
 export const TornPaperWeddingInvitation: React.FC = () => {
   // 0. Hero Preview Detection
   const [isHero, setIsHero] = useState(false);
@@ -213,6 +218,27 @@ export const TornPaperWeddingInvitation: React.FC = () => {
       }
     }
   }, []);
+
+  // Device Viewport Simulation State (Mobile 400 x 824 by default)
+  const [deviceMode, setDeviceMode] = useState<DeviceMode>('mobile');
+  const isMobile = isHero || deviceMode === 'mobile';
+  const isTablet = !isHero && deviceMode === 'tablet';
+
+  // Device wrapper classes (defaults to mobile 400 x 824)
+  const getContainerWrapper = () => {
+    if (isHero) {
+      return 'w-full min-h-screen';
+    }
+    switch (deviceMode) {
+      case 'mobile':
+        return 'w-full max-w-[400px] min-h-[824px] mx-auto mt-24 sm:mt-20 mb-8 border-[10px] sm:border-[12px] border-charcoal rounded-[44px] sm:rounded-[52px] shadow-2xl overflow-hidden relative bg-charcoal';
+      case 'tablet':
+        return 'w-full max-w-[768px] min-h-[1024px] mx-auto mt-24 sm:mt-20 mb-8 border-[12px] sm:border-[14px] border-charcoal rounded-[36px] sm:rounded-[40px] shadow-2xl overflow-hidden relative bg-charcoal';
+      case 'desktop':
+      default:
+        return 'w-full min-h-screen';
+    }
+  };
 
   // 1. Color Palettes State (5 Handcrafted Palettes)
   const [selectedPaletteIndex, setSelectedPaletteIndex] = useState(0);
@@ -306,7 +332,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
 
     const lines = [
       `¡Hola Lucía & Rodrigo! 🌾💍`,
-      `Queremos confirmar nuestra asistencia a su boda en Hacienda Temozón:`,
+      `Queremos confirmar nuestra asistencia a su boda en Viña Los Aromos:`,
       ``,
       `• *Nombre / Familia:* ${guestName.trim() || 'Familia Invitada'}`,
       `• *Respuesta:* ${status}`,
@@ -319,196 +345,13 @@ export const TornPaperWeddingInvitation: React.FC = () => {
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
   };
 
-  // ============================================================================
-  // 1. INITIAL HANDMADE TORN-PAPER SCROLL & SILK RIBBON SEAL (ANTES DE ABRIR)
-  // ============================================================================
-  if (!scrollOpened) {
-    return (
-      <div
-        className="min-h-screen flex flex-col justify-between p-4 sm:p-8 relative overflow-hidden select-none transition-colors duration-500"
-        style={{ backgroundColor: currentTheme.bgOuter }}
-      >
-        {/* Soft Botanical Background Texture */}
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-25 blur-[1px]"
-          style={{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/30 via-transparent to-charcoal/40" />
-
-        {/* Top Controls Bar */}
-        <div className="relative z-30 max-w-5xl w-full mx-auto pt-2">
-          {isHero ? (
-            /* HERO PREVIEW TOP BAR: Centered 5-color swatches */
-            <div className="flex items-center justify-center gap-1.5">
-              <div
-                className="flex items-center gap-1.5 px-3 py-1.5 deckle-pill shadow-md backdrop-blur-md"
-                style={{
-                  backgroundColor: currentTheme.bgCard,
-                  border: `1.5px solid ${currentTheme.borderHex}`,
-                }}
-                title="Elige tu color artesanal favorito"
-              >
-                <Palette className="w-3.5 h-3.5 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
-                {TORN_PAPER_PALETTES.map((pal, idx) => (
-                  <button
-                    key={pal.id}
-                    type="button"
-                    onClick={() => setSelectedPaletteIndex(idx)}
-                    className={`w-5 h-5 rounded-full transition-all duration-300 ${
-                      selectedPaletteIndex === idx
-                        ? 'scale-125 ring-2 ring-[#2C221E] shadow-sm'
-                        : 'hover:scale-110 opacity-85'
-                    }`}
-                    style={{ backgroundColor: pal.swatchColor }}
-                    title={pal.name}
-                    aria-label={pal.name}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : (
-            /* STANDALONE PAGE TOP BAR */
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <a
-                href="/#catalogo"
-                className="px-4 py-2 deckle-pill text-xs uppercase tracking-[0.18em] transition flex items-center gap-1.5 shadow-sm"
-                style={{
-                  backgroundColor: currentTheme.bgCard,
-                  color: currentTheme.textDark,
-                  border: `1px solid ${currentTheme.borderHex}`,
-                }}
-              >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Volver al Catálogo</span>
-              </a>
-
-              {/* 5 Colors Swatches Bar */}
-              <div
-                className="flex items-center gap-1.5 px-3 py-1.5 deckle-pill shadow-sm"
-                style={{
-                  backgroundColor: currentTheme.bgCard,
-                  border: `1px solid ${currentTheme.borderHex}`,
-                }}
-                title="Elige entre 5 paletas de color en tiempo real"
-              >
-                <Palette className="w-3.5 h-3.5 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
-                {TORN_PAPER_PALETTES.map((pal, idx) => (
-                  <button
-                    key={pal.id}
-                    type="button"
-                    onClick={() => setSelectedPaletteIndex(idx)}
-                    className={`w-6 h-6 rounded-full transition-transform ${
-                      selectedPaletteIndex === idx
-                        ? 'scale-125 ring-2 ring-[#2C221E] shadow-sm'
-                        : 'hover:scale-110'
-                    }`}
-                    style={{ backgroundColor: pal.swatchColor }}
-                    title={pal.name}
-                    aria-label={pal.name}
-                  />
-                ))}
-              </div>
-
-              <span
-                className="px-4 py-1.5 deckle-pill text-[10px] uppercase tracking-[0.24em] font-semibold hidden md:inline-block shadow-sm"
-                style={{
-                  backgroundColor: currentTheme.bgCard,
-                  color: currentTheme.primaryHex,
-                  border: `1px solid ${currentTheme.borderHex}`,
-                }}
-              >
-                Papel Algodón Cortado a Mano · Bordes Rasgados
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Center Unfurling Torn-Paper Pliego with Silk Ribbon */}
-        <div className="relative z-20 my-auto max-w-xl w-full mx-auto py-6">
-          <div
-            className={`deckle-card p-8 sm:p-12 text-center relative transition-all duration-700 shadow-editorial-lg ${
-              untyingRibbon ? 'scale-105 opacity-0 -translate-y-8' : 'scale-100 opacity-100'
-            }`}
-            style={{
-              backgroundColor: currentTheme.bgCard,
-              border: `1px solid ${currentTheme.borderHex}`,
-            }}
-          >
-            {/* Upper Paper Layer */}
-            <div className="space-y-2 pb-10">
-              <Flower2 className="w-6 h-6 mx-auto opacity-85" style={{ color: currentTheme.primaryHex }} />
-              <span
-                className="text-[10px] uppercase tracking-[0.32em] block font-medium"
-                style={{ color: currentTheme.primaryHex }}
-              >
-                Pliego Nupcial Artesanal · {currentTheme.name}
-              </span>
-              <h1 className="font-serif text-4xl sm:text-6xl text-[#2C221E] font-normal">
-                Lucía <span className="italic font-light" style={{ color: currentTheme.primaryHex }}>&amp;</span> Rodrigo
-              </h1>
-              <p className="text-xs uppercase tracking-[0.24em]" style={{ color: currentTheme.textMuted }}>
-                06 de Noviembre de 2027 · Hacienda Temozón
-              </p>
-            </div>
-
-            {/* Horizontal Silk Ribbon Across the Paper */}
-            <div className="relative my-4 flex items-center justify-center">
-              {/* Silk Ribbon Strip */}
-              <div
-                className={`w-full h-9 bg-gradient-to-r ${currentTheme.ribbonGradient} shadow-md rounded-full opacity-95 transition-all duration-500`}
-              />
-
-              {/* Pressed Botanical Terracotta Wax Seal */}
-              <button
-                type="button"
-                onClick={handleUntieScroll}
-                className={`group absolute w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-br ${currentTheme.sealGradient} text-ivory-50 shadow-editorial-lg border-4 border-white/70 flex flex-col items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer`}
-                aria-label="Desatar cinta de seda y abrir pliego de invitación"
-              >
-                <div className="absolute inset-2 rounded-full border border-dashed border-white/45 pointer-events-none" />
-                <Flower2 className="w-5 h-5 text-ivory-100 mb-0.5" />
-                <span className="font-serif text-3xl sm:text-4xl tracking-widest">L&amp;R</span>
-                <span className="text-[9px] uppercase tracking-[0.22em] text-ivory-200 mt-1">
-                  Desatar Cinta
-                </span>
-              </button>
-            </div>
-
-            {/* Lower Paper Layer */}
-            <div className="pt-12 space-y-2">
-              <p className="font-serif italic text-2xl" style={{ color: currentTheme.textDark }}>
-                Para: Nuestra Querida Familia y Amigos
-              </p>
-              <button
-                type="button"
-                onClick={handleUntieScroll}
-                className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.22em] font-semibold transition pt-2 hover:opacity-80"
-                style={{ color: currentTheme.primaryHex }}
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Toca el sello de lacre para desplegar el papel</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative z-30 text-center pb-2 text-xs font-serif italic" style={{ color: currentTheme.textMuted }}>
-          Papelería Digital en Algodón Artesanal · Tu Invitación Especial
-        </div>
-      </div>
-    );
-  }
-
-  // ============================================================================
-  // 2. OPENED TORN-PAPER ARTISTIC LANDING PAGE
-  // ============================================================================
   return (
     <div
       className="min-h-screen relative overflow-x-hidden transition-colors duration-500"
-      style={{ backgroundColor: currentTheme.bgMain, color: currentTheme.textDark }}
+      style={{
+        backgroundColor: scrollOpened ? currentTheme.bgMain : currentTheme.bgOuter,
+        color: currentTheme.textDark,
+      }}
     >
       {/* FLOATING TOP CONTROLS */}
       <div className="fixed top-4 inset-x-2 sm:inset-x-4 z-50 pointer-events-none">
@@ -543,19 +386,21 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             </div>
 
             {/* Re-close scroll button */}
-            <button
-              type="button"
-              onClick={() => setScrollOpened(false)}
-              className="p-1.5 rounded-full transition shadow-md pointer-events-auto backdrop-blur-md"
-              style={{
-                backgroundColor: currentTheme.bgCard,
-                border: `1.5px solid ${currentTheme.borderHex}`,
-                color: currentTheme.primaryHex,
-              }}
-              title="Cerrar Pliego"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-            </button>
+            {scrollOpened && (
+              <button
+                type="button"
+                onClick={() => setScrollOpened(false)}
+                className="p-1.5 rounded-full transition shadow-md pointer-events-auto backdrop-blur-md"
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  border: `1.5px solid ${currentTheme.borderHex}`,
+                  color: currentTheme.primaryHex,
+                }}
+                title="Cerrar Pliego"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+            )}
 
             {/* Music Toggle */}
             <button
@@ -569,7 +414,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             </button>
           </div>
         ) : (
-          /* STANDALONE PAGE CONTROLS: Return to catalog + Cerrar Pliego + 5 Swatches + Music */
+          /* STANDALONE PAGE CONTROLS: Return to catalog + Cerrar Pliego + Device Switcher + 5 Swatches + Music */
           <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2.5">
             <div className="flex items-center gap-2 pointer-events-auto">
               <a
@@ -585,112 +430,304 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                 <span className="hidden sm:inline">Catálogo</span>
               </a>
 
-              <button
-                type="button"
-                onClick={() => setScrollOpened(false)}
-                className="px-4 py-2 deckle-pill shadow-sm text-xs uppercase tracking-[0.16em] transition flex items-center gap-1.5"
-                style={{
-                  backgroundColor: currentTheme.bgCard,
-                  color: currentTheme.textDark,
-                  border: `1px solid ${currentTheme.borderHex}`,
-                }}
-              >
-                <RotateCcw className="w-3.5 h-3.5" style={{ color: currentTheme.primaryHex }} />
-                <span>Cerrar Pliego</span>
-              </button>
+              {scrollOpened && (
+                <button
+                  type="button"
+                  onClick={() => setScrollOpened(false)}
+                  className="px-4 py-2 deckle-pill shadow-sm text-xs uppercase tracking-[0.16em] transition flex items-center gap-1.5"
+                  style={{
+                    backgroundColor: currentTheme.bgCard,
+                    color: currentTheme.textDark,
+                    border: `1px solid ${currentTheme.borderHex}`,
+                  }}
+                >
+                  <RotateCcw className="w-3.5 h-3.5" style={{ color: currentTheme.primaryHex }} />
+                  <span>Cerrar Pliego</span>
+                </button>
+              )}
             </div>
 
-            {/* 5 Colors Swatches Bar */}
+            {/* Center: Device Viewport Switcher (Celular, Tablet, Pantalla Grande) */}
             <div
-              className="flex items-center gap-1.5 px-3 py-1.5 deckle-pill shadow-sm pointer-events-auto"
+              className="flex items-center p-1 rounded-full shadow-sm pointer-events-auto"
               style={{
                 backgroundColor: currentTheme.bgCard,
                 border: `1px solid ${currentTheme.borderHex}`,
               }}
-              title="Elige entre 5 paletas de color en tiempo real"
             >
-              <Palette className="w-3.5 h-3.5 ml-1 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
-              {TORN_PAPER_PALETTES.map((pal, idx) => (
-                <button
-                  key={pal.id}
-                  type="button"
-                  onClick={() => setSelectedPaletteIndex(idx)}
-                  className={`w-6 h-6 rounded-full transition-transform ${
-                    selectedPaletteIndex === idx
-                      ? 'scale-125 ring-2 ring-charcoal shadow-sm'
-                      : 'hover:scale-110'
-                  }`}
-                  style={{ backgroundColor: pal.swatchColor }}
-                  title={pal.name}
-                  aria-label={pal.name}
-                />
-              ))}
+              <button
+                type="button"
+                onClick={() => setDeviceMode('mobile')}
+                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
+                  deviceMode === 'mobile'
+                    ? 'bg-charcoal text-ivory-50 font-medium'
+                    : 'hover:opacity-80'
+                }`}
+                title="Ver en vista de Celular"
+              >
+                <Smartphone className="w-3.5 h-3.5" />
+                <span>Celular</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setDeviceMode('tablet')}
+                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
+                  deviceMode === 'tablet'
+                    ? 'bg-charcoal text-ivory-50 font-medium'
+                    : 'hover:opacity-80'
+                }`}
+                title="Ver en vista de Tablet"
+              >
+                <Tablet className="w-3.5 h-3.5" />
+                <span>Tablet</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setDeviceMode('desktop')}
+                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
+                  deviceMode === 'desktop'
+                    ? 'bg-charcoal text-ivory-50 font-medium'
+                    : 'hover:opacity-80'
+                }`}
+                title="Ver en Pantalla Grande"
+              >
+                <Monitor className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Pantalla Grande</span>
+                <span className="sm:hidden">Grande</span>
+              </button>
             </div>
 
-            <button
-              type="button"
-              onClick={() => setMusicOn(!musicOn)}
-              className="pointer-events-auto px-5 py-2 deckle-pill text-ivory-50 shadow-editorial flex items-center gap-2 text-xs transition"
-              style={{ backgroundColor: currentTheme.accentDark }}
-            >
-              {musicOn ? (
-                <>
-                  <Volume2 className="w-4 h-4 text-[#EED7C5] animate-pulse" />
-                  <span className="text-[11px] tracking-wider hidden sm:inline">
-                    Guitarra Clásica · Activa
-                  </span>
-                </>
-              ) : (
-                <>
-                  <VolumeX className="w-4 h-4 opacity-70" />
-                  <span className="text-[11px] tracking-wider">Música en Pausa</span>
-                </>
-              )}
-            </button>
+            {/* 5 Colors Swatches Bar + Music */}
+            <div className="flex items-center gap-2 pointer-events-auto">
+              <div
+                className="flex items-center gap-1.5 px-3 py-1.5 deckle-pill shadow-sm"
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+                title="Elige entre 5 paletas de color en tiempo real"
+              >
+                <Palette className="w-3.5 h-3.5 ml-1 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
+                {TORN_PAPER_PALETTES.map((pal, idx) => (
+                  <button
+                    key={pal.id}
+                    type="button"
+                    onClick={() => setSelectedPaletteIndex(idx)}
+                    className={`w-6 h-6 rounded-full transition-transform ${
+                      selectedPaletteIndex === idx
+                        ? 'scale-125 ring-2 ring-charcoal shadow-sm'
+                        : 'hover:scale-110'
+                    }`}
+                    style={{ backgroundColor: pal.swatchColor }}
+                    title={pal.name}
+                    aria-label={pal.name}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setMusicOn(!musicOn)}
+                className="pointer-events-auto px-4 py-2 deckle-pill text-ivory-50 shadow-editorial flex items-center gap-2 text-xs transition"
+                style={{ backgroundColor: currentTheme.accentDark }}
+              >
+                {musicOn ? (
+                  <>
+                    <Volume2 className="w-4 h-4 text-[#EED7C5] animate-pulse" />
+                    <span className="text-[11px] tracking-wider hidden sm:inline">
+                      Guitarra Clásica
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <VolumeX className="w-4 h-4 opacity-70" />
+                    <span className="text-[11px] tracking-wider hidden sm:inline">Música en Pausa</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         )}
       </div>
+
+      {/* INNER WRAPPER (RESPONSIVE OR DEVICE MOCKUP FRAME) */}
+      <div className={getContainerWrapper()}>
+        {/* Device Speaker Notch in Mobile Simulator */}
+        {!isHero && deviceMode === 'mobile' && (
+          <div className="w-28 sm:w-36 h-4 sm:h-5 bg-charcoal rounded-b-2xl mx-auto z-40 relative flex items-center justify-center">
+            <div className="w-8 sm:w-10 h-1 bg-charcoal-light rounded-full" />
+          </div>
+        )}
+
+        {!scrollOpened ? (
+          /* UNOPENED HANDMADE TORN-PAPER SCROLL & SILK RIBBON SEAL */
+          <div
+            className={`flex flex-col justify-between relative overflow-hidden select-none transition-colors duration-500 ${
+              isMobile
+                ? 'p-4 min-h-[780px]'
+                : isTablet
+                ? 'p-8 min-h-[960px]'
+                : 'p-4 sm:p-8 min-h-screen'
+            }`}
+            style={{ backgroundColor: currentTheme.bgOuter }}
+          >
+            {/* Soft Botanical Background Texture */}
+            <div
+              className="absolute inset-0 bg-cover bg-center opacity-25 blur-[1px]"
+              style={{
+                backgroundImage:
+                  'url(https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80)',
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-charcoal/30 via-transparent to-charcoal/40" />
+
+            {/* Center Unfurling Torn-Paper Pliego with Silk Ribbon */}
+            <div className="relative z-20 my-auto max-w-xl w-full mx-auto py-4">
+              <div
+                className={`deckle-card ${
+                  isMobile ? 'p-6' : isTablet ? 'p-10' : 'p-6 sm:p-12'
+                } text-center relative transition-all duration-700 shadow-editorial-lg ${
+                  untyingRibbon ? 'scale-105 opacity-0 -translate-y-8' : 'scale-100 opacity-100'
+                }`}
+                style={{
+                  backgroundColor: currentTheme.bgCard,
+                  border: `1px solid ${currentTheme.borderHex}`,
+                }}
+              >
+                {/* Upper Paper Layer */}
+                <div className={`space-y-2 ${isMobile ? 'pb-7' : 'pb-8 sm:pb-10'}`}>
+                  <Flower2 className="w-6 h-6 mx-auto opacity-85" style={{ color: currentTheme.primaryHex }} />
+                  <span
+                    className="text-[10px] uppercase tracking-[0.28em] block font-medium"
+                    style={{ color: currentTheme.primaryHex }}
+                  >
+                    Invitación Digital · {currentTheme.name}
+                  </span>
+                  <h1
+                    className={`font-serif text-[#2C221E] font-normal ${
+                      isMobile ? 'text-4xl' : isTablet ? 'text-5xl' : 'text-4xl sm:text-6xl'
+                    }`}
+                  >
+                    Lucía <span className="italic font-light" style={{ color: currentTheme.primaryHex }}>&amp;</span> Rodrigo
+                  </h1>
+                  <p className="text-[11px] sm:text-xs uppercase tracking-[0.22em]" style={{ color: currentTheme.textMuted }}>
+                    06 de Noviembre de 2027 · Viña Los Aromos
+                  </p>
+                </div>
+
+                {/* Horizontal Silk Ribbon Across the Paper */}
+                <div className="relative my-4 flex items-center justify-center">
+                  {/* Silk Ribbon Strip */}
+                  <div
+                    className={`w-full h-9 bg-gradient-to-r ${currentTheme.ribbonGradient} shadow-md rounded-full opacity-95 transition-all duration-500`}
+                  />
+
+                  {/* Pressed Botanical Terracotta Wax Seal */}
+                  <button
+                    type="button"
+                    onClick={handleUntieScroll}
+                    className={`group absolute ${
+                      isMobile ? 'w-28 h-28' : 'w-32 h-32 sm:w-36 sm:h-36'
+                    } rounded-full bg-gradient-to-br ${currentTheme.sealGradient} text-ivory-50 shadow-editorial-lg border-4 border-white/70 flex flex-col items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer`}
+                    aria-label="Desatar cinta de seda y abrir invitación"
+                  >
+                    <div className="absolute inset-2 rounded-full border border-dashed border-white/45 pointer-events-none" />
+                    <Flower2 className="w-5 h-5 text-ivory-100 mb-0.5" />
+                    <span className={`font-serif ${isMobile ? 'text-2xl' : 'text-3xl sm:text-4xl'} tracking-widest`}>
+                      L&amp;R
+                    </span>
+                    <span className="text-[9px] uppercase tracking-[0.22em] text-ivory-200 mt-1">
+                      Desatar Cinta
+                    </span>
+                  </button>
+                </div>
+
+                {/* Lower Paper Layer */}
+                <div className={`${isMobile ? 'pt-10' : 'pt-12'} space-y-2`}>
+                  <p
+                    className={`font-serif italic ${isMobile ? 'text-xl' : 'text-2xl'}`}
+                    style={{ color: currentTheme.textDark }}
+                  >
+                    Para: Nuestra Querida Familia y Amigos
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleUntieScroll}
+                    className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] font-semibold transition pt-2 hover:opacity-80"
+                    style={{ color: currentTheme.primaryHex }}
+                  >
+                    <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                    <span>Toca el sello para abrir la invitación</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative z-30 text-center pb-2 text-xs font-serif italic" style={{ color: currentTheme.textMuted }}>
+              Invitación Digital Cinta de Seda · Tu Invitación Especial
+            </div>
+          </div>
+        ) : (
+          /* ====================================================================
+              2. OPENED TORN-PAPER ARTISTIC LANDING PAGE
+          ==================================================================== */
+          <div className="space-y-0">
 
       {/* ========================================================================
           SECCIÓN 1: NOMBRES DE LOS NOVIOS + FOTOGRAFÍA EN MÁSCARA ORGÁNICA
       ======================================================================== */}
       <section
-        className="pt-24 pb-16 px-4 sm:px-8 relative transition-colors duration-500"
+        className={`${
+          isHero ? 'pt-16 pb-10 px-4' : isMobile ? 'pt-8 pb-10 px-4' : isTablet ? 'pt-12 pb-14 px-6' : 'pt-24 pb-16 px-4 sm:px-8'
+        } relative transition-colors duration-500`}
         style={{
           background: `linear-gradient(to bottom, ${currentTheme.bgHeaderFrom}, ${currentTheme.bgHeaderTo})`,
         }}
       >
-        <div className="max-w-5xl mx-auto text-center space-y-8">
+        <div className="max-w-5xl mx-auto text-center space-y-6">
           <div
-            className="inline-flex items-center gap-2 px-5 py-2 deckle-pill text-xs uppercase tracking-[0.26em] shadow-sm font-semibold"
+            className="inline-flex items-center gap-2 px-4 py-1.5 deckle-pill text-[11px] uppercase tracking-[0.22em] shadow-sm font-semibold"
             style={{
               backgroundColor: currentTheme.bgCard,
               color: currentTheme.primaryHex,
               border: `1px solid ${currentTheme.borderHex}`,
             }}
           >
-            <Flower2 className="w-4 h-4" />
+            <Flower2 className="w-3.5 h-3.5 shrink-0" />
             <span>Nuestra Boda · 06 de Noviembre de 2027</span>
           </div>
 
-          <h1 className="font-serif text-6xl sm:text-8xl font-normal tracking-tight leading-none" style={{ color: currentTheme.textDark }}>
+          <h1
+            className={`font-serif font-normal tracking-tight leading-none ${
+              isMobile ? 'text-4xl' : isTablet ? 'text-6xl' : 'text-5xl sm:text-8xl'
+            }`}
+            style={{ color: currentTheme.textDark }}
+          >
             Lucía <span className="italic font-light" style={{ color: currentTheme.primaryHex }}>&amp;</span> Rodrigo
           </h1>
 
-          <p className="text-xs sm:text-sm uppercase tracking-[0.28em]" style={{ color: currentTheme.textMuted }}>
-            Hacienda Temozón Sur · Mérida, Yucatán
+          <p className="text-xs uppercase tracking-[0.24em]" style={{ color: currentTheme.textMuted }}>
+            Viña Los Aromos · Valle de Casablanca
           </p>
 
-          {/* Organic Pebble / Handmade Paper Framed Couple Portrait */}
+          {/* Organic Pebble / Framed Couple Portrait */}
           <div className="max-w-2xl mx-auto pt-2">
             <div
-              className="deckle-card p-4 sm:p-8 animate-float-gentle shadow-editorial"
+              className={`deckle-card ${
+                isMobile ? 'p-3.5' : isTablet ? 'p-6' : 'p-4 sm:p-8'
+              } animate-float-gentle shadow-editorial`}
               style={{
                 backgroundColor: currentTheme.bgCard,
                 border: `1px solid ${currentTheme.borderHex}`,
               }}
             >
-              <div className="relative h-[340px] sm:h-[440px] overflow-hidden organic-photo-mask shadow-inner">
+              <div
+                className={`relative ${
+                  isMobile ? 'h-[280px]' : isTablet ? 'h-[360px]' : 'h-[340px] sm:h-[440px]'
+                } overflow-hidden organic-photo-mask shadow-inner`}
+              >
                 <img
                   src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=85"
                   alt="Lucía y Rodrigo"
@@ -700,9 +737,11 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               </div>
 
               {/* Romantic Quote Placed Elegantly Below the Organic Portrait */}
-              <div className="pt-6 pb-2 px-3 sm:px-8 text-center space-y-3">
+              <div className={`pt-5 pb-2 ${isMobile ? 'px-2' : 'px-3 sm:px-8'} text-center space-y-2.5`}>
                 <p
-                  className="font-serif italic text-xl sm:text-3xl leading-relaxed"
+                  className={`font-serif italic leading-relaxed ${
+                    isMobile ? 'text-xl' : isTablet ? 'text-2xl' : 'text-xl sm:text-3xl'
+                  }`}
                   style={{ color: currentTheme.textDark }}
                 >
                   «Contigo cada camino se convierte en nuestra mejor historia»
@@ -721,31 +760,39 @@ export const TornPaperWeddingInvitation: React.FC = () => {
       <TornPaperDivider fill={currentTheme.bgCard} />
 
       {/* ========================================================================
-          SECCIÓN 2: FRASE CARACTERÍSTICA EN PLIEGO DE PAPEL ALGODÓN
+          SECCIÓN 2: FRASE CARACTERÍSTICA Y PADRES DE LOS NOVIOS
       ======================================================================== */}
       <section
-        className="py-16 sm:py-24 px-4 sm:px-8 transition-colors duration-500"
+        className={`${
+          isMobile ? 'py-10 px-4' : isTablet ? 'py-14 px-6' : 'py-16 sm:py-24 px-4 sm:px-8'
+        } transition-colors duration-500`}
         style={{ backgroundColor: currentTheme.bgCard }}
       >
-        <div className="max-w-4xl mx-auto text-center space-y-12">
-          <div className="max-w-3xl mx-auto space-y-5">
-            <Feather className="w-7 h-7 mx-auto" style={{ color: currentTheme.primaryHex }} />
+        <div className="max-w-4xl mx-auto text-center space-y-10">
+          <div className="max-w-3xl mx-auto space-y-4">
+            <Feather className="w-6 h-6 mx-auto" style={{ color: currentTheme.primaryHex }} />
             <blockquote
-              className="font-serif italic text-3xl sm:text-5xl leading-[1.22]"
+              className={`font-serif italic leading-[1.25] ${
+                isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-3xl sm:text-5xl'
+              }`}
               style={{ color: currentTheme.textDark }}
             >
               «Nos amamos no solo por lo que somos, sino por lo que construimos cuando estamos
               juntos. Hoy comienza el capítulo más hermoso de nuestras vidas.»
             </blockquote>
-            <p className="text-xs uppercase tracking-[0.28em] font-semibold" style={{ color: currentTheme.primaryHex }}>
+            <p className="text-xs uppercase tracking-[0.24em] font-semibold" style={{ color: currentTheme.primaryHex }}>
               — Con la bendición de Dios y de nuestros padres
             </p>
           </div>
 
-          {/* Parents Cards with Torn Paper Edges */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          {/* Parents Cards with Organic Edges */}
+          <div
+            className={`grid ${
+              isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-2 gap-6'
+            } max-w-3xl mx-auto`}
+          >
             <div
-              className="deckle-card p-7 space-y-1.5 shadow-sm"
+              className={`deckle-card ${isMobile ? 'p-5' : 'p-7'} space-y-1.5 shadow-sm`}
               style={{
                 backgroundColor: currentTheme.bgCardAlt,
                 border: `1px solid ${currentTheme.borderHex}`,
@@ -754,12 +801,16 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               <span className="text-[10px] uppercase tracking-[0.25em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
                 Padres de la Novia
               </span>
-              <p className="font-serif text-2xl" style={{ color: currentTheme.textDark }}>Sr. Ricardo Valenzuela</p>
-              <p className="font-serif text-2xl" style={{ color: currentTheme.textDark }}>Sra. Clara Montes de Valenzuela</p>
+              <p className={`font-serif ${isMobile ? 'text-xl' : 'text-2xl'}`} style={{ color: currentTheme.textDark }}>
+                Sr. Ricardo Valenzuela
+              </p>
+              <p className={`font-serif ${isMobile ? 'text-xl' : 'text-2xl'}`} style={{ color: currentTheme.textDark }}>
+                Sra. Clara Montes de Valenzuela
+              </p>
             </div>
 
             <div
-              className="deckle-card p-7 space-y-1.5 shadow-sm"
+              className={`deckle-card ${isMobile ? 'p-5' : 'p-7'} space-y-1.5 shadow-sm`}
               style={{
                 backgroundColor: currentTheme.bgCardAlt,
                 border: `1px solid ${currentTheme.borderHex}`,
@@ -768,8 +819,10 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               <span className="text-[10px] uppercase tracking-[0.25em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
                 Padres del Novio
               </span>
-              <p className="font-serif text-2xl" style={{ color: currentTheme.textDark }}>Sr. Gonzalo Peñaloza</p>
-              <p className="font-serif text-2xl" style={{ color: currentTheme.textDark }}>
+              <p className={`font-serif ${isMobile ? 'text-xl' : 'text-2xl'}`} style={{ color: currentTheme.textDark }}>
+                Sr. Gonzalo Peñaloza
+              </p>
+              <p className={`font-serif ${isMobile ? 'text-xl' : 'text-2xl'}`} style={{ color: currentTheme.textDark }}>
                 Sra. Sofía Mendizábal de Peñaloza
               </p>
             </div>
@@ -781,16 +834,18 @@ export const TornPaperWeddingInvitation: React.FC = () => {
       <TornPaperDivider fill={currentTheme.accentDark} />
 
       {/* ========================================================================
-          SECCIÓN 3: TIMER (CUENTA REGRESIVA) + FECHA + UBICACIONES EN PAPEL CORTADO
+          SECCIÓN 3: TIMER (CUENTA REGRESIVA) + FECHA + UBICACIONES
       ======================================================================== */}
       <section
-        className="py-16 sm:py-24 px-4 sm:px-8 transition-colors duration-500"
+        className={`${
+          isMobile ? 'py-12 px-4' : isTablet ? 'py-16 px-6' : 'py-16 sm:py-24 px-4 sm:px-8'
+        } transition-colors duration-500`}
         style={{ backgroundColor: currentTheme.accentDark, color: '#F9F6F0' }}
       >
-        <div className="max-w-5xl mx-auto text-center space-y-12">
+        <div className="max-w-5xl mx-auto text-center space-y-10">
           <div className="space-y-3">
             <span
-              className="inline-flex items-center gap-2 px-5 py-1.5 deckle-pill text-xs uppercase tracking-[0.25em]"
+              className="inline-flex items-center gap-2 px-4 py-1.5 deckle-pill text-xs uppercase tracking-[0.24em]"
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
                 color: currentTheme.primaryLight,
@@ -799,16 +854,24 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               <Calendar className="w-3.5 h-3.5" />
               <span>Cuenta Regresiva</span>
             </span>
-            <h2 className="font-serif text-4xl sm:text-6xl font-normal text-ivory-50">
+            <h2
+              className={`font-serif font-normal text-ivory-50 ${
+                isMobile ? 'text-3xl' : isTablet ? 'text-4xl sm:text-5xl' : 'text-4xl sm:text-6xl'
+              }`}
+            >
               Sábado, 06 de Noviembre de 2027
             </h2>
-            <p className="text-sm text-ivory-200/80">
-              Faltan muy pocos instantes para celebrar juntos bajo los flamboyanes
+            <p className="text-xs sm:text-sm text-ivory-200/80">
+              Faltan muy pocos instantes para celebrar juntos bajo los parrones
             </p>
           </div>
 
-          {/* Organic Torn-Paper Medallions for Countdown */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 max-w-3xl mx-auto">
+          {/* Symmetrical Artisanal Countdown Cards (Clean & Centered) */}
+          <div
+            className={`grid ${
+              isMobile ? 'grid-cols-2 gap-2.5' : 'grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4'
+            } max-w-2xl mx-auto items-center justify-center`}
+          >
             {[
               { value: timeLeft.days, label: 'Días' },
               { value: String(timeLeft.hours).padStart(2, '0'), label: 'Horas' },
@@ -817,7 +880,9 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             ].map((item) => (
               <div
                 key={item.label}
-                className="deckle-card py-4 px-2 sm:py-7 sm:px-4 flex flex-col items-center justify-center shadow-md overflow-hidden min-w-0"
+                className={`${
+                  isMobile ? 'py-3.5 px-2 rounded-2xl' : 'py-4 px-2 sm:py-6 sm:px-4 rounded-2xl sm:rounded-[26px]'
+                } shadow-sm flex flex-col items-center justify-center text-center overflow-hidden min-w-0`}
                 style={{
                   backgroundColor: currentTheme.bgCard,
                   border: `1px solid ${currentTheme.borderHex}`,
@@ -825,103 +890,116 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                 }}
               >
                 <span
-                  className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal leading-none block max-w-full truncate"
+                  className={`font-serif ${
+                    isMobile ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-2xl sm:text-4xl lg:text-5xl'
+                  } font-semibold leading-none tracking-tight block max-w-full tabular-nums text-center`}
                   style={{ color: currentTheme.primaryHex }}
                 >
                   {item.value}
                 </span>
-                <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] mt-2 font-medium" style={{ color: currentTheme.textMuted }}>
+                <span
+                  className="text-[10px] sm:text-xs uppercase tracking-wider block mt-1.5 font-medium text-center"
+                  style={{ color: currentTheme.textMuted }}
+                >
                   {item.label}
                 </span>
               </div>
             ))}
           </div>
 
-          {/* Ceremony & Reception Torn Paper Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 text-left">
+          {/* Ceremony & Reception Cards */}
+          <div
+            className={`grid ${
+              isMobile ? 'grid-cols-1 gap-5' : 'grid-cols-1 md:grid-cols-2 gap-6'
+            } pt-2 text-left`}
+          >
             <div
-              className="deckle-card p-8 flex flex-col justify-between space-y-5 shadow-editorial"
+              className={`deckle-card ${
+                isMobile ? 'p-5' : 'p-8'
+              } flex flex-col justify-between space-y-4 shadow-editorial`}
               style={{
                 backgroundColor: currentTheme.bgCard,
                 color: currentTheme.textDark,
                 border: `1px solid ${currentTheme.borderHex}`,
               }}
             >
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase tracking-[0.22em] font-semibold" style={{ color: currentTheme.primaryHex }}>
+                  <span className="text-xs uppercase tracking-[0.2em] font-semibold" style={{ color: currentTheme.primaryHex }}>
                     16:00 Hrs · Ceremonia
                   </span>
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                     style={{
                       backgroundColor: currentTheme.bgCardAlt,
                       color: currentTheme.primaryHex,
                     }}
                   >
-                    <Church className="w-5 h-5" />
+                    <Church className="w-4 h-4" />
                   </div>
                 </div>
-                <h3 className="font-serif text-3xl" style={{ color: currentTheme.textDark }}>
-                  Capilla Colonial de la Hacienda
+                <h3 className={`font-serif ${isMobile ? 'text-2xl' : 'text-3xl'}`} style={{ color: currentTheme.textDark }}>
+                  Capilla de la Viña Los Aromos
                 </h3>
                 <p className="text-xs sm:text-sm leading-relaxed" style={{ color: currentTheme.textMuted }}>
-                  Km 182 Carretera Mérida–Uxmal, Temozón Sur, Yucatán.
+                  Ruta 68 km 75, Valle de Casablanca, Región de Valparaíso.
                 </p>
               </div>
               <a
-                href="https://maps.google.com/?q=Hacienda+Temozon+Sur+Yucatan"
+                href="https://maps.google.com/?q=Valle+de+Casablanca+Chile"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 deckle-pill text-ivory-50 text-xs uppercase tracking-[0.18em] text-center transition flex items-center justify-center gap-2 shadow-sm hover:opacity-90"
+                className="w-full py-3 deckle-pill text-ivory-50 text-xs uppercase tracking-[0.16em] text-center transition flex items-center justify-center gap-2 shadow-sm hover:opacity-90"
                 style={{ backgroundColor: currentTheme.accentDark }}
               >
-                <MapPin className="w-3.5 h-3.5" />
+                <MapPin className="w-3.5 h-3.5 shrink-0" />
                 <span>Ver Mapa de Ceremonia</span>
-                <ExternalLink className="w-3 h-3 opacity-75" />
+                <ExternalLink className="w-3 h-3 opacity-75 shrink-0" />
               </a>
             </div>
 
             <div
-              className="deckle-card p-8 flex flex-col justify-between space-y-5 shadow-editorial"
+              className={`deckle-card ${
+                isMobile ? 'p-5' : 'p-8'
+              } flex flex-col justify-between space-y-4 shadow-editorial`}
               style={{
                 backgroundColor: currentTheme.bgCard,
                 color: currentTheme.textDark,
                 border: `1px solid ${currentTheme.borderHex}`,
               }}
             >
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase tracking-[0.22em] font-semibold" style={{ color: currentTheme.primaryHex }}>
+                  <span className="text-xs uppercase tracking-[0.2em] font-semibold" style={{ color: currentTheme.primaryHex }}>
                     17:30 Hrs · Recepción &amp; Fiesta
                   </span>
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
                     style={{
                       backgroundColor: currentTheme.bgCardAlt,
                       color: currentTheme.primaryHex,
                     }}
                   >
-                    <PartyPopper className="w-5 h-5" />
+                    <PartyPopper className="w-4 h-4" />
                   </div>
                 </div>
-                <h3 className="font-serif text-3xl" style={{ color: currentTheme.textDark }}>
-                  Jardín de los Flamboyanes
+                <h3 className={`font-serif ${isMobile ? 'text-2xl' : 'text-3xl'}`} style={{ color: currentTheme.textDark }}>
+                  Terraza de los Parrones
                 </h3>
                 <p className="text-xs sm:text-sm leading-relaxed" style={{ color: currentTheme.textMuted }}>
                   Cóctel de bienvenida en el patio de los naranjos y cena de gala al aire libre.
                 </p>
               </div>
               <a
-                href="https://maps.google.com/?q=Hacienda+Temozon+Sur+Yucatan"
+                href="https://maps.google.com/?q=Valle+de+Casablanca+Chile"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3 deckle-pill text-ivory-50 text-xs uppercase tracking-[0.18em] text-center transition flex items-center justify-center gap-2 shadow-sm hover:opacity-90"
+                className="w-full py-3 deckle-pill text-ivory-50 text-xs uppercase tracking-[0.16em] text-center transition flex items-center justify-center gap-2 shadow-sm hover:opacity-90"
                 style={{ backgroundColor: currentTheme.accentDark }}
               >
-                <MapPin className="w-3.5 h-3.5" />
+                <MapPin className="w-3.5 h-3.5 shrink-0" />
                 <span>Ver Mapa de Recepción</span>
-                <ExternalLink className="w-3 h-3 opacity-75" />
+                <ExternalLink className="w-3 h-3 opacity-75 shrink-0" />
               </a>
             </div>
           </div>
@@ -935,20 +1013,24 @@ export const TornPaperWeddingInvitation: React.FC = () => {
           SECCIÓN 4: CÓDIGO DE VESTIMENTA ÚNICO (SIN SELECTOR DE ESTACIONES)
       ======================================================================== */}
       <section
-        className="py-16 sm:py-24 px-4 sm:px-8 transition-colors duration-500"
+        className={`${
+          isMobile ? 'py-10 px-4' : isTablet ? 'py-14 px-6' : 'py-16 sm:py-24 px-4 sm:px-8'
+        } transition-colors duration-500`}
         style={{ backgroundColor: currentTheme.bgMain }}
       >
         <div className="max-w-4xl mx-auto">
           <div
-            className="deckle-card p-8 sm:p-12 text-center space-y-8 shadow-editorial"
+            className={`deckle-card ${
+              isMobile ? 'p-6 space-y-6' : 'p-8 sm:p-12 space-y-8'
+            } text-center shadow-editorial`}
             style={{
               backgroundColor: currentTheme.bgCard,
               border: `1px solid ${currentTheme.borderHex}`,
             }}
           >
-            <div className="space-y-3 max-w-2xl mx-auto">
+            <div className="space-y-2.5 max-w-2xl mx-auto">
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto"
+                className="w-11 h-11 rounded-full flex items-center justify-center mx-auto"
                 style={{
                   backgroundColor: currentTheme.bgCardAlt,
                   color: currentTheme.primaryHex,
@@ -956,28 +1038,37 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               >
                 <Shirt className="w-5 h-5" />
               </div>
-              <span className="text-xs uppercase tracking-[0.28em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
+              <span className="text-xs uppercase tracking-[0.24em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
                 Protocolo de Vestimenta
               </span>
-              <h2 className="font-serif text-4xl sm:text-5xl font-normal" style={{ color: currentTheme.textDark }}>
-                Código de Vestimenta: Formal de Hacienda
+              <h2
+                className={`font-serif font-normal ${
+                  isMobile ? 'text-3xl' : isTablet ? 'text-4xl' : 'text-4xl sm:text-5xl'
+                }`}
+                style={{ color: currentTheme.textDark }}
+              >
+                Código de Vestimenta: Formal de Campo
               </h2>
-              <p className="text-sm sm:text-base leading-relaxed" style={{ color: currentTheme.textMuted }}>
+              <p className="text-xs sm:text-sm leading-relaxed" style={{ color: currentTheme.textMuted }}>
                 Les invitamos a vestir con elegancia y frescura para disfrutar cómodamente de los
-                jardines y terrazas coloniales de la hacienda:
+                jardines y terrazas de la viña:
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+            <div
+              className={`grid ${
+                isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-2 gap-6'
+              } text-left`}
+            >
               <div
-                className="deckle-card p-6 space-y-3"
+                className={`deckle-card ${isMobile ? 'p-4' : 'p-6'} space-y-2.5`}
                 style={{
                   backgroundColor: currentTheme.bgCardAlt,
                   border: `1px solid ${currentTheme.borderHex}`,
                 }}
               >
                 <h3
-                  className="font-serif text-2xl pb-2 border-b"
+                  className={`font-serif ${isMobile ? 'text-xl' : 'text-2xl'} pb-2 border-b`}
                   style={{ color: currentTheme.textDark, borderBottomColor: currentTheme.borderHex }}
                 >
                   Damas · Vestido Largo
@@ -1000,14 +1091,14 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               </div>
 
               <div
-                className="deckle-card p-6 space-y-3"
+                className={`deckle-card ${isMobile ? 'p-4' : 'p-6'} space-y-2.5`}
                 style={{
                   backgroundColor: currentTheme.bgCardAlt,
                   border: `1px solid ${currentTheme.borderHex}`,
                 }}
               >
                 <h3
-                  className="font-serif text-2xl pb-2 border-b"
+                  className={`font-serif ${isMobile ? 'text-xl' : 'text-2xl'} pb-2 border-b`}
                   style={{ color: currentTheme.textDark, borderBottomColor: currentTheme.borderHex }}
                 >
                   Caballeros · Traje Formal o Lino
@@ -1023,7 +1114,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 shrink-0 mt-0.5" style={{ color: currentTheme.primaryHex }} />
                     <span>
-                      Guayabera presidencial de lino de manga larga también bienvenida.
+                      Chaqueta de lino o traje liviano sin corbata también es bienvenido.
                     </span>
                   </li>
                 </ul>
@@ -1032,7 +1123,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
 
             {/* Reserved Colors Note */}
             <div
-              className="p-4 deckle-pill inline-block px-8"
+              className={`p-3.5 deckle-pill inline-block ${isMobile ? 'px-4' : 'px-8'}`}
               style={{
                 backgroundColor: currentTheme.bgCardAlt,
                 border: `1px solid ${currentTheme.borderHex}`,
@@ -1054,12 +1145,16 @@ export const TornPaperWeddingInvitation: React.FC = () => {
           SECCIÓN 5: CONFIRMACIÓN POR WHATSAPP MÁS UN MENSAJE
       ======================================================================== */}
       <section
-        className="py-16 sm:py-24 px-4 sm:px-8 transition-colors duration-500"
+        className={`${
+          isMobile ? 'py-10 px-4' : isTablet ? 'py-14 px-6' : 'py-16 sm:py-24 px-4 sm:px-8'
+        } transition-colors duration-500`}
         style={{ backgroundColor: currentTheme.bgCardAlt }}
       >
         <div className="max-w-3xl mx-auto">
           <div
-            className="deckle-card p-8 sm:p-12 space-y-6 shadow-editorial"
+            className={`deckle-card ${
+              isMobile ? 'p-6 space-y-5' : 'p-8 sm:p-12 space-y-6'
+            } shadow-editorial`}
             style={{
               backgroundColor: currentTheme.bgCard,
               border: `1px solid ${currentTheme.borderHex}`,
@@ -1067,7 +1162,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
           >
             <div className="text-center space-y-2">
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto"
+                className="w-11 h-11 rounded-full flex items-center justify-center mx-auto"
                 style={{
                   backgroundColor: currentTheme.bgCardAlt,
                   color: currentTheme.primaryHex,
@@ -1075,13 +1170,18 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               >
                 <MessageSquareHeart className="w-5 h-5" />
               </div>
-              <span className="text-xs uppercase tracking-[0.26em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
+              <span className="text-xs uppercase tracking-[0.24em] font-semibold block" style={{ color: currentTheme.primaryHex }}>
                 Confirmación de Asistencia
               </span>
-              <h2 className="font-serif text-4xl sm:text-5xl font-normal" style={{ color: currentTheme.textDark }}>
+              <h2
+                className={`font-serif font-normal ${
+                  isMobile ? 'text-2xl' : isTablet ? 'text-3xl sm:text-4xl' : 'text-4xl sm:text-5xl'
+                }`}
+                style={{ color: currentTheme.textDark }}
+              >
                 Confirma por WhatsApp y Déjanos un Mensaje
               </h2>
-              <p className="text-sm max-w-lg mx-auto" style={{ color: currentTheme.textMuted }}>
+              <p className="text-xs sm:text-sm max-w-lg mx-auto" style={{ color: currentTheme.textMuted }}>
                 Por favor confírmanos tu asistencia antes del <strong>06 de Octubre</strong> y
                 regálanos unas palabras de cariño para este gran paso.
               </p>
@@ -1104,7 +1204,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                   value={guestName}
                   onChange={(e) => setGuestName(e.target.value)}
                   placeholder="Ej. Familia Villalobos / Andrea y Carlos"
-                  className="w-full px-5 py-3 deckle-pill text-sm focus:outline-none"
+                  className="w-full px-4 py-3 deckle-pill text-sm focus:outline-none"
                   style={{
                     backgroundColor: currentTheme.bgCardAlt,
                     border: `1px solid ${currentTheme.borderHex}`,
@@ -1113,37 +1213,45 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div
+                className={`grid ${
+                  isMobile ? 'grid-cols-1 gap-2.5' : 'grid-cols-1 sm:grid-cols-2 gap-3'
+                }`}
+              >
                 <button
                   type="button"
                   onClick={() => setAttending('si')}
-                  className="py-3 px-5 deckle-pill text-xs uppercase tracking-wider font-medium transition flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-4 rounded-2xl text-xs uppercase tracking-wider font-semibold transition flex items-center justify-center gap-2 text-center shadow-sm min-h-[48px]"
                   style={{
                     backgroundColor: attending === 'si' ? currentTheme.accentDark : currentTheme.bgCardAlt,
-                    color: attending === 'si' ? '#FFF' : currentTheme.textMuted,
-                    border: `1px solid ${currentTheme.borderHex}`,
+                    color: attending === 'si' ? '#FFFFFF' : currentTheme.textDark,
+                    border: `1.5px solid ${attending === 'si' ? currentTheme.accentDark : currentTheme.borderHex}`,
                   }}
                 >
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>¡Sí, los acompañaremos!</span>
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+                  <span>¡Sí, Asistiremos!</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => setAttending('no')}
-                  className="py-3 px-5 deckle-pill text-xs uppercase tracking-wider font-medium transition flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-4 rounded-2xl text-xs uppercase tracking-wider font-semibold transition flex items-center justify-center gap-2 text-center shadow-sm min-h-[48px]"
                   style={{
                     backgroundColor: attending === 'no' ? currentTheme.accentDark : currentTheme.bgCardAlt,
-                    color: attending === 'no' ? '#FFF' : currentTheme.textMuted,
-                    border: `1px solid ${currentTheme.borderHex}`,
+                    color: attending === 'no' ? '#FFFFFF' : currentTheme.textDark,
+                    border: `1.5px solid ${attending === 'no' ? currentTheme.accentDark : currentTheme.borderHex}`,
                   }}
                 >
-                  <Heart className="w-4 h-4" />
-                  <span>No podremos asistir</span>
+                  <Heart className="w-4 h-4 shrink-0 opacity-80" />
+                  <span>No Podremos Asistir</span>
                 </button>
               </div>
 
               {attending === 'si' && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div
+                  className={`grid ${
+                    isMobile ? 'grid-cols-1 gap-3' : 'grid-cols-1 sm:grid-cols-2 gap-4'
+                  }`}
+                >
                   <div>
                     <label className="block text-xs uppercase tracking-wider mb-1.5" style={{ color: currentTheme.textMuted }}>
                       Número de asistentes
@@ -1151,7 +1259,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                     <select
                       value={passes}
                       onChange={(e) => setPasses(e.target.value)}
-                      className="w-full px-5 py-3 deckle-pill text-sm focus:outline-none"
+                      className="w-full px-4 py-3 deckle-pill text-sm focus:outline-none"
                       style={{
                         backgroundColor: currentTheme.bgCardAlt,
                         border: `1px solid ${currentTheme.borderHex}`,
@@ -1173,7 +1281,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                       value={dietary}
                       onChange={(e) => setDietary(e.target.value)}
                       placeholder="Ej. Vegetariano / Ninguna"
-                      className="w-full px-5 py-3 deckle-pill text-sm focus:outline-none"
+                      className="w-full px-4 py-3 deckle-pill text-sm focus:outline-none"
                       style={{
                         backgroundColor: currentTheme.bgCardAlt,
                         border: `1px solid ${currentTheme.borderHex}`,
@@ -1194,7 +1302,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Déjanos aquí tus mejores deseos..."
-                  className="w-full px-5 py-3.5 rounded-[24px] text-sm focus:outline-none"
+                  className="w-full px-4 py-3.5 rounded-[24px] text-sm focus:outline-none"
                   style={{
                     backgroundColor: currentTheme.bgCardAlt,
                     border: `1px solid ${currentTheme.borderHex}`,
@@ -1205,11 +1313,11 @@ export const TornPaperWeddingInvitation: React.FC = () => {
 
               <button
                 type="submit"
-                className="w-full py-4 deckle-pill text-ivory-50 text-xs uppercase tracking-[0.2em] font-medium transition flex items-center justify-center gap-2.5 shadow-editorial hover:opacity-90"
+                className="w-full py-4 rounded-2xl text-ivory-50 text-xs uppercase tracking-[0.18em] font-semibold transition flex items-center justify-center gap-2 shadow-editorial hover:opacity-95"
                 style={{ backgroundColor: currentTheme.accentDark }}
               >
-                <FaWhatsapp className="w-5 h-5 text-[#A7D7B8]" />
-                <span>Confirmar por WhatsApp con Mensaje</span>
+                <FaWhatsapp className="w-4 h-4 text-[#A7D7B8] shrink-0" />
+                <span>Confirmar Asistencia por WhatsApp</span>
               </button>
             </form>
           </div>
@@ -1223,12 +1331,14 @@ export const TornPaperWeddingInvitation: React.FC = () => {
           SECCIÓN 6: AGRADECIMIENTOS FINALES
       ======================================================================== */}
       <section
-        className="py-20 sm:py-28 px-4 sm:px-8 text-center transition-colors duration-500"
+        className={`${
+          isMobile ? 'py-12 px-4' : isTablet ? 'py-16 px-6' : 'py-20 sm:py-28 px-4 sm:px-8'
+        } text-center transition-colors duration-500`}
         style={{ backgroundColor: currentTheme.footerBg, color: '#F9F6F0' }}
       >
-        <div className="max-w-3xl mx-auto space-y-8">
+        <div className="max-w-3xl mx-auto space-y-6">
           <div
-            className="w-16 h-16 rounded-full border flex items-center justify-center mx-auto font-serif text-2xl shadow-inner"
+            className="w-14 h-14 rounded-full border flex items-center justify-center mx-auto font-serif text-xl shadow-inner"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.08)',
               borderColor: 'rgba(255, 255, 255, 0.25)',
@@ -1238,41 +1348,51 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             L&amp;R
           </div>
 
-          <span className="text-xs uppercase tracking-[0.3em] block" style={{ color: currentTheme.primaryLight }}>
+          <span className="text-xs uppercase tracking-[0.28em] block" style={{ color: currentTheme.primaryLight }}>
             Agradecimientos
           </span>
 
-          <h2 className="font-serif text-4xl sm:text-6xl font-normal text-ivory-50 leading-tight">
+          <h2
+            className={`font-serif font-normal text-ivory-50 leading-tight ${
+              isMobile ? 'text-3xl' : isTablet ? 'text-4xl sm:text-5xl' : 'text-4xl sm:text-6xl'
+            }`}
+          >
             Gracias por escribir este capítulo junto a nosotros
           </h2>
 
-          <p className="text-sm sm:text-base text-ivory-200/80 leading-relaxed max-w-2xl mx-auto font-light">
+          <p className="text-xs sm:text-base text-ivory-200/80 leading-relaxed max-w-2xl mx-auto font-light">
             A nuestras familias, padrinos y amigos del alma: gracias por cada abrazo, por viajar
             para acompañarnos y por llenar de alegría el inicio de nuestro matrimonio.
           </p>
 
           <div
-            className="max-w-md mx-auto deckle-card p-4 shadow-editorial-lg"
+            className="max-w-md mx-auto deckle-card p-3.5 shadow-editorial-lg"
             style={{ backgroundColor: currentTheme.accentDark }}
           >
             <img
               src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80"
               alt="Lucía y Rodrigo agradecimiento"
-              className="w-full h-60 object-cover organic-photo-mask"
+              className={`w-full ${isMobile ? 'h-48' : 'h-60'} object-cover organic-photo-mask`}
               loading="lazy"
             />
           </div>
 
-          <div className="pt-4 space-y-1">
-            <p className="font-serif italic text-3xl" style={{ color: currentTheme.primaryLight }}>
+          <div className="pt-3 space-y-1">
+            <p
+              className={`font-serif italic ${isMobile ? 'text-2xl' : 'text-3xl'}`}
+              style={{ color: currentTheme.primaryLight }}
+            >
               Con todo nuestro amor, Lucía &amp; Rodrigo
             </p>
-            <p className="text-[11px] uppercase tracking-[0.28em] text-ivory-200/50">
-              06 · Noviembre · 2027 · Hacienda Temozón
+            <p className="text-[11px] uppercase tracking-[0.25em] text-ivory-200/50">
+              06 · Noviembre · 2027 · Viña Los Aromos
             </p>
           </div>
         </div>
       </section>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

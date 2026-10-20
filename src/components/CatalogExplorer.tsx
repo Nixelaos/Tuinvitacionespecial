@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Eye,
   Sparkles,
@@ -17,6 +17,7 @@ import {
   Church,
   ArrowUpRight,
   SlidersHorizontal,
+  Smartphone,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import type { InvitationTemplate, StyleCategory } from '../types/wedding';
@@ -39,6 +40,46 @@ export const CatalogExplorer: React.FC = () => {
   const [rsvpGuestName, setRsvpGuestName] = useState('');
   const [rsvpPasses, setRsvpPasses] = useState('2');
   const [rsvpAllergies, setRsvpAllergies] = useState('');
+
+  // Hero Simulator Active Template Sync
+  const [heroActiveSlug, setHeroActiveSlug] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('selected_wedding_hero_template');
+      if (saved && INVITATION_TEMPLATES.some((t) => t.slug === saved)) {
+        return saved;
+      }
+    }
+    return INVITATION_TEMPLATES[0].slug;
+  });
+
+  useEffect(() => {
+    const handleHeroChanged = (e: Event) => {
+      const customEvent = e as CustomEvent<{ slug: string }>;
+      if (customEvent.detail?.slug) {
+        setHeroActiveSlug(customEvent.detail.slug);
+      }
+    };
+    window.addEventListener('hero-template-changed', handleHeroChanged);
+    return () => {
+      window.removeEventListener('hero-template-changed', handleHeroChanged);
+    };
+  }, []);
+
+  const handleSelectForHero = (tpl: InvitationTemplate) => {
+    setHeroActiveSlug(tpl.slug);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('selected_wedding_hero_template', tpl.slug);
+      window.dispatchEvent(
+        new CustomEvent('select-hero-template', { detail: { slug: tpl.slug } })
+      );
+      const heroElement = document.getElementById('hero-simulador');
+      if (heroElement) {
+        heroElement.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  };
 
   const filteredTemplates =
     selectedCategory === 'Todos'
@@ -90,7 +131,7 @@ export const CatalogExplorer: React.FC = () => {
                 Simulador en Tiempo Real
               </span>
               <p className="font-serif text-xl text-charcoal">
-                Escribe vuestros nombres y previsualiza todo el catálogo personalizado:
+                Escriban sus nombres y previsualicen todo el catálogo personalizado:
               </p>
             </div>
           </div>
@@ -268,11 +309,30 @@ export const CatalogExplorer: React.FC = () => {
 
               {/* Card Footer Actions */}
               <div className="px-6 pb-6 pt-2 space-y-2.5">
+                {/* Button to Select and Preview in Hero Simulator */}
+                <button
+                  type="button"
+                  onClick={() => handleSelectForHero(tpl)}
+                  className={`w-full py-2.5 px-3 text-xs uppercase tracking-[0.14em] font-medium transition flex items-center justify-center gap-2 border ${
+                    heroActiveSlug === tpl.slug
+                      ? 'bg-charcoal text-ivory-50 border-charcoal shadow-sm'
+                      : 'bg-champagne/80 hover:bg-gold hover:text-ivory-50 text-charcoal border-gold/40'
+                  }`}
+                  title="Ver esta invitación en el simulador móvil del inicio"
+                >
+                  <Smartphone className="w-3.5 h-3.5" />
+                  <span>
+                    {heroActiveSlug === tpl.slug
+                      ? '✓ Activa en Simulador Hero'
+                      : 'Probar en Simulador Hero'}
+                  </span>
+                </button>
+
                 <div className="grid grid-cols-2 gap-2.5">
                   <button
                     type="button"
                     onClick={() => openModal(tpl)}
-                    className="py-2.5 px-3 bg-champagne hover:bg-gold hover:text-ivory-50 text-charcoal text-xs uppercase tracking-[0.14em] font-medium transition flex items-center justify-center gap-1.5"
+                    className="py-2.5 px-3 bg-ivory-50 hover:bg-champagne border border-charcoal/20 text-charcoal text-xs uppercase tracking-[0.14em] font-medium transition flex items-center justify-center gap-1.5"
                   >
                     <Eye className="w-3.5 h-3.5" />
                     <span>Demo Rápida</span>
@@ -467,15 +527,15 @@ export const CatalogExplorer: React.FC = () => {
                     <div className="p-4 bg-ivory-50 border border-gold/30 text-center space-y-2">
                       <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold-dark">
                         <Gift className="w-4 h-4" />
-                        <span>Mesa de Regalos &amp; Lluvia de Sobres</span>
+                        <span>Lista de Regalos &amp; Transferencia</span>
                       </div>
                       <p className="text-xs text-charcoal-muted">
-                        Vuestra presencia es nuestro mejor regalo. Si desean tener un detalle con
+                        Su presencia es nuestro mejor regalo. Si desean tener un detalle con
                         nosotros:
                       </p>
-                      <div className="flex items-center justify-center gap-2 pt-1">
+                      <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
                         <code className="px-3 py-1.5 bg-champagne/60 text-xs text-charcoal font-mono">
-                          CLABE / IBAN: 0121 8000 4589 1234 56
+                          Cuenta RUT · 12.345.678-9
                         </code>
                         <button
                           type="button"
@@ -633,6 +693,17 @@ export const CatalogExplorer: React.FC = () => {
                 </div>
 
                 <div className="pt-6 space-y-2.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleSelectForHero(activeDemo);
+                      setActiveDemo(null);
+                    }}
+                    className="w-full py-2.5 bg-champagne hover:bg-gold hover:text-ivory-50 text-charcoal border border-gold/40 text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-2 transition font-medium"
+                  >
+                    <Smartphone className="w-3.5 h-3.5" />
+                    <span>Ver en Simulador Hero</span>
+                  </button>
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                       `¡Hola! Acabo de probar la demo interactiva del diseño "${activeDemo.name}" y quiero reservarlo para nuestra boda.`

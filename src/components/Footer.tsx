@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
             <p className="text-sm text-ivory-200/75 leading-relaxed max-w-sm">
               Diseñamos invitaciones web interactivas para parejas que cuidan cada detalle.
               Estética editorial, confirmación directa y fácil a WhatsApp y atención artesanal
-              para bodas en México, España, Chile y toda Latinoamérica.
+              para bodas a lo largo de todo Chile.
             </p>
 
             <div className="flex items-center gap-3 pt-2">
@@ -105,11 +105,6 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/#proceso" className="hover:text-gold-light transition">
-                  Proceso de Creación
-                </a>
-              </li>
-              <li>
                 <a href="/disenos/mesa-de-regalos" className="hover:text-gold-light transition">
                   Mesa de Regalos
                 </a>
@@ -138,7 +133,7 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-gold-light shrink-0 mt-0.5" />
-                <span>Estudio Digital · Ciudad de México · Madrid · Buenos Aires · Santiago</span>
+                <span>Estudio Digital · Santiago, Chile · Atención a todo el país</span>
               </li>
             </ul>
           </div>

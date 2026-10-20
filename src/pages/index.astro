@@ -3,8 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import { Navbar } from '../components/Navbar';
 import { HeroRealInvitation } from '../components/HeroRealInvitation';
 import { CatalogExplorer } from '../components/CatalogExplorer';
-import { FeaturesGrid } from '../components/FeaturesGrid';
-import { ProcessSteps } from '../components/ProcessSteps';
 import { FaqAccordion } from '../components/FaqAccordion';
 import { FloatingWhatsApp } from '../components/FloatingWhatsApp';
 import { Footer } from '../components/Footer';
@@ -17,6 +15,10 @@ import {
   Send,
   CheckCircle2,
   ArrowRight,
+  Mail,
+  Music,
+  MapPin,
+  Gift,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 
@@ -47,9 +49,9 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
 
             <p class="text-base sm:text-lg text-charcoal-muted leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light">
               Sorprende a tus invitados desde el primer instante con un hermoso sobre que se abre al tocarlo,
-              su melodía favorita sonando de fondo, mapas para llegar directo con Google Maps o Waze y un
-              botón simple para que tus invitados te confirmen su asistencia directamente a tu WhatsApp,
-              indicando cuántos lugares usarán y dedicándote un mensaje especial.
+              su melodía favorita sonando de fondo, mapas para llegar directo a la ubicación que tú elijas,
+              una cuenta regresiva con su fecha especial, además de que tus invitados te podrán confirmar
+              su asistencia directamente a tu WhatsApp dedicándote un mensaje especial.
             </p>
 
             <!-- Hero CTAs -->
@@ -98,7 +100,7 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
           </div>
 
           <!-- Right Real Interactive Invitation Preview -->
-          <div class="lg:col-span-5">
+          <div class="lg:col-span-5" id="hero-simulador">
             <HeroRealInvitation client:load />
           </div>
         </div>
@@ -113,10 +115,10 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
             Catálogo de Diseños Exclusivos
           </span>
           <h2 class="font-serif text-4xl sm:text-5xl text-charcoal font-normal">
-            Elige el escenario digital de vuestra historia
+            Elige el escenario digital de su historia
           </h2>
           <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed">
-            Cada diseño es completamente personalizable con vuestras fotografías, paleta de colores
+            Cada diseño es completamente personalizable con sus fotografías, paleta de colores
             y música. Haz clic en <strong>«Demo en Vivo»</strong> para interactuar con cada modelo.
           </p>
         </div>
@@ -125,43 +127,40 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
       </div>
     </section>
 
-    <!-- INTERACTIVE FEATURES BENTO SECTION -->
-    <section id="funciones" class="py-20 sm:py-28 bg-ivory-200/60 border-y border-ivory-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+    <!-- ONE LINK SUMMARY SECTION -->
+    <section id="funciones" class="py-16 sm:py-20 bg-ivory-200/60 border-y border-ivory-300">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+        <div class="space-y-3 max-w-2xl mx-auto">
           <span class="text-xs uppercase tracking-[0.26em] text-sage-dark font-semibold block">
-            Tecnología &amp; Sensibilidad Editorial
+            Experiencia Digital Simple
           </span>
-          <h2 class="font-serif text-4xl sm:text-5xl text-charcoal font-normal">
+          <h2 class="font-serif text-3xl sm:text-5xl text-charcoal font-normal">
             Todo lo que tus invitados necesitan, en un solo enlace
           </h2>
           <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed">
-            Sin descargar aplicaciones ni registros complicados. Tus invitados abren la invitación
-            desde su celular o computadora con una fluidez extraordinaria.
+            Sin descargar aplicaciones ni registrarse: lo abren desde WhatsApp y tienen todo a un toque.
           </p>
         </div>
 
-        <FeaturesGrid client:visible />
-      </div>
-    </section>
-
-    <!-- HOW IT WORKS / PROCESS SECTION -->
-    <section id="proceso" class="py-20 sm:py-28">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
-          <span class="text-xs uppercase tracking-[0.26em] text-gold-dark font-semibold block">
-            Experiencia Sin Estrés
-          </span>
-          <h2 class="font-serif text-4xl sm:text-5xl text-charcoal font-normal">
-            Tu invitación lista en 4 pasos sencillos
-          </h2>
-          <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed">
-            Nosotros nos encargamos de todo el diseño, configuración de mapas y pruebas técnicas
-            para que vosotros solo disfrutéis de los preparativos.
-          </p>
-        </div>
-
-        <ProcessSteps />
+        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+          {
+            [
+              { icon: Mail, label: 'Sobre animado' },
+              { icon: Music, label: 'Su canción' },
+              { icon: MapPin, label: 'Ubicación' },
+              { icon: Clock, label: 'Cuenta regresiva' },
+              { icon: FaWhatsapp, label: 'Confirmación' },
+              { icon: Gift, label: 'Lista de regalos' },
+            ].map(({ icon: Icon, label }) => (
+              <li class="flex flex-col items-center gap-2 p-4 bg-ivory-50 border border-ivory-300">
+                <span class="w-10 h-10 rounded-full bg-champagne flex items-center justify-center text-gold-dark">
+                  <Icon className="w-4 h-4" />
+                </span>
+                <span class="text-xs uppercase tracking-wider text-charcoal font-medium">{label}</span>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </section>
 

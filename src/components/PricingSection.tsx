@@ -1,60 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Check, Minus, Sparkles, Clock, ShieldCheck } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { PRICING_PLANS, WHATSAPP_NUMBER, BRAND_NAME } from '../data/weddingData';
 
-type CurrencyCode = 'USD' | 'EUR' | 'MXN' | 'CLP' | 'COP';
-
-const CURRENCY_CONFIG: Record<
-  CurrencyCode,
-  { symbol: string; rate: number; label: string; decimals: number }
-> = {
-  USD: { symbol: '$', rate: 1, label: 'USD ($)', decimals: 0 },
-  EUR: { symbol: '€', rate: 0.92, label: 'EUR (€)', decimals: 0 },
-  MXN: { symbol: '$', rate: 19.5, label: 'MXN ($)', decimals: 0 },
-  CLP: { symbol: '$', rate: 950, label: 'CLP ($)', decimals: 0 },
-  COP: { symbol: '$', rate: 4100, label: 'COP ($)', decimals: 0 },
-};
-
 export const PricingSection: React.FC = () => {
-  const [currency, setCurrency] = useState<CurrencyCode>('USD');
-
-  const formatAmount = (usdAmount: number) => {
-    const cfg = CURRENCY_CONFIG[currency];
-    const converted = Math.round(usdAmount * cfg.rate);
-    return `${cfg.symbol}${converted.toLocaleString('es-ES')} ${currency}`;
-  };
+  const formatCLP = (amount: number) => `$${Math.round(amount).toLocaleString('es-CL')} CLP`;
 
   return (
     <div>
-      {/* Currency Switcher Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12">
-        <span className="text-xs uppercase tracking-[0.2em] text-charcoal-muted">
-          Mostrar precios en tu moneda:
-        </span>
-        <div className="inline-flex flex-wrap justify-center bg-ivory-50 border border-ivory-300 p-1">
-          {(Object.keys(CURRENCY_CONFIG) as CurrencyCode[]).map((code) => (
-            <button
-              key={code}
-              type="button"
-              onClick={() => setCurrency(code)}
-              className={`px-3.5 py-1.5 text-xs uppercase tracking-wider transition ${
-                currency === code
-                  ? 'bg-charcoal text-ivory-50 font-medium'
-                  : 'text-charcoal-muted hover:text-charcoal'
-              }`}
-            >
-              {CURRENCY_CONFIG[code].label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* Pricing Cards Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
         {PRICING_PLANS.map((plan) => {
           const whatsappPlanUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-            `¡Hola! Me interesa contratar el plan "${plan.name}" (${formatAmount(
+            `¡Hola! Me interesa contratar el plan "${plan.name}" (${formatCLP(
               plan.price
             )}) de ${BRAND_NAME}. ¿Me pueden indicar los pasos para comenzar?`
           )}`;
@@ -83,11 +41,11 @@ export const PricingSection: React.FC = () => {
                   <div className="mt-5">
                     {plan.originalPrice && (
                       <span className="text-xs text-charcoal-muted line-through block">
-                        Antes {formatAmount(plan.originalPrice)}
+                        Antes {formatCLP(plan.originalPrice)}
                       </span>
                     )}
                     <div className="font-serif text-4xl sm:text-5xl font-semibold text-charcoal mt-0.5">
-                      {formatAmount(plan.price)}
+                      {formatCLP(plan.price)}
                     </div>
                     <span className="inline-block mt-2 text-[11px] uppercase tracking-[0.18em] text-gold-dark font-medium">
                       {plan.billingNote}
