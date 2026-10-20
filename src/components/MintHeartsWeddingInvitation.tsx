@@ -630,7 +630,7 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 </div>
 
                 {/* 4 Countdown Blocks */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-2xl mx-auto">
                   {[
                     { label: 'Días', val: countdown.days },
                     { label: 'Horas', val: String(countdown.hours).padStart(2, '0') },
@@ -639,16 +639,22 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                   ].map((item) => (
                     <div
                       key={item.label}
-                      className="p-6 rounded-[28px] shadow-sm"
+                      className="py-4 px-2 sm:py-6 sm:px-4 rounded-2xl sm:rounded-[28px] shadow-sm flex flex-col items-center justify-center text-center overflow-hidden min-w-0"
                       style={{
                         backgroundColor: currentTheme.cardHex,
                         border: `1px solid ${currentTheme.borderHex}`,
                       }}
                     >
-                      <span className="font-serif text-4xl sm:text-5xl font-semibold leading-none" style={{ color: currentTheme.primaryHex }}>
+                      <span
+                        className="font-serif text-2xl sm:text-4xl lg:text-5xl font-semibold leading-none tracking-tight block max-w-full"
+                        style={{ color: currentTheme.primaryHex }}
+                      >
                         {item.val}
                       </span>
-                      <span className="text-[10px] uppercase tracking-wider block mt-2" style={{ color: currentTheme.mutedHex }}>
+                      <span
+                        className="text-[10px] sm:text-xs uppercase tracking-wider block mt-1.5"
+                        style={{ color: currentTheme.mutedHex }}
+                      >
                         {item.label}
                       </span>
                     </div>
@@ -789,34 +795,40 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                     <button
                       type="button"
                       onClick={() => setAttending('si')}
-                      className={`py-3 px-4 rounded-2xl text-xs uppercase tracking-wider font-semibold transition ${
+                      className={`w-full py-3.5 px-4 rounded-2xl text-xs uppercase tracking-wider font-semibold transition flex items-center justify-center gap-2 text-center shadow-sm ${
                         attending === 'si'
                           ? 'bg-charcoal text-ivory-50'
                           : 'border'
                       }`}
                       style={{
                         borderColor: attending === 'si' ? 'transparent' : currentTheme.borderHex,
+                        backgroundColor: attending === 'si' ? '#2C221E' : currentTheme.bgHex,
+                        color: attending === 'si' ? '#FFFFFF' : currentTheme.textHex,
                       }}
                     >
-                      ✓ Sí Asistiremos
+                      <CheckCircle2 className="w-4 h-4 shrink-0" />
+                      <span>¡Sí, Asistiremos!</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => setAttending('no')}
-                      className={`py-3 px-4 rounded-2xl text-xs uppercase tracking-wider font-semibold transition ${
+                      className={`w-full py-3.5 px-4 rounded-2xl text-xs uppercase tracking-wider font-semibold transition flex items-center justify-center gap-2 text-center shadow-sm ${
                         attending === 'no'
                           ? 'bg-charcoal text-ivory-50'
                           : 'border'
                       }`}
                       style={{
                         borderColor: attending === 'no' ? 'transparent' : currentTheme.borderHex,
+                        backgroundColor: attending === 'no' ? '#2C221E' : currentTheme.bgHex,
+                        color: attending === 'no' ? '#FFFFFF' : currentTheme.textHex,
                       }}
                     >
-                      🤍 No Podremos Ir
+                      <Heart className="w-4 h-4 shrink-0" />
+                      <span>No Podremos Asistir</span>
                     </button>
                   </div>
 

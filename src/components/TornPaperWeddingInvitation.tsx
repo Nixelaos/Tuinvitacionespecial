@@ -684,24 +684,33 @@ export const TornPaperWeddingInvitation: React.FC = () => {
           {/* Organic Pebble / Handmade Paper Framed Couple Portrait */}
           <div className="max-w-2xl mx-auto pt-2">
             <div
-              className="deckle-card p-5 sm:p-8 animate-float-gentle shadow-editorial"
+              className="deckle-card p-4 sm:p-8 animate-float-gentle shadow-editorial"
               style={{
                 backgroundColor: currentTheme.bgCard,
                 border: `1px solid ${currentTheme.borderHex}`,
               }}
             >
-              <div className="relative h-[380px] sm:h-[460px] overflow-hidden organic-photo-mask shadow-inner">
+              <div className="relative h-[340px] sm:h-[440px] overflow-hidden organic-photo-mask shadow-inner">
                 <img
                   src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=85"
                   alt="Lucía y Rodrigo"
                   className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
-                <div className="absolute bottom-6 inset-x-6 text-ivory-50">
-                  <p className="font-serif italic text-2xl sm:text-3xl drop-shadow">
-                    «Contigo cada camino se convierte en nuestra mejor historia»
-                  </p>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/25 via-transparent to-transparent pointer-events-none" />
+              </div>
+
+              {/* Romantic Quote Placed Elegantly Below the Organic Portrait */}
+              <div className="pt-6 pb-2 px-3 sm:px-8 text-center space-y-3">
+                <p
+                  className="font-serif italic text-xl sm:text-3xl leading-relaxed"
+                  style={{ color: currentTheme.textDark }}
+                >
+                  «Contigo cada camino se convierte en nuestra mejor historia»
+                </p>
+                <div
+                  className="w-12 h-0.5 mx-auto rounded-full opacity-60"
+                  style={{ backgroundColor: currentTheme.primaryHex }}
+                />
               </div>
             </div>
           </div>
@@ -799,7 +808,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
           </div>
 
           {/* Organic Torn-Paper Medallions for Countdown */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5 max-w-3xl mx-auto">
             {[
               { value: timeLeft.days, label: 'Días' },
               { value: String(timeLeft.hours).padStart(2, '0'), label: 'Horas' },
@@ -808,17 +817,20 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             ].map((item) => (
               <div
                 key={item.label}
-                className="deckle-card py-7 px-4 flex flex-col items-center justify-center shadow-md"
+                className="deckle-card py-4 px-2 sm:py-7 sm:px-4 flex flex-col items-center justify-center shadow-md overflow-hidden min-w-0"
                 style={{
                   backgroundColor: currentTheme.bgCard,
                   border: `1px solid ${currentTheme.borderHex}`,
                   color: currentTheme.textDark,
                 }}
               >
-                <span className="font-serif text-5xl sm:text-6xl font-normal leading-none" style={{ color: currentTheme.primaryHex }}>
+                <span
+                  className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal leading-none block max-w-full truncate"
+                  style={{ color: currentTheme.primaryHex }}
+                >
                   {item.value}
                 </span>
-                <span className="text-[11px] uppercase tracking-[0.25em] mt-2 font-medium" style={{ color: currentTheme.textMuted }}>
+                <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] mt-2 font-medium" style={{ color: currentTheme.textMuted }}>
                   {item.label}
                 </span>
               </div>
