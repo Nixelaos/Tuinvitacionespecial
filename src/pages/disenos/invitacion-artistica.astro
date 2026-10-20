@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ArtisticWeddingInvitation } from '../../components/ArtisticWeddingInvitation';
+import { BRAND_NAME } from '../../data/weddingData';
+---
+
+<Layout
+  title={`Camila & Mateo — Invitación Artística Orangerie | ${BRAND_NAME}`}
+  description="Segunda invitación digital interactiva de boda estilo Orangerie Botánica con puertas de papel vegetal, vinilo animado, postal en vivo, dress code estacional y ritual de luz."
+>
+  <ArtisticWeddingInvitation client:load />
+</Layout>

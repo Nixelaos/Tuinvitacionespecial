@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { FullWeddingInvitation } from '../../components/FullWeddingInvitation';
+import { BRAND_NAME } from '../../data/weddingData';
+---
+
+<Layout
+  title={`Valentina & Sebastián — Invitación de Boda Digital | ${BRAND_NAME}`}
+  description="Invitación digital interactiva de boda de Valentina & Sebastián. Toca el sello de lacre para abrir el sobre y confirmar tu asistencia."
+>
+  <FullWeddingInvitation client:load />
+</Layout>

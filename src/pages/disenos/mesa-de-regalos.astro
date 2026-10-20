@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { WeddingGiftRegistryApp } from '../../components/WeddingGiftRegistryApp';
+import { BRAND_NAME } from '../../data/weddingData';
+---
+
+<Layout
+  title={`Lista de Regalos de los Novios — Lucía & Rodrigo | ${BRAND_NAME}`}
+  description="Lista de regalos personalizada de los novios y panel de edición con íconos, fotografías, precios y cantidades."
+>
+  <WeddingGiftRegistryApp client:load />
+</Layout>

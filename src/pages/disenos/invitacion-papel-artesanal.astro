@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TornPaperWeddingInvitation } from '../../components/TornPaperWeddingInvitation';
+import { BRAND_NAME } from '../../data/weddingData';
+---
+
+<Layout
+  title={`Lucía & Rodrigo — Invitación Papel Algodón Cortado a Mano | ${BRAND_NAME}`}
+  description="Tercera invitación artística con bordes de papel cortado a mano, cinta de seda terracota, dress code único y planilla conectada a la lista de regalos de los novios."
+>
+  <TornPaperWeddingInvitation client:load />
+</Layout>

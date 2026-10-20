@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { MintHeartsWeddingInvitation } from '../../components/MintHeartsWeddingInvitation';
+import { BRAND_NAME } from '../../data/weddingData';
+---
+
+<Layout
+  title={`Isabella & Tomás — Invitación Marfil Menta con Lluvia de Corazones | ${BRAND_NAME}`}
+  description="Invitación digital artística en tonos marfil menta con efecto de lluvia de corazones casi transparentes, selector de 5 colores y simulador de dispositivo móvil y tablet."
+>
+  <MintHeartsWeddingInvitation client:load />
+</Layout>
