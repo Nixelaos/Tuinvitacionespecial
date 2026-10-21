@@ -106,7 +106,7 @@ export const PricingSection: React.FC = () => {
                 </a>
                 <p className="text-[11px] text-center text-charcoal-muted flex items-center justify-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-sage" />
-                  <span>Reserva con el 50% y liquida al aprobar tu diseño</span>
+                  <span>Pago seguro y garantía de satisfacción</span>
                 </p>
               </div>
             </div>

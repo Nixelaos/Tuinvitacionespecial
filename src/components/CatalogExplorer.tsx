@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Eye,
   Sparkles,
-  Check,
   X,
   Music,
   MapPin,
@@ -206,154 +204,87 @@ export const CatalogExplorer: React.FC = () => {
           return (
             <article
               key={tpl.id}
-              className="editorial-card flex flex-col justify-between overflow-hidden group"
+              className="group relative bg-[#FCFAF7] rounded-t-[140px] sm:rounded-t-[180px] rounded-b-3xl border border-gold/30 p-3.5 sm:p-5 shadow-editorial hover:shadow-editorial-lg transition-all duration-500 flex flex-col justify-between"
             >
               <div>
-                {/* Visual Preview Header */}
-                <div className="relative h-80 overflow-hidden bg-champagne">
+                {/* Arch Visual Preview Header */}
+                <div className="relative h-80 sm:h-96 rounded-t-[125px] sm:rounded-t-[160px] rounded-b-2xl overflow-hidden bg-champagne border border-gold/25 shadow-inner">
                   <img
                     src={tpl.coverImage}
                     alt={`Invitación de boda digital modelo ${tpl.name}`}
                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
 
-                  {/* Top Badges */}
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                    <span className="px-3 py-1 bg-ivory-50/95 backdrop-blur-sm text-[10px] uppercase tracking-[0.2em] text-charcoal font-medium">
+                  {/* Top Category Badge */}
+                  <div className="absolute top-7 left-0 right-0 flex justify-center">
+                    <span className="px-3.5 py-1 bg-ivory-50/95 backdrop-blur-md rounded-full text-[10px] uppercase tracking-[0.22em] text-charcoal font-semibold border border-gold/30 shadow-xs">
                       {tpl.category}
                     </span>
-                    {tpl.badge && (
-                      <span className="px-3 py-1 bg-gold text-ivory-50 text-[10px] uppercase tracking-[0.2em] font-medium flex items-center gap-1">
-                        <Sparkles className="w-3 h-3" />
-                        {tpl.badge}
-                      </span>
-                    )}
                   </div>
 
-                  {/* Simulated Invitation Card Overlay on Image */}
-                  <div className="absolute bottom-4 left-4 right-4 text-center p-4 bg-ivory-50/95 backdrop-blur-md border border-gold/30 shadow-editorial">
-                    <span className="text-[9px] uppercase tracking-[0.28em] text-gold-dark block">
+                  {/* Simulated Invitation Plaque on Image */}
+                  <div className="absolute bottom-4 left-4 right-4 text-center p-3.5 sm:p-4 bg-ivory-50/95 backdrop-blur-md rounded-xl border border-gold/35 shadow-editorial">
+                    <span className="text-[9px] uppercase tracking-[0.28em] text-gold-dark font-medium block">
                       {tpl.coupleDemo.displayDate}
                     </span>
-                    <p className="font-serif text-2xl text-charcoal mt-0.5">
-                      {couple.bride} <span className="italic text-gold-dark">&amp;</span>{' '}
+                    <p className="font-serif text-2xl sm:text-[26px] text-charcoal mt-0.5 font-normal">
+                      {couple.bride} <span className="italic text-gold-dark font-serif">&amp;</span>{' '}
                       {couple.groom}
                     </p>
-                    <p className="text-[11px] text-charcoal-muted truncate mt-0.5">
+                    <p className="text-[11px] text-charcoal-muted truncate mt-0.5 font-light">
                       {tpl.coupleDemo.city}
                     </p>
                   </div>
                 </div>
 
-                {/* Card Content */}
-                <div className="p-6">
-                  <div className="flex items-baseline justify-between gap-2 mb-2">
-                    <div>
-                      <span className="text-[10px] uppercase tracking-[0.2em] text-charcoal-muted block">
-                        {tpl.collection}
-                      </span>
-                      <h3 className="font-serif text-2xl text-charcoal font-medium">
-                        {tpl.name}
-                      </h3>
-                    </div>
-                    <div className="text-right shrink-0">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-champagne/80 border border-gold/40 text-[11px] font-medium text-gold-dark">
-                        <Sparkles className="w-3 h-3 text-gold-dark" />
-                        <span>Próximamente en CLP ($)</span>
-                      </span>
-                    </div>
+                {/* Concise Card Content */}
+                <div className="pt-5 pb-2 px-1 text-center sm:text-left">
+                  <div className="mb-2">
+                    <span className="text-[10px] uppercase tracking-[0.22em] text-gold-dark font-medium block">
+                      {tpl.collection}
+                    </span>
+                    <h3 className="font-serif text-2xl sm:text-[26px] text-charcoal font-normal mt-0.5">
+                      {tpl.name}
+                    </h3>
                   </div>
 
-                  <p className="text-sm text-charcoal-muted leading-relaxed mb-4">
+                  <p className="text-sm text-charcoal-muted leading-relaxed font-light">
                     {tpl.shortDescription}
                   </p>
-
-                  {/* Palette Swatch */}
-                  <div className="flex items-center justify-between py-2.5 px-3 bg-ivory-100 border border-ivory-300 mb-4">
-                    <span className="text-[11px] text-charcoal-muted">
-                      Paleta: <strong className="text-charcoal font-medium">{tpl.palette.name}</strong>
-                    </span>
-                    <div className="flex items-center gap-1.5">
-                      {[
-                        tpl.palette.bgHex,
-                        tpl.palette.cardHex,
-                        tpl.palette.accentHex,
-                        tpl.palette.textHex,
-                      ].map((hex) => (
-                        <span
-                          key={hex}
-                          className="w-4 h-4 rounded-full border border-charcoal/20"
-                          style={{ backgroundColor: hex }}
-                          title={hex}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Key Included Highlights */}
-                  <ul className="space-y-1.5 mb-6">
-                    {tpl.includedFeatures.slice(0, 3).map((feat) => (
-                      <li
-                        key={feat}
-                        className="text-xs text-charcoal-light flex items-start gap-2"
-                      >
-                        <Check className="w-3.5 h-3.5 text-sage shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </div>
 
-              {/* Card Footer Actions */}
-              <div className="px-6 pb-6 pt-2 space-y-2.5">
+              {/* Card Footer Actions: Conciso y Directo */}
+              <div className="pt-4 pb-1 space-y-2.5">
+                <a
+                  href={`/disenos/${tpl.slug}`}
+                  className="w-full py-3.5 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.18em] font-medium transition-all duration-300 flex items-center justify-center gap-2 shadow-sm rounded-lg"
+                >
+                  <Sparkles className="w-4 h-4 text-gold-light" />
+                  <span>Abrir Invitación Completa</span>
+                  <ArrowUpRight className="w-4 h-4 opacity-75" />
+                </a>
+
                 {/* Button to Select and Preview in Hero Simulator */}
                 <button
                   type="button"
                   onClick={() => handleSelectForHero(tpl)}
-                  className={`w-full py-2.5 px-3 text-xs uppercase tracking-[0.14em] font-medium transition flex items-center justify-center gap-2 border ${
+                  className={`w-full py-2.5 px-3 text-[11px] uppercase tracking-[0.14em] font-medium transition flex items-center justify-center gap-2 rounded-lg border ${
                     heroActiveSlug === tpl.slug
-                      ? 'bg-charcoal text-ivory-50 border-charcoal shadow-sm'
-                      : 'bg-champagne/80 hover:bg-gold hover:text-ivory-50 text-charcoal border-gold/40'
+                      ? 'bg-champagne/90 text-charcoal font-semibold border-gold/50 shadow-xs'
+                      : 'bg-ivory-50/90 hover:bg-champagne/50 text-charcoal-muted hover:text-charcoal border-ivory-300'
                   }`}
                   title="Ver esta invitación en el simulador móvil del inicio"
                 >
-                  <Smartphone className="w-3.5 h-3.5" />
+                  <Smartphone className="w-3.5 h-3.5 text-gold-dark" />
                   <span>
                     {heroActiveSlug === tpl.slug
                       ? '✓ Activa en Simulador Hero'
                       : 'Probar en Simulador Hero'}
                   </span>
                 </button>
-
-                <div className="grid grid-cols-2 gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => openModal(tpl)}
-                    className="py-2.5 px-3 bg-ivory-50 hover:bg-champagne border border-charcoal/20 text-charcoal text-xs uppercase tracking-[0.14em] font-medium transition flex items-center justify-center gap-1.5"
-                  >
-                    <Eye className="w-3.5 h-3.5" />
-                    <span>Demo Rápida</span>
-                  </button>
-                  <a
-                    href={`/disenos/${tpl.slug}`}
-                    className="py-2.5 px-3 border border-charcoal/30 hover:border-charcoal bg-ivory-50 text-charcoal text-xs uppercase tracking-[0.14em] font-medium transition flex items-center justify-center gap-1"
-                  >
-                    <span>Ver Landing</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-
-                <a
-                  href={`/disenos/${tpl.slug}`}
-                  className="w-full py-3 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.16em] font-medium transition flex items-center justify-center gap-2 shadow-sm"
-                >
-                  <Sparkles className="w-4 h-4 text-gold-light" />
-                  <span>Abrir Invitación Completa</span>
-                  <ArrowUpRight className="w-4 h-4 opacity-80" />
-                </a>
               </div>
             </article>
           );
@@ -665,7 +596,7 @@ export const CatalogExplorer: React.FC = () => {
                     <div className="mt-2 flex items-center gap-2">
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-champagne border border-gold/40 text-xs font-medium text-gold-dark">
                         <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
-                        <span>Próximamente en CLP ($) · Envíos Ilimitados</span>
+                        <span>Próximamente en CLP ($)</span>
                       </span>
                     </div>
                   </div>

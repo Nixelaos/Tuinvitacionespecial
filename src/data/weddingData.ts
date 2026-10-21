@@ -78,17 +78,17 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
   {
     id: 'invitacion-marfil-menta',
     slug: 'invitacion-marfil-menta',
-    name: 'Lluvia de Corazones Menta & Marfil',
-    collection: 'Colección Sensorial 2027',
+    name: 'Marfil & Menta Pura',
+    collection: 'Colección Botánica Sensorial',
     category: 'Minimalista Lujo',
     price: 109990,
     originalPrice: 139990,
-    badge: 'Corazones Etéreos & 5 Paletas',
+    badge: 'Armonía Botánica & 5 Paletas',
     isPopular: true,
     shortDescription:
-      'Efecto de lluvia de corazones casi transparentes, tonos marfil menta, selector interactivo de 5 paletas de color y simulador celular/tablet.',
+      'Tonos marfil y menta suave con sobre interactivo animado, 5 paletas de color y confirmación directa a WhatsApp.',
     description:
-      'Una creación poética y luminosa con sutil lluvia de corazones etéreos, selector en tiempo real de 5 armonías de color y visualizador en marcos de móvil y tablet.',
+      'Una creación poética y luminosa en tonos marfil y menta, selector en tiempo real de 5 armonías de color y visualizador en marcos de móvil y tablet.',
     coupleDemo: {
       bride: 'Isabella',
       groom: 'Tomás',
@@ -118,7 +118,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
     secondaryImage:
       'https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=80',
     includedFeatures: [
-      'Lluvia de corazones casi transparentes',
+      'Sobre sensorial con sello interactivo',
       'Selector interactivo de 5 paletas cromáticas',
       'Modo simulador Celular, Tablet y Pantalla Completa',
       'Dress code elegante unificado',
@@ -283,7 +283,7 @@ export const TESTIMONIALS: Testimonial[] = [
     couple: 'Mariana & Diego',
     location: 'Pirque, Región Metropolitana',
     weddingDate: 'Octubre 2026',
-    templateName: 'Lluvia de Corazones',
+    templateName: 'Marfil & Menta',
     quote:
       '«Nuestros invitados no paraban de escribirnos para decirnos que era la invitación más hermosa que habían visto. El sobre animado con nuestras iniciales y la música hicieron llorar a nuestras mamás.»',
     guestCount: 240,
@@ -307,7 +307,7 @@ export const TESTIMONIALS: Testimonial[] = [
     couple: 'Francisca & Patricio',
     location: 'Puerto Varas, Región de Los Lagos',
     weddingDate: 'Agosto 2026',
-    templateName: 'Lluvia de Corazones',
+    templateName: 'Marfil & Menta',
     quote:
       '«Buscábamos algo sumamente sobrio y elegante, lejos de las invitaciones digitales recargadas. El resultado superó todo y la lista de regalos en pesos chilenos fue un éxito.»',
     guestCount: 210,

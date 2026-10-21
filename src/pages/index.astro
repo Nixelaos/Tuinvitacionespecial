@@ -9,16 +9,14 @@ import { Footer } from '../components/Footer';
 import { BRAND_NAME, WHATSAPP_NUMBER } from '../data/weddingData';
 import {
   Sparkles,
-  Heart,
-  ShieldCheck,
-  Clock,
-  Send,
-  CheckCircle2,
   ArrowRight,
   Mail,
   Music,
   MapPin,
+  Clock,
   Gift,
+  HelpCircle,
+  CheckCircle2,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 
@@ -32,69 +30,77 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
   <Navbar client:load />
 
   <main class="pt-24 sm:pt-28 overflow-hidden">
+    <!-- ========================================== -->
     <!-- HERO SECTION -->
-    <section class="relative py-12 sm:py-20 lg:py-24 bg-linen-pattern border-b border-ivory-300">
+    <!-- ========================================== -->
+    <section class="relative py-12 sm:py-20 lg:py-24 bg-linen-pattern bg-ivory-100/90 border-b border-ivory-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           <!-- Left Editorial Copy -->
           <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-champagne/80 border border-gold/35 text-[11px] uppercase tracking-[0.24em] text-gold-dark font-medium">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Colección Nupcial 2026 · 2027</span>
-            </div>
-
-            <h1 class="font-serif text-4xl sm:text-6xl lg:text-[66px] text-charcoal leading-[1.06] font-normal">
-              Invitaciones digitales de boda con alma de <span class="italic text-gold-dark">alta costura</span>
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-[66px] text-charcoal leading-[1.06] font-normal tracking-tight">
+              Invitaciones digitales de boda <span class="italic text-gold-dark font-medium">tan hermosas e inolvidables como su gran día</span>
             </h1>
 
-            <p class="text-base sm:text-lg text-charcoal-muted leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light">
+            <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light">
               Sorprende a tus invitados desde el primer instante con un hermoso sobre que se abre al tocarlo,
               su melodía favorita sonando de fondo, mapas para llegar directo a la ubicación que tú elijas,
-              una cuenta regresiva con su fecha especial, además de que tus invitados te podrán confirmar
+              una cuenta regresiva con su fecha especial, además que tus invitados te podrán confirmar
               su asistencia directamente a tu WhatsApp dedicándote un mensaje especial.
             </p>
 
-            <!-- Hero CTAs -->
-            <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <a href="/disenos/invitacion-marfil-menta" class="btn-gold w-full sm:w-auto">
-                <span>Ver Invitación con Lluvia de Corazones</span>
-                <ArrowRight className="w-4 h-4" />
+            <!-- Hero CTAs: Botones principales y Asesoría en WhatsApp -->
+            <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3.5">
+              <a
+                href={whatsappHeroUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-gold w-full sm:w-auto shadow-sm"
+              >
+                <FaWhatsapp className="w-4 h-4 text-[#A7D7B8]" />
+                <span>Asesoría en WhatsApp</span>
               </a>
+
               <a href="#catalogo" class="btn-outline-editorial w-full sm:w-auto">
+                <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
                 <span>Explorar Catálogo</span>
               </a>
             </div>
 
-            <!-- Trust Badges -->
-            <div class="pt-6 border-t border-ivory-300 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left max-w-xl mx-auto lg:mx-0">
-              <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-champagne flex items-center justify-center text-gold-dark shrink-0">
-                  <Send className="w-4 h-4" />
-                </div>
-                <div>
-                  <p class="text-xs font-semibold text-charcoal">Envíos Ilimitados</p>
-                  <p class="text-[11px] text-charcoal-muted">Por WhatsApp y Correo</p>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-sage-light flex items-center justify-center text-sage-dark shrink-0">
-                  <Clock className="w-4 h-4" />
-                </div>
-                <div>
-                  <p class="text-xs font-semibold text-charcoal">Entrega en 48–72 hrs</p>
-                  <p class="text-[11px] text-charcoal-muted">Opción exprés 24h</p>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-full bg-champagne flex items-center justify-center text-gold-dark shrink-0">
-                  <ShieldCheck className="w-4 h-4" />
-                </div>
-                <div>
-                  <p class="text-xs font-semibold text-charcoal">Reserva con el 50%</p>
-                  <p class="text-[11px] text-charcoal-muted">Liquida al aprobar</p>
-                </div>
+            <!-- Botones del Navbar en el Hero (Especialmente visible y optimizado para celular) -->
+            <div class="pt-5 border-t border-ivory-300/80 mt-4">
+              <p class="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-charcoal-muted font-semibold mb-2.5 text-center lg:text-left">
+                Accesos directos del menú:
+              </p>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-lg mx-auto lg:mx-0">
+                <a
+                  href="#catalogo"
+                  class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-ivory-50/95 border border-ivory-300 hover:border-gold hover:bg-champagne/40 transition-all text-[11px] uppercase tracking-wider text-charcoal font-medium shadow-xs"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-gold-dark shrink-0" />
+                  <span>Catálogo</span>
+                </a>
+                <a
+                  href="/disenos/mesa-de-regalos"
+                  class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-ivory-50/95 border border-ivory-300 hover:border-gold hover:bg-champagne/40 transition-all text-[11px] uppercase tracking-wider text-charcoal font-medium shadow-xs"
+                >
+                  <Gift className="w-3.5 h-3.5 text-gold-dark shrink-0" />
+                  <span>Mesa Regalos</span>
+                </a>
+                <a
+                  href="#funciones"
+                  class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-ivory-50/95 border border-ivory-300 hover:border-gold hover:bg-champagne/40 transition-all text-[11px] uppercase tracking-wider text-charcoal font-medium shadow-xs"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5 text-sage-dark shrink-0" />
+                  <span>Funciones</span>
+                </a>
+                <a
+                  href="#preguntas"
+                  class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-ivory-50/95 border border-ivory-300 hover:border-gold hover:bg-champagne/40 transition-all text-[11px] uppercase tracking-wider text-charcoal font-medium shadow-xs"
+                >
+                  <HelpCircle className="w-3.5 h-3.5 text-gold-dark shrink-0" />
+                  <span>Preguntas</span>
+                </a>
               </div>
             </div>
           </div>
@@ -107,19 +113,30 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
       </div>
     </section>
 
-    <!-- INTERACTIVE CATALOG SECTION -->
-    <section id="catalogo" class="py-20 sm:py-28">
+    <!-- ========================================== -->
+    <!-- CATÁLOGO DE DISEÑOS -->
+    <!-- ========================================== -->
+    <section id="catalogo" class="relative py-20 sm:py-32 bg-[#FCFAF7] border-b border-ivory-300">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <span class="text-xs uppercase tracking-[0.26em] text-gold-dark font-semibold block">
-            Catálogo de Diseños Exclusivos
-          </span>
-          <h2 class="font-serif text-4xl sm:text-5xl text-charcoal font-normal">
-            Elige el escenario digital de su historia
+        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3.5">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-champagne/80 border border-gold/40 text-[11px] uppercase tracking-[0.28em] text-gold-dark font-semibold shadow-xs">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Catálogo de Diseños Exclusivos</span>
+          </div>
+
+          <h2 class="font-serif text-4xl sm:text-5xl lg:text-[56px] text-charcoal font-normal tracking-tight leading-[1.12]">
+            Elige el escenario digital <span class="italic text-gold-dark font-normal">de su historia</span>
           </h2>
-          <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed">
+
+          <div class="w-12 h-[2px] bg-gold/50 mx-auto rounded-full my-1"></div>
+
+          <p class="text-xs sm:text-sm uppercase tracking-[0.18em] text-gold-dark font-medium">
+            Modelos interactivos con sobre animado, música y confirmación directa
+          </p>
+
+          <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed font-light max-w-2xl mx-auto">
             Cada diseño es completamente personalizable con sus fotografías, paleta de colores
-            y música. Haz clic en <strong>«Demo en Vivo»</strong> para interactuar con cada modelo.
+            y música. Explora los modelos para vivir la experiencia interactiva en tiempo real.
           </p>
         </div>
 
@@ -127,36 +144,47 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
       </div>
     </section>
 
-    <!-- ONE LINK SUMMARY SECTION -->
-    <section id="funciones" class="py-16 sm:py-20 bg-ivory-200/60 border-y border-ivory-300">
-      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-        <div class="space-y-3 max-w-2xl mx-auto">
-          <span class="text-xs uppercase tracking-[0.26em] text-sage-dark font-semibold block">
-            Experiencia Digital Simple
-          </span>
-          <h2 class="font-serif text-3xl sm:text-5xl text-charcoal font-normal">
-            Todo lo que tus invitados necesitan, en un solo enlace
+    <!-- ========================================== -->
+    <!-- EXPERIENCIA DIGITAL & FUNCIONES -->
+    <!-- ========================================== -->
+    <section id="funciones" class="py-20 sm:py-28 bg-[#F4EDE2] border-y border-ivory-300 relative shadow-inner">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-10">
+        <div class="space-y-3.5 max-w-3xl mx-auto">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-ivory-50 border border-sage/40 text-[11px] uppercase tracking-[0.28em] text-sage-dark font-semibold shadow-xs">
+            <span>Experiencia Digital Simple</span>
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-5xl lg:text-[52px] text-charcoal font-normal tracking-tight leading-[1.14]">
+            Todo lo que tus invitados necesitan, <span class="italic text-gold-dark font-normal">en un solo enlace</span>
           </h2>
-          <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed">
-            Sin descargar aplicaciones ni registrarse: lo abren desde WhatsApp y tienen todo a un toque.
+
+          <div class="w-12 h-[2px] bg-sage/40 mx-auto rounded-full my-1"></div>
+
+          <p class="text-xs sm:text-sm uppercase tracking-[0.18em] text-charcoal-muted font-medium">
+            Sin descargar aplicaciones ni registros: directo desde WhatsApp
+          </p>
+
+          <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed font-light max-w-2xl mx-auto">
+            Tus seres queridos solo tocan el enlace y tienen toda la información de la boda a mano, con navegación fluida y pensada para todas las edades.
           </p>
         </div>
 
-        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5 sm:gap-4">
           {
             [
-              { icon: Mail, label: 'Sobre animado' },
-              { icon: Music, label: 'Su canción' },
-              { icon: MapPin, label: 'Ubicación' },
-              { icon: Clock, label: 'Cuenta regresiva' },
-              { icon: FaWhatsapp, label: 'Confirmación' },
-              { icon: Gift, label: 'Lista de regalos' },
-            ].map(({ icon: Icon, label }) => (
-              <li class="flex flex-col items-center gap-2 p-4 bg-ivory-50 border border-ivory-300">
-                <span class="w-10 h-10 rounded-full bg-champagne flex items-center justify-center text-gold-dark">
-                  <Icon className="w-4 h-4" />
+              { icon: Mail, label: 'Sobre animado', desc: 'Apertura con música' },
+              { icon: Music, label: 'Su canción', desc: 'Melodía de fondo' },
+              { icon: MapPin, label: 'Ubicación', desc: 'Google Maps y Waze' },
+              { icon: Clock, label: 'Cuenta regresiva', desc: 'Tiempo en vivo' },
+              { icon: FaWhatsapp, label: 'Confirmación', desc: 'Directa a WhatsApp' },
+              { icon: Gift, label: 'Lista de regalos', desc: 'Datos y transferencias' },
+            ].map(({ icon: Icon, label, desc }) => (
+              <li class="flex flex-col items-center gap-2 p-4 sm:p-5 bg-ivory-50 border border-ivory-300/80 shadow-xs hover:border-gold/60 hover:shadow-editorial transition-all group">
+                <span class="w-11 h-11 rounded-full bg-champagne group-hover:bg-gold group-hover:text-ivory-50 transition-colors flex items-center justify-center text-gold-dark shrink-0">
+                  <Icon className="w-5 h-5" />
                 </span>
-                <span class="text-xs uppercase tracking-wider text-charcoal font-medium">{label}</span>
+                <span class="text-xs uppercase tracking-wider text-charcoal font-semibold">{label}</span>
+                <span class="text-[11px] text-charcoal-muted font-light">{desc}</span>
               </li>
             ))
           }
@@ -164,18 +192,78 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
       </div>
     </section>
 
-    <!-- FAQ ACCORDION SECTION -->
-    <section id="preguntas" class="py-20 sm:py-28 border-t border-ivory-300">
+    <!-- ========================================== -->
+    <!-- MESA DE REGALOS (DESTACADO) -->
+    <!-- ========================================== -->
+    <section class="py-16 sm:py-24 bg-[#FCFAF7] border-b border-ivory-300 relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
-          <span class="text-xs uppercase tracking-[0.26em] text-gold-dark font-semibold block">
-            Resolvemos tus Dudas
-          </span>
-          <h2 class="font-serif text-4xl sm:text-5xl text-charcoal font-normal">
-            Preguntas Frecuentes
+        <div class="bg-gradient-to-br from-ivory-50 via-champagne/30 to-ivory-100 border border-gold/30 p-8 sm:p-12 lg:p-14 shadow-editorial flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+          <div class="space-y-3.5 max-w-2xl text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-champagne/80 border border-gold/40 text-[11px] uppercase tracking-[0.28em] text-gold-dark font-semibold">
+              <Gift className="w-3.5 h-3.5" />
+              <span>Mesa de Regalos Interactiva</span>
+            </div>
+
+            <h2 class="font-serif text-3xl sm:text-4xl lg:text-[46px] text-charcoal font-normal tracking-tight leading-[1.12]">
+              Lista de Regalos Interactiva <span class="italic text-gold-dark">&amp; Cuentas Chilenas</span>
+            </h2>
+
+            <div class="w-12 h-[2px] bg-gold/50 rounded-full mx-auto lg:mx-0 my-1"></div>
+
+            <p class="text-xs sm:text-sm uppercase tracking-[0.18em] text-gold-dark font-medium">
+              100% Adaptada a Pesos Chilenos (CLP $) y Transferencias Directas
+            </p>
+
+            <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed font-light">
+              Permite que tus invitados elijan regalos simbólicos de tu lista o copien en un solo toque tus datos bancarios (Cuenta RUT, Santander, Banco de Chile, BCI) para transferirte cómodamente sin comisiones.
+            </p>
+          </div>
+
+          <div class="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3 w-full sm:w-auto">
+            <a
+              href="/disenos/mesa-de-regalos"
+              class="btn-gold text-center py-4 px-8 whitespace-nowrap shadow-sm"
+            >
+              <span>Ver Demo Mesa de Regalos</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href={whatsappHeroUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-outline-editorial text-center py-3.5 px-6 whitespace-nowrap text-xs uppercase tracking-wider"
+            >
+              <FaWhatsapp className="w-4 h-4 text-sage-dark" />
+              <span>Consultar por WhatsApp</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- PREGUNTAS FRECUENTES -->
+    <!-- ========================================== -->
+    <section id="preguntas" class="py-20 sm:py-32 bg-ivory-100/70 border-b border-ivory-300 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-14 space-y-3.5">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-champagne/80 border border-gold/40 text-[11px] uppercase tracking-[0.28em] text-gold-dark font-semibold">
+            <HelpCircle className="w-3.5 h-3.5" />
+            <span>Preguntas Frecuentes</span>
+          </div>
+
+          <h2 class="font-serif text-4xl sm:text-5xl lg:text-[54px] text-charcoal font-normal tracking-tight leading-[1.12]">
+            Preguntas <span class="italic text-gold-dark font-normal">Frecuentes</span>
           </h2>
-          <p class="text-sm text-charcoal-muted">
-            Todo lo que necesitas saber sobre tiempos de entrega, confirmaciones y personalización.
+
+          <div class="w-12 h-[2px] bg-gold/50 mx-auto rounded-full my-1"></div>
+
+          <p class="text-xs sm:text-sm uppercase tracking-[0.18em] text-gold-dark font-medium">
+            Claridad total para cada paso de su invitación de boda
+          </p>
+
+          <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed font-light max-w-2xl mx-auto">
+            Todo lo que necesitas saber sobre tiempos de entrega, personalización de canciones y fotografías, y confirmaciones automáticas vía WhatsApp.
           </p>
         </div>
 

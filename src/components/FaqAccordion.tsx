@@ -25,7 +25,7 @@ export const FaqAccordion: React.FC = () => {
                 <span className="text-[10px] uppercase tracking-[0.2em] text-gold-dark font-medium block mb-1">
                   {item.category}
                 </span>
-                <span className="font-serif text-xl sm:text-2xl text-charcoal group-hover:text-gold-dark transition-colors">
+                <span className="font-serif text-xl sm:text-2xl text-charcoal font-medium group-hover:text-gold-dark transition-colors tracking-tight">
                   {item.question}
                 </span>
               </div>
@@ -39,7 +39,7 @@ export const FaqAccordion: React.FC = () => {
             </button>
 
             {isOpen && (
-              <div className="mt-3 pr-10 text-sm text-charcoal-muted leading-relaxed">
+              <div className="mt-3.5 pr-10 text-sm sm:text-base text-charcoal-muted leading-relaxed font-light">
                 {item.answer}
               </div>
             )}

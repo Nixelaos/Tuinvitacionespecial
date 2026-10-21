@@ -571,7 +571,7 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
 
               <div className={`${isMobile ? 'mt-6' : 'mt-8'} space-y-1`}>
                 <p className="text-xs uppercase tracking-[0.2em] font-semibold" style={{ color: currentTheme.primaryHex }}>
-                  Efecto de Lluvia de Corazones Flotantes
+                  Invitación Digital Interactiva
                 </p>
                 <p className="text-[11px] italic" style={{ color: currentTheme.mutedHex }}>
                   Personalizable con 5 paletas de color en tiempo real
