@@ -17,17 +17,10 @@ import {
   ArrowLeft,
   ArrowUpRight,
   ExternalLink,
-  Smartphone,
-  Tablet,
-  Monitor,
-  Palette,
   MessageSquareHeart,
-  Droplets,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { WHATSAPP_NUMBER } from '../data/weddingData';
-
-export type DeviceMode = 'desktop' | 'tablet' | 'mobile';
 
 export interface MintPalette {
   id: string;
@@ -144,9 +137,6 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
   // 5 Color Palettes State
   const [selectedPaletteIndex, setSelectedPaletteIndex] = useState(0);
 
-  // Device Viewport Simulation State (Mobile 400 x 824 by default)
-  const [deviceMode, setDeviceMode] = useState<DeviceMode>('mobile');
-
   // Live Countdown (Sept 18, 2027 17:00)
   const [countdown, setCountdown] = useState({
     days: 332,
@@ -228,23 +218,26 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
     { left: '95%', delay: '2.5s', duration: '16s', size: 19, opacity: 0.17 },
   ];
 
-  // Device wrapper classes (defaults to mobile 400 x 824)
-  const isMobile = isHero || deviceMode === 'mobile';
-  const isTablet = !isHero && deviceMode === 'tablet';
+  // Window resize detection for true responsive view
+  const [windowWidth, setWindowWidth] = useState(400);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const updateWidth = () => setWindowWidth(window.innerWidth);
+      updateWidth();
+      window.addEventListener('resize', updateWidth);
+      return () => window.removeEventListener('resize', updateWidth);
+    }
+  }, []);
+
+  const isMobile = isHero || windowWidth < 640;
+  const isTablet = !isHero && windowWidth >= 640 && windowWidth < 1024;
 
   const getContainerWrapper = () => {
     if (isHero) {
       return 'w-full min-h-screen';
     }
-    switch (deviceMode) {
-      case 'mobile':
-        return 'w-full max-w-[400px] min-h-[824px] mx-auto mt-24 sm:mt-20 mb-8 border-[10px] sm:border-[12px] border-charcoal rounded-[44px] sm:rounded-[52px] shadow-2xl overflow-hidden relative bg-charcoal';
-      case 'tablet':
-        return 'w-full max-w-[768px] min-h-[1024px] mx-auto mt-24 sm:mt-20 mb-8 border-[12px] sm:border-[14px] border-charcoal rounded-[36px] sm:rounded-[40px] shadow-2xl overflow-hidden relative bg-charcoal';
-      case 'desktop':
-      default:
-        return 'w-full min-h-screen';
-    }
+    return 'w-full max-w-2xl mx-auto min-h-screen relative shadow-sm';
   };
 
   return (
@@ -280,59 +273,31 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
       )}
 
       {/* FLOATING TOP TOOLBAR */}
-      <div className="fixed top-3 inset-x-2 sm:inset-x-4 z-50 pointer-events-none">
+      <div className="fixed top-4 inset-x-3 sm:inset-x-6 z-50 pointer-events-none">
         {isHero ? (
-          /* HERO PREVIEW TOOLBAR: Centered palette swatches + action buttons, NO device buttons */
-          <div className="flex items-center justify-center gap-1.5 max-w-full mx-auto">
-            {/* 5 Colors Swatches Bar */}
-            <div
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full shadow-md pointer-events-auto backdrop-blur-md"
-              style={{
-                backgroundColor: currentTheme.cardHex,
-                border: `1.5px solid ${currentTheme.borderHex}`,
-              }}
-              title="Elige tu color preferido en tiempo real"
-            >
-              <Palette className="w-3.5 h-3.5 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
-              {MINT_PALETTES.map((pal, idx) => (
-                <button
-                  key={pal.id}
-                  type="button"
-                  onClick={() => setSelectedPaletteIndex(idx)}
-                  className={`w-5 h-5 rounded-full transition-all duration-300 ${
-                    selectedPaletteIndex === idx
-                      ? 'scale-125 ring-2 ring-charcoal shadow-sm'
-                      : 'hover:scale-110 opacity-85'
-                  }`}
-                  style={{ backgroundColor: pal.swatchColor }}
-                  title={pal.name}
-                  aria-label={pal.name}
-                />
-              ))}
-            </div>
-
-            {/* If opened: small re-close button */}
+          /* HERO PREVIEW TOOLBAR: Re-close and sound controls only */
+          <div className="flex items-center justify-center gap-2 max-w-full mx-auto">
             {opened && (
               <button
                 type="button"
                 onClick={() => setOpened(false)}
-                className="p-1.5 rounded-full transition shadow-md pointer-events-auto backdrop-blur-md"
+                className="px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition shadow-md pointer-events-auto backdrop-blur-md flex items-center gap-1.5"
                 style={{
                   backgroundColor: currentTheme.cardHex,
-                  border: `1.5px solid ${currentTheme.borderHex}`,
+                  border: `1px solid ${currentTheme.borderHex}`,
                   color: currentTheme.primaryHex,
                 }}
                 title="Ver Sobre / Reiniciar"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
+                <span>Ver Sobre</span>
               </button>
             )}
 
-            {/* Music Toggle */}
             <button
               type="button"
               onClick={() => setAudioActive(!audioActive)}
-              className="p-1.5 rounded-full text-ivory-50 transition shadow-md pointer-events-auto"
+              className="p-2 rounded-full text-ivory-50 transition shadow-md pointer-events-auto"
               style={{ backgroundColor: currentTheme.primaryHex }}
               title={audioActive ? 'Pausar música' : 'Activar música'}
             >
@@ -340,13 +305,13 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
             </button>
           </div>
         ) : (
-          /* STANDALONE PAGE TOOLBAR: Full controls with catalog return, device switcher & color picker */
-          <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2.5">
-            {/* Left Buttons: Return to catalog & Re-close seal */}
+          /* STANDALONE REAL INVITATION TOOLBAR: Clean, discreet, zero template marketing */
+          <div className="max-w-2xl mx-auto flex items-center justify-between gap-2.5">
+            {/* Left: Return to catalog + Re-close envelope */}
             <div className="flex items-center gap-2 pointer-events-auto">
               <a
                 href="/#catalogo"
-                className="px-3.5 py-2 rounded-full text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-sm"
+                className="px-3.5 py-2 rounded-full text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-sm backdrop-blur-md"
                 style={{
                   backgroundColor: currentTheme.cardHex,
                   border: `1px solid ${currentTheme.borderHex}`,
@@ -354,18 +319,21 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 }}
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Catálogo</span>
+                <span>Catálogo</span>
               </a>
 
               {opened && (
                 <button
                   type="button"
-                  onClick={() => setOpened(false)}
-                  className="px-3.5 py-2 rounded-full text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-sm"
+                  onClick={() => {
+                    setOpened(false);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-3.5 py-2 rounded-full text-xs uppercase tracking-wider transition flex items-center gap-1.5 shadow-sm backdrop-blur-md"
                   style={{
                     backgroundColor: currentTheme.cardHex,
                     border: `1px solid ${currentTheme.borderHex}`,
-                    color: currentTheme.textHex,
+                    color: currentTheme.primaryHex,
                   }}
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
@@ -374,167 +342,65 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
               )}
             </div>
 
-            {/* Center: Device Viewport Switcher (Celular, Tablet, Pantalla Grande) */}
-            <div
-              className="flex items-center p-1 rounded-full shadow-sm pointer-events-auto"
-              style={{
-                backgroundColor: currentTheme.cardHex,
-                border: `1px solid ${currentTheme.borderHex}`,
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => setDeviceMode('mobile')}
-                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
-                  deviceMode === 'mobile'
-                    ? 'bg-charcoal text-ivory-50 font-medium'
-                    : 'hover:opacity-80'
-                }`}
-                title="Ver en vista de Celular"
-              >
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>Celular</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setDeviceMode('tablet')}
-                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
-                  deviceMode === 'tablet'
-                    ? 'bg-charcoal text-ivory-50 font-medium'
-                    : 'hover:opacity-80'
-                }`}
-                title="Ver en vista de Tablet"
-              >
-                <Tablet className="w-3.5 h-3.5" />
-                <span>Tablet</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setDeviceMode('desktop')}
-                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
-                  deviceMode === 'desktop'
-                    ? 'bg-charcoal text-ivory-50 font-medium'
-                    : 'hover:opacity-80'
-                }`}
-                title="Ver en Pantalla Grande"
-              >
-                <Monitor className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Pantalla Grande</span>
-                <span className="sm:hidden">Grande</span>
-              </button>
-            </div>
-
-            {/* Right: 5 Color Palettes Selector + Heart Rain Toggle + Music */}
+            {/* Right: Music Player Toggle */}
             <div className="flex items-center gap-2 pointer-events-auto">
-              {/* 5 Colors Swatches Bar */}
-              <div
-                className="flex items-center gap-1.5 p-1.5 rounded-full shadow-sm"
-                style={{
-                  backgroundColor: currentTheme.cardHex,
-                  border: `1px solid ${currentTheme.borderHex}`,
-                }}
-                title="Elige entre 5 paletas de color en tiempo real"
-              >
-                <Palette className="w-3.5 h-3.5 ml-1.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
-                {MINT_PALETTES.map((pal, idx) => (
-                  <button
-                    key={pal.id}
-                    type="button"
-                    onClick={() => setSelectedPaletteIndex(idx)}
-                    className={`w-6 h-6 rounded-full transition-transform ${
-                      selectedPaletteIndex === idx
-                        ? 'scale-125 ring-2 ring-charcoal shadow-sm'
-                        : 'hover:scale-110'
-                    }`}
-                    style={{ backgroundColor: pal.swatchColor }}
-                    title={pal.name}
-                    aria-label={pal.name}
-                  />
-                ))}
-              </div>
-
-              {/* Toggle Heart Rain Button */}
-              <button
-                type="button"
-                onClick={() => setRainEnabled(!rainEnabled)}
-                className="p-2 rounded-full transition shadow-sm"
-                style={{
-                  backgroundColor: currentTheme.cardHex,
-                  border: `1px solid ${currentTheme.borderHex}`,
-                  color: rainEnabled ? currentTheme.primaryHex : currentTheme.mutedHex,
-                }}
-                title={rainEnabled ? 'Pausar lluvia de corazones' : 'Activar lluvia de corazones'}
-              >
-                <Droplets className="w-4 h-4" />
-              </button>
-
-              {/* Music Toggle */}
               <button
                 type="button"
                 onClick={() => setAudioActive(!audioActive)}
-                className="p-2 rounded-full text-ivory-50 transition shadow-sm"
+                className="px-3.5 py-2 rounded-full text-xs uppercase tracking-wider transition flex items-center gap-2 shadow-sm text-ivory-50 backdrop-blur-md"
                 style={{ backgroundColor: currentTheme.primaryHex }}
-                title={audioActive ? 'Pausar música' : 'Activar música'}
+                title={audioActive ? 'Pausar música' : 'Reproducir música'}
               >
-                {audioActive ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+                {audioActive ? (
+                  <>
+                    <Volume2 className="w-3.5 h-3.5 animate-pulse" />
+                    <span className="text-[11px] font-medium hidden sm:inline">River Flows in You</span>
+                    <span className="text-[11px] font-medium sm:hidden">Música</span>
+                  </>
+                ) : (
+                  <>
+                    <VolumeX className="w-3.5 h-3.5 opacity-75" />
+                    <span className="text-[11px] font-medium hidden sm:inline">Música en pausa</span>
+                    <span className="text-[11px] font-medium sm:hidden">Música</span>
+                  </>
+                )}
               </button>
             </div>
           </div>
         )}
       </div>
 
-      {/* INNER WRAPPER (RESPONSIVE OR DEVICE MOCKUP FRAME) */}
-      <div className={getContainerWrapper()}>
-        {/* Device Speaker Notch in Mobile Simulator */}
-        {!isHero && deviceMode === 'mobile' && (
-          <div className="w-36 h-5 bg-charcoal rounded-b-2xl mx-auto z-40 relative flex items-center justify-center">
-            <div className="w-10 h-1 bg-charcoal-light rounded-full" />
-          </div>
-        )}
-
+      {/* INNER WRAPPER */}
+      <div className={getContainerWrapper()} style={{ backgroundColor: currentTheme.bgHex }}>
         {/* ====================================================================
             1. INITIAL VIEW: MINT & IVORY SEAL BEFORE OPENING
         ==================================================================== */}
         {!opened ? (
           <div
-            className={`flex flex-col justify-between items-center text-center relative select-none ${
-              isMobile
-                ? 'p-5 min-h-[780px]'
-                : isTablet
-                ? 'p-8 min-h-[960px]'
-                : 'p-6 sm:p-10 min-h-screen'
-            }`}
+            className="flex flex-col justify-between items-center text-center relative select-none p-6 sm:p-10 min-h-screen"
             style={{ backgroundColor: currentTheme.bgHex }}
           >
-            <div className={`${isMobile ? 'pt-6' : 'pt-10 sm:pt-14'} space-y-2`}>
+            <div className="pt-12 sm:pt-16 space-y-2">
               <span
-                className="text-[11px] uppercase tracking-[0.28em] font-semibold block"
+                className="text-[11px] uppercase tracking-[0.28em] font-medium block"
                 style={{ color: currentTheme.primaryHex }}
               >
-                {currentTheme.name}
+                Nuestra Boda
               </span>
-              <h1
-                className={`font-serif font-normal tracking-wide ${
-                  isMobile ? 'text-4xl' : isTablet ? 'text-5xl sm:text-6xl' : 'text-5xl sm:text-7xl'
-                }`}
-              >
+              <h1 className="font-serif font-normal tracking-wide text-5xl sm:text-6xl lg:text-7xl">
                 Isabella <span className="italic font-light">&amp;</span> Tomás
               </h1>
               <p
                 className="text-[11px] sm:text-xs uppercase tracking-[0.22em]"
                 style={{ color: currentTheme.mutedHex }}
               >
-                18 de Septiembre de 2027 · Jardín de las Hortensias
+                18 de Septiembre de 2027 · Jardín de las Hortensias, Pirque
               </p>
             </div>
 
             {/* Animated Seal Card */}
             <div
-              className={`my-auto rounded-[32px] max-w-lg w-full shadow-editorial transition-all duration-700 ${
-                isMobile ? 'p-6' : isTablet ? 'p-10' : 'p-8 sm:p-14'
-              } ${
+              className={`my-auto rounded-[32px] max-w-lg w-full shadow-editorial transition-all duration-700 p-6 sm:p-12 ${
                 openingAnim ? 'scale-105 opacity-0 -translate-y-6' : 'scale-100 opacity-100'
               }`}
               style={{
@@ -545,7 +411,7 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
               <p className="text-xs uppercase tracking-[0.26em] mb-2" style={{ color: currentTheme.mutedHex }}>
                 Pase de Honor
               </p>
-              <h3 className={`font-serif italic ${isMobile ? 'text-2xl mb-6' : 'text-3xl mb-8'}`}>
+              <h3 className="font-serif italic text-2xl sm:text-3xl mb-8">
                 Apreciable Familia &amp; Amigos
               </h3>
 
@@ -557,9 +423,8 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleOpenInvitation}
-                  className={`relative ${
-                    isMobile ? 'w-28 h-28' : 'w-32 h-32'
-                  } rounded-full bg-gradient-to-br ${currentTheme.sealGradient} text-ivory-50 shadow-editorial-lg border-4 border-white/60 flex flex-col items-center justify-center transition-transform hover:scale-105 active:scale-95`}
+                  className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-[#6E9E86] via-[#4F7C66] to-[#365A48] text-ivory-50 shadow-editorial-lg border-4 border-white/70 flex flex-col items-center justify-center transition-transform hover:scale-105 active:scale-95 cursor-pointer"
+                  aria-label="Tocar para abrir invitación"
                 >
                   <Heart className="w-5 h-5 fill-current opacity-85 mb-0.5" />
                   <span className="font-serif text-3xl tracking-widest font-semibold">I&amp;T</span>
@@ -569,18 +434,15 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                 </button>
               </div>
 
-              <div className={`${isMobile ? 'mt-6' : 'mt-8'} space-y-1`}>
-                <p className="text-xs uppercase tracking-[0.2em] font-semibold" style={{ color: currentTheme.primaryHex }}>
-                  Invitación Digital Interactiva
-                </p>
-                <p className="text-[11px] italic" style={{ color: currentTheme.mutedHex }}>
-                  Personalizable con 5 paletas de color en tiempo real
+              <div className="mt-8">
+                <p className="text-xs uppercase tracking-[0.22em] font-medium" style={{ color: currentTheme.primaryHex }}>
+                  Toca el sello para abrir la invitación
                 </p>
               </div>
             </div>
 
-            <div className="pb-3 text-[11px] tracking-widest uppercase opacity-60">
-              Colección Marfil Menta · Tu Invitación Especial
+            <div className="pb-4 text-xs font-serif italic" style={{ color: currentTheme.mutedHex }}>
+              Con amor, Isabella &amp; Tomás
             </div>
           </div>
         ) : (
@@ -588,9 +450,8 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
               2. OPENED EXTENSIVE INVITATION SECTIONS
           ==================================================================== */
           <div
-            className={`${
-              isMobile ? 'space-y-12 pb-14' : isTablet ? 'space-y-16 pb-16' : 'space-y-16 sm:space-y-24 pb-20'
-            }`}
+            className="space-y-16 sm:space-y-24 pb-20 pt-16 sm:pt-20"
+            style={{ backgroundColor: currentTheme.bgHex, color: currentTheme.textHex }}
           >
             {/* HERO SECTION: NAMES & COUPLE PORTRAIT */}
             <section

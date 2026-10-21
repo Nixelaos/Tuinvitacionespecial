@@ -23,9 +23,6 @@ import {
   Flower2,
   Palette,
   MessageSquareHeart,
-  Smartphone,
-  Tablet,
-  Monitor,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { WHATSAPP_NUMBER } from '../data/weddingData';
@@ -203,8 +200,6 @@ const TornPaperDivider: React.FC<{
   </div>
 );
 
-export type DeviceMode = 'desktop' | 'tablet' | 'mobile';
-
 export const TornPaperWeddingInvitation: React.FC = () => {
   // 0. Hero Preview Detection
   const [isHero, setIsHero] = useState(false);
@@ -219,25 +214,27 @@ export const TornPaperWeddingInvitation: React.FC = () => {
     }
   }, []);
 
-  // Device Viewport Simulation State (Mobile 400 x 824 by default)
-  const [deviceMode, setDeviceMode] = useState<DeviceMode>('mobile');
-  const isMobile = isHero || deviceMode === 'mobile';
-  const isTablet = !isHero && deviceMode === 'tablet';
+  // Window resize detection for true responsive view
+  const [windowWidth, setWindowWidth] = useState(400);
 
-  // Device wrapper classes (defaults to mobile 400 x 824)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const updateWidth = () => setWindowWidth(window.innerWidth);
+      updateWidth();
+      window.addEventListener('resize', updateWidth);
+      return () => window.removeEventListener('resize', updateWidth);
+    }
+  }, []);
+
+  const isMobile = isHero || windowWidth < 640;
+  const isTablet = !isHero && windowWidth >= 640 && windowWidth < 1024;
+
+  // Device wrapper classes
   const getContainerWrapper = () => {
     if (isHero) {
       return 'w-full min-h-screen';
     }
-    switch (deviceMode) {
-      case 'mobile':
-        return 'w-full max-w-[400px] min-h-[824px] mx-auto mt-24 sm:mt-20 mb-8 border-[10px] sm:border-[12px] border-charcoal rounded-[44px] sm:rounded-[52px] shadow-2xl overflow-hidden relative bg-charcoal';
-      case 'tablet':
-        return 'w-full max-w-[768px] min-h-[1024px] mx-auto mt-24 sm:mt-20 mb-8 border-[12px] sm:border-[14px] border-charcoal rounded-[36px] sm:rounded-[40px] shadow-2xl overflow-hidden relative bg-charcoal';
-      case 'desktop':
-      default:
-        return 'w-full min-h-screen';
-    }
+    return 'w-full max-w-xl mx-auto min-h-screen relative shadow-sm';
   };
 
   // 1. Color Palettes State (5 Handcrafted Palettes)
@@ -414,12 +411,12 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             </button>
           </div>
         ) : (
-          /* STANDALONE PAGE CONTROLS: Return to catalog + Cerrar Pliego + Device Switcher + 5 Swatches + Music */
-          <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-2.5">
+          /* STANDALONE REAL INVITATION TOOLBAR: Clean, discreet, zero template marketing */
+          <div className="max-w-2xl mx-auto flex items-center justify-between gap-2.5">
             <div className="flex items-center gap-2 pointer-events-auto">
               <a
                 href="/#catalogo"
-                className="px-4 py-2 deckle-pill shadow-sm text-xs uppercase tracking-[0.16em] transition flex items-center gap-1.5"
+                className="px-4 py-2 deckle-pill shadow-sm text-xs uppercase tracking-[0.16em] transition flex items-center gap-1.5 backdrop-blur-md"
                 style={{
                   backgroundColor: currentTheme.bgCard,
                   color: currentTheme.textDark,
@@ -427,14 +424,17 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                 }}
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Catálogo</span>
+                <span>Catálogo</span>
               </a>
 
               {scrollOpened && (
                 <button
                   type="button"
-                  onClick={() => setScrollOpened(false)}
-                  className="px-4 py-2 deckle-pill shadow-sm text-xs uppercase tracking-[0.16em] transition flex items-center gap-1.5"
+                  onClick={() => {
+                    setScrollOpened(false);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-4 py-2 deckle-pill shadow-sm text-xs uppercase tracking-[0.16em] transition flex items-center gap-1.5 backdrop-blur-md"
                   style={{
                     backgroundColor: currentTheme.bgCard,
                     color: currentTheme.textDark,
@@ -447,90 +447,12 @@ export const TornPaperWeddingInvitation: React.FC = () => {
               )}
             </div>
 
-            {/* Center: Device Viewport Switcher (Celular, Tablet, Pantalla Grande) */}
-            <div
-              className="flex items-center p-1 rounded-full shadow-sm pointer-events-auto"
-              style={{
-                backgroundColor: currentTheme.bgCard,
-                border: `1px solid ${currentTheme.borderHex}`,
-              }}
-            >
-              <button
-                type="button"
-                onClick={() => setDeviceMode('mobile')}
-                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
-                  deviceMode === 'mobile'
-                    ? 'bg-charcoal text-ivory-50 font-medium'
-                    : 'hover:opacity-80'
-                }`}
-                title="Ver en vista de Celular"
-              >
-                <Smartphone className="w-3.5 h-3.5" />
-                <span>Celular</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setDeviceMode('tablet')}
-                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
-                  deviceMode === 'tablet'
-                    ? 'bg-charcoal text-ivory-50 font-medium'
-                    : 'hover:opacity-80'
-                }`}
-                title="Ver en vista de Tablet"
-              >
-                <Tablet className="w-3.5 h-3.5" />
-                <span>Tablet</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setDeviceMode('desktop')}
-                className={`px-3 py-1.5 rounded-full text-[11px] uppercase tracking-wider transition flex items-center gap-1 ${
-                  deviceMode === 'desktop'
-                    ? 'bg-charcoal text-ivory-50 font-medium'
-                    : 'hover:opacity-80'
-                }`}
-                title="Ver en Pantalla Grande"
-              >
-                <Monitor className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Pantalla Grande</span>
-                <span className="sm:hidden">Grande</span>
-              </button>
-            </div>
-
-            {/* 5 Colors Swatches Bar + Music */}
+            {/* Music Toggle */}
             <div className="flex items-center gap-2 pointer-events-auto">
-              <div
-                className="flex items-center gap-1.5 px-3 py-1.5 deckle-pill shadow-sm"
-                style={{
-                  backgroundColor: currentTheme.bgCard,
-                  border: `1px solid ${currentTheme.borderHex}`,
-                }}
-                title="Elige entre 5 paletas de color en tiempo real"
-              >
-                <Palette className="w-3.5 h-3.5 ml-1 mr-0.5 opacity-70" style={{ color: currentTheme.primaryHex }} />
-                {TORN_PAPER_PALETTES.map((pal, idx) => (
-                  <button
-                    key={pal.id}
-                    type="button"
-                    onClick={() => setSelectedPaletteIndex(idx)}
-                    className={`w-6 h-6 rounded-full transition-transform ${
-                      selectedPaletteIndex === idx
-                        ? 'scale-125 ring-2 ring-charcoal shadow-sm'
-                        : 'hover:scale-110'
-                    }`}
-                    style={{ backgroundColor: pal.swatchColor }}
-                    title={pal.name}
-                    aria-label={pal.name}
-                  />
-                ))}
-              </div>
-
               <button
                 type="button"
                 onClick={() => setMusicOn(!musicOn)}
-                className="pointer-events-auto px-4 py-2 deckle-pill text-ivory-50 shadow-editorial flex items-center gap-2 text-xs transition"
+                className="pointer-events-auto px-4 py-2 deckle-pill text-ivory-50 shadow-editorial flex items-center gap-2 text-xs transition backdrop-blur-md"
                 style={{ backgroundColor: currentTheme.accentDark }}
               >
                 {musicOn ? (
@@ -539,11 +461,13 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                     <span className="text-[11px] tracking-wider hidden sm:inline">
                       Guitarra Clásica
                     </span>
+                    <span className="text-[11px] tracking-wider sm:hidden">Música</span>
                   </>
                 ) : (
                   <>
                     <VolumeX className="w-4 h-4 opacity-70" />
-                    <span className="text-[11px] tracking-wider hidden sm:inline">Música en Pausa</span>
+                    <span className="text-[11px] tracking-wider hidden sm:inline">Música en pausa</span>
+                    <span className="text-[11px] tracking-wider sm:hidden">Música</span>
                   </>
                 )}
               </button>
@@ -552,14 +476,8 @@ export const TornPaperWeddingInvitation: React.FC = () => {
         )}
       </div>
 
-      {/* INNER WRAPPER (RESPONSIVE OR DEVICE MOCKUP FRAME) */}
-      <div className={getContainerWrapper()}>
-        {/* Device Speaker Notch in Mobile Simulator */}
-        {!isHero && deviceMode === 'mobile' && (
-          <div className="w-28 sm:w-36 h-4 sm:h-5 bg-charcoal rounded-b-2xl mx-auto z-40 relative flex items-center justify-center">
-            <div className="w-8 sm:w-10 h-1 bg-charcoal-light rounded-full" />
-          </div>
-        )}
+      {/* INNER WRAPPER */}
+      <div className={getContainerWrapper()} style={{ backgroundColor: scrollOpened ? currentTheme.bgMain : currentTheme.bgOuter }}>
 
         {!scrollOpened ? (
           /* UNOPENED HANDMADE TORN-PAPER SCROLL & SILK RIBBON SEAL */
@@ -603,7 +521,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
                     className="text-[10px] uppercase tracking-[0.28em] block font-medium"
                     style={{ color: currentTheme.primaryHex }}
                   >
-                    Invitación Digital · {currentTheme.name}
+                    Nuestra Boda
                   </span>
                   <h1
                     className={`font-serif text-[#2C221E] font-normal ${
@@ -666,7 +584,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
             </div>
 
             <div className="relative z-30 text-center pb-2 text-xs font-serif italic" style={{ color: currentTheme.textMuted }}>
-              Invitación Digital Cinta de Seda · Tu Invitación Especial
+              Con amor, Lucía &amp; Rodrigo
             </div>
           </div>
         ) : (
