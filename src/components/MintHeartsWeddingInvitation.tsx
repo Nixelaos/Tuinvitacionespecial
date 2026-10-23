@@ -872,7 +872,7 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
               >
                 <Gift className="w-7 h-7 mx-auto" style={{ color: currentTheme.primaryHex }} />
                 <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: currentTheme.primaryHex }}>
-                  Mesa de Regalos
+                  Lista de Regalos
                 </span>
                 <h3 className={`font-serif ${isMobile ? 'text-2xl' : 'text-3xl sm:text-4xl'}`}>
                   Lista de Regalos de los Novios

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Minus } from 'lucide-react';
+import { Plus, Minus, ArrowRight } from 'lucide-react';
 import { FAQ_ITEMS } from '../data/weddingData';
 
 export const FaqAccordion: React.FC = () => {
@@ -39,8 +39,19 @@ export const FaqAccordion: React.FC = () => {
             </button>
 
             {isOpen && (
-              <div className="mt-3.5 pr-10 text-sm sm:text-base text-charcoal-muted leading-relaxed font-light">
-                {item.answer}
+              <div className="mt-3.5 pr-10 text-sm sm:text-base text-charcoal-muted leading-relaxed font-light space-y-3">
+                <p>{item.answer}</p>
+                {item.linkHref && (
+                  <div className="pt-1">
+                    <a
+                      href={item.linkHref}
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.16em] font-medium transition shadow-xs"
+                    >
+                      <span>{item.linkText || 'Ver explicación sobre la lista de regalos'}</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-gold-light" />
+                    </a>
+                  </div>
+                )}
               </div>
             )}
           </div>

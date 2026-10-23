@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, ArrowUpRight, Smartphone, ExternalLink, Check } from 'lucide-react';
+import { ArrowUpRight, Smartphone, ExternalLink, Check } from 'lucide-react';
 import { INVITATION_TEMPLATES } from '../data/weddingData';
 import type { InvitationTemplate } from '../types/wedding';
+import { ParchmentLogo } from './ParchmentLogo';
 
 export const HeroRealInvitation: React.FC = () => {
   const [selectedSlug, setSelectedSlug] = useState<string>(() => {
@@ -76,22 +77,6 @@ export const HeroRealInvitation: React.FC = () => {
         })}
       </div>
 
-      {/* Floating Live Badge */}
-      <div className="hidden sm:flex absolute -left-12 top-20 z-20 bg-ivory-50/95 backdrop-blur-md border border-gold/30 shadow-editorial px-3.5 py-2.5 items-center gap-2.5 animate-float-slow">
-        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-        <div>
-          <span className="text-[9px] uppercase tracking-widest text-gold-dark font-semibold block">
-            Invitación Real en Vivo
-          </span>
-          <p className="font-serif text-sm font-medium text-charcoal">
-            {selectedTemplate.coupleDemo.bride} &amp; {selectedTemplate.coupleDemo.groom}
-          </p>
-          <span className="text-[10px] text-charcoal-muted">
-            {selectedTemplate.name}
-          </span>
-        </div>
-      </div>
-
       {/* Realistic Smartphone Mockup Frame (Default 400 x 824 proportion) */}
       <div className="relative w-full max-w-[420px] bg-[#1E2022] rounded-[52px] p-2.5 sm:p-3 shadow-editorial-lg border-4 border-[#3D3F43]">
         {/* Dynamic Island / Speaker Notch */}
@@ -124,9 +109,9 @@ export const HeroRealInvitation: React.FC = () => {
           href={`/disenos/${selectedTemplate.slug}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.18em] font-medium transition shadow-sm"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.18em] font-medium transition shadow-sm group"
         >
-          <ExternalLink className="w-3.5 h-3.5 text-gold-light" />
+          <ParchmentLogo className="w-4 h-4 text-gold-light group-hover:scale-110 transition-transform" />
           <span>Abrir a Pantalla Completa</span>
           <ArrowUpRight className="w-3.5 h-3.5 opacity-80" />
         </a>

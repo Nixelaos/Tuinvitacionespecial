@@ -2,6 +2,7 @@ import React from 'react';
 import { Sparkles, Heart, Mail, MapPin, Clock, ArrowUpRight } from 'lucide-react';
 import { FaWhatsapp, FaInstagram, FaPinterestP, FaTiktok } from 'react-icons/fa6';
 import { BRAND_NAME, WHATSAPP_NUMBER, INVITATION_TEMPLATES } from '../data/weddingData';
+import { ParchmentLogo } from './ParchmentLogo';
 
 export const Footer: React.FC = () => {
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -16,14 +17,11 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full border border-gold/50 bg-ivory-50/5 flex items-center justify-center text-gold-light">
-                <Sparkles className="w-4 h-4" />
+                <ParchmentLogo className="w-6 h-6 text-gold-light" />
               </div>
               <div className="flex flex-col justify-center">
                 <span className="font-serif text-2xl tracking-normal text-ivory-50 block leading-snug font-medium whitespace-nowrap">
                   {BRAND_NAME}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.24em] text-gold-light leading-tight mt-0.5 whitespace-nowrap">
-                  Alta Papelería Digital Nupcial
                 </span>
               </div>
             </div>
@@ -106,7 +104,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <a href="/disenos/mesa-de-regalos" className="hover:text-gold-light transition">
-                  Mesa de Regalos
+                  Lista de Regalos
                 </a>
               </li>
               <li>

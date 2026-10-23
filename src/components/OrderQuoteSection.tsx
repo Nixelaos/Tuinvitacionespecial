@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Sparkles,
   Calendar,
   Heart,
   CheckCircle2,
@@ -11,6 +10,7 @@ import {
   Brush,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
+import { ParchmentLogo } from './ParchmentLogo';
 import {
   INVITATION_TEMPLATES,
   PRICING_PLANS,
@@ -236,7 +236,7 @@ export const OrderQuoteSection: React.FC = () => {
                     required
                     value={emailOrPhone}
                     onChange={(e) => setEmailOrPhone(e.target.value)}
-                    placeholder="Ej. +56 9 1234 5678 o correo@ejemplo.cl"
+                    placeholder="Ej. +56 9 5078 1737 o novios@ejemplo.cl"
                     className="w-full px-4 py-2.5 bg-ivory-100 border border-ivory-300 text-sm text-charcoal focus:outline-none focus:border-gold"
                   />
                 </div>
@@ -318,7 +318,7 @@ export const OrderQuoteSection: React.FC = () => {
                   {coupleNames.trim() || 'Su Invitación Nupcial'}
                 </h4>
               </div>
-              <Sparkles className="w-5 h-5 text-gold-light" />
+              <ParchmentLogo className="w-5 h-5 text-gold-light" />
             </div>
 
             <div className="space-y-3 text-sm">

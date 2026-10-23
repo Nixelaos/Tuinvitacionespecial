@@ -476,7 +476,7 @@ export const WeddingGiftRegistryApp: React.FC = () => {
             <Gift className="w-6 h-6" />
           </div>
           <span className="text-xs uppercase tracking-[0.28em] text-[#A86448] font-semibold block">
-            Mesa de Regalos Personalizada · Lucía &amp; Rodrigo
+            Lista de Regalos Personalizada · Lucía &amp; Rodrigo
           </span>
           <h1 className="font-serif text-4xl sm:text-6xl text-[#2C221E] font-normal">
             {viewMode === 'invitados'

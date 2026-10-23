@@ -114,5 +114,7 @@ export interface FaqItem {
   id: string;
   question: string;
   answer: string;
-  category: 'Proceso y Entrega' | 'Personalización' | 'Confirmación RSVP' | 'Pagos y Vigencia';
+  category: string;
+  linkText?: string;
+  linkHref?: string;
 }

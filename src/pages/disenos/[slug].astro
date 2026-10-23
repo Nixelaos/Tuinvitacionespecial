@@ -5,6 +5,7 @@ import { Footer } from '../../components/Footer';
 import { FloatingWhatsApp } from '../../components/FloatingWhatsApp';
 import { INVITATION_TEMPLATES, WHATSAPP_NUMBER, BRAND_NAME } from '../../data/weddingData';
 import type { InvitationTemplate } from '../../types/wedding';
+import { ParchmentLogo } from '../../components/ParchmentLogo';
 import {
   ArrowLeft,
   Sparkles,
@@ -77,8 +78,8 @@ const otherTemplates = INVITATION_TEMPLATES.filter((t) => t.id !== template.id).
                 <span class="px-3 py-1 bg-ivory-50/90 text-[10px] uppercase tracking-[0.2em] text-charcoal">
                   Vista Previa Editorial
                 </span>
-                <span class="px-3 py-1 bg-gold text-ivory-50 text-[10px] uppercase tracking-[0.2em] flex items-center gap-1">
-                  <Sparkles className="w-3 h-3" />
+                <span class="px-3 py-1 bg-gold text-ivory-50 text-[10px] uppercase tracking-[0.2em] flex items-center gap-1.5">
+                  <ParchmentLogo className="w-3 h-3 text-ivory-50" />
                   {template.category}
                 </span>
               </div>
@@ -187,7 +188,7 @@ const otherTemplates = INVITATION_TEMPLATES.filter((t) => t.id !== template.id).
 
             <div class="mt-4 flex flex-wrap items-center gap-3">
               <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-champagne border border-gold/40 text-xs font-semibold uppercase tracking-wider text-gold-dark">
-                <Sparkles className="w-3.5 h-3.5" />
+                <ParchmentLogo className="w-3.5 h-3.5 text-gold-dark" />
                 <span>Próximamente en CLP ($)</span>
               </span>
             </div>
@@ -257,7 +258,7 @@ const otherTemplates = INVITATION_TEMPLATES.filter((t) => t.id !== template.id).
               href="/#catalogo"
               class="w-full py-3.5 bg-champagne hover:bg-gold hover:text-ivory-50 text-charcoal text-xs uppercase tracking-[0.18em] font-medium transition flex items-center justify-center gap-2 border border-gold/30"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <ParchmentLogo className="w-3.5 h-3.5 text-gold-dark" />
               <span>Ver Más Diseños en el Catálogo</span>
             </a>
 
@@ -266,7 +267,7 @@ const otherTemplates = INVITATION_TEMPLATES.filter((t) => t.id !== template.id).
               class="w-full py-3.5 border border-charcoal/25 hover:border-charcoal text-charcoal text-xs uppercase tracking-[0.18em] font-medium transition flex items-center justify-center gap-2"
             >
               <Heart className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Conocer la Mesa de Regalos</span>
+              <span>Conocer la Lista de Regalos</span>
             </a>
 
             <p class="text-[11px] text-center text-charcoal-muted flex items-center justify-center gap-1.5 pt-1">

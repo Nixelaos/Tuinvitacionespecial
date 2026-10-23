@@ -7,7 +7,7 @@ import type {
   FaqItem,
 } from '../types/wedding';
 
-export const WHATSAPP_NUMBER = '56912345678'; // Número chileno (+56 9 XXXX XXXX) — configurable por el estudio
+export const WHATSAPP_NUMBER = '56950781737'; // Número WhatsApp (+56 9 5078 1737)
 export const BRAND_NAME = 'Tu Invitación Especial';
 
 export const INVITATION_TEMPLATES: InvitationTemplate[] = [
@@ -122,7 +122,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
       'Selector interactivo de 5 paletas cromáticas',
       'Modo simulador Celular, Tablet y Pantalla Completa',
       'Dress code elegante unificado',
-      'Botón directo a mesa de regalos',
+      'Botón directo a lista de regalos',
     ],
     itinerary: [
       {
@@ -322,7 +322,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: 'Experiencia & Funciones',
     question: '¿Cómo funcionan las invitaciones digitales interactivas?',
     answer:
-      'Tus invitados reciben un enlace que abre una experiencia sensorial única: desde un sobre animado con sello de lacre o una cinta de seda, hasta su canción favorita sonando de fondo, mapa interactivo para llegar directo a la ubicación que elijas, e información detallada de la celebración, todo sin necesidad de descargar ninguna aplicación.',
+      'Tus invitados reciben un enlace web que abre una experiencia sensorial única en la pantalla: un sobre animado con apertura interactiva (donde el sello de lacre o la cinta de seda son efectos visuales 100% digitales que se tocan o desatan en pantalla), su melodía favorita sonando de fondo, mapas interactivos para llegar directo a la ubicación y toda la información de la boda, sin necesidad de descargar ninguna aplicación.',
   },
   {
     id: 'faq-2',
@@ -333,10 +333,12 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     id: 'faq-3',
-    category: 'Mesa de Regalos',
-    question: '¿Cómo funciona la Lista de Regalos y los pagos en Chile?',
+    category: 'Lista de Regalos',
+    question: '¿Cómo funciona la Lista de Regalos Interactiva?',
     answer:
-      'Incluye una elegante lista de regalos interactiva en Pesos Chilenos (CLP $) donde tus invitados pueden elegir un obsequio y transferir directamente a tu cuenta bancaria chilena (Banco de Chile, Santander, BCI, BancoEstado / Cuenta RUT, etc.). Además, los novios disponen de un panel privado para agregar o editar sus regalos.',
+      'Tus invitados pueden elegir regalos simbólicos de tu lista o copiar en un solo toque tus datos bancarios para transferirte directamente, de forma cómoda y sin comisiones ni intermediarios. Los novios disponen de un panel para gestionar y editar sus regalos con total libertad.',
+    linkText: 'Ver explicación y demo de la Lista de Regalos',
+    linkHref: '/disenos/mesa-de-regalos',
   },
   {
     id: 'faq-4',

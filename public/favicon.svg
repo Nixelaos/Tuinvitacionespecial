@@ -1,5 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
   <circle cx="32" cy="32" r="30" fill="#FAF7F2" stroke="#B5945B" stroke-width="2"/>
-  <circle cx="32" cy="32" r="25" stroke="#B5945B" stroke-width="0.75" stroke-dasharray="2 2"/>
-  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#221F1D" font-style="italic">A</text>
+  <path d="M16 18 H48 V46 H16 Z" fill="#FFFDF9" />
+  <!-- Top roll -->
+  <path d="M46 14 C49 14 51 15.6 51 17.5 C51 19.4 49 21 46 21 L18 21 C15 21 13 19.4 13 17.5 C13 15.6 15 14 18 14 L46 14 Z" fill="#FBF4E8" stroke="#8F713E" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- Sides -->
+  <path d="M15 21 V43" stroke="#8F713E" stroke-width="1.8"/>
+  <path d="M49 21 V43" stroke="#8F713E" stroke-width="1.8"/>
+  <!-- Bottom roll -->
+  <path d="M46 43 C49 43 51 44.6 51 46.5 C51 48.4 49 50 46 50 L18 50 C15 50 13 48.4 13 46.5 C13 44.6 15 43 18 43 L46 43 Z" fill="#FBF4E8" stroke="#8F713E" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- Lines without seal/timbre -->
+  <path d="M20 27 H44 M20 33 H44 M20 39 H34" stroke="#B5945B" stroke-width="1.8" stroke-linecap="round"/>
 </svg>

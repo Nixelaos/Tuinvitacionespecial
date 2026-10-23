@@ -1,7 +1,8 @@
 import React from 'react';
-import { Check, Minus, Sparkles, Clock, ShieldCheck } from 'lucide-react';
+import { Check, Minus, Clock, ShieldCheck } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { PRICING_PLANS, WHATSAPP_NUMBER, BRAND_NAME } from '../data/weddingData';
+import { ParchmentLogo } from './ParchmentLogo';
 
 export const PricingSection: React.FC = () => {
   const formatCLP = (amount: number) => `$${Math.round(amount).toLocaleString('es-CL')} CLP`;
@@ -28,7 +29,7 @@ export const PricingSection: React.FC = () => {
             >
               {plan.badge && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-charcoal text-ivory-50 text-[10px] uppercase tracking-[0.22em] font-medium flex items-center gap-1.5 whitespace-nowrap">
-                  <Sparkles className="w-3 h-3 text-gold-light" />
+                  <ParchmentLogo className="w-3 h-3 text-gold-light" />
                   <span>{plan.badge}</span>
                 </div>
               )}

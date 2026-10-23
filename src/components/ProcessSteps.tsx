@@ -1,7 +1,8 @@
 import React from 'react';
-import { Palette, FileText, Sparkles, Send } from 'lucide-react';
+import { Palette, FileText, Send } from 'lucide-react';
 import { PROCESS_STEPS } from '../data/weddingData';
 import type { ProcessStep } from '../types/wedding';
+import { ParchmentLogo } from './ParchmentLogo';
 
 export const ProcessSteps: React.FC = () => {
   const getStepIcon = (iconName: ProcessStep['iconName']) => {
@@ -12,7 +13,7 @@ export const ProcessSteps: React.FC = () => {
       case 'FileText':
         return <FileText {...props} />;
       case 'Sparkles':
-        return <Sparkles {...props} />;
+        return <ParchmentLogo {...props} />;
       case 'Send':
         return <Send {...props} />;
     }

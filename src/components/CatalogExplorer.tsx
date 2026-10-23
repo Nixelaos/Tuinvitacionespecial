@@ -14,12 +14,12 @@ import {
   PartyPopper,
   Church,
   ArrowUpRight,
-  SlidersHorizontal,
   Smartphone,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import type { InvitationTemplate, StyleCategory } from '../types/wedding';
 import { INVITATION_TEMPLATES, WHATSAPP_NUMBER, BRAND_NAME } from '../data/weddingData';
+import { ParchmentLogo } from './ParchmentLogo';
 
 const CATEGORIES: StyleCategory[] = [
   'Todos',
@@ -29,8 +29,6 @@ const CATEGORIES: StyleCategory[] = [
 
 export const CatalogExplorer: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<StyleCategory>('Todos');
-  const [customBride, setCustomBride] = useState('');
-  const [customGroom, setCustomGroom] = useState('');
   const [activeDemo, setActiveDemo] = useState<InvitationTemplate | null>(null);
   const [demoTab, setDemoTab] = useState<'invitacion' | 'itinerario' | 'rsvp'>('invitacion');
   const [copiedClabe, setCopiedClabe] = useState(false);
@@ -85,8 +83,8 @@ export const CatalogExplorer: React.FC = () => {
       : INVITATION_TEMPLATES.filter((t) => t.category === selectedCategory);
 
   const getDisplayCouple = (tpl: InvitationTemplate) => {
-    const bride = customBride.trim() || tpl.coupleDemo.bride;
-    const groom = customGroom.trim() || tpl.coupleDemo.groom;
+    const bride = tpl.coupleDemo.bride;
+    const groom = tpl.coupleDemo.groom;
     const initials = `${bride.charAt(0).toUpperCase()} & ${groom.charAt(0).toUpperCase()}`;
     return { bride, groom, initials };
   };
@@ -117,61 +115,6 @@ export const CatalogExplorer: React.FC = () => {
 
   return (
     <div>
-      {/* Personalizer Bar: Try with your own names */}
-      <div className="mb-10 bg-champagne/55 border border-gold/30 p-5 sm:p-6 shadow-sm">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="flex items-start sm:items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-ivory-50 border border-gold/40 flex items-center justify-center text-gold-dark shrink-0">
-              <SlidersHorizontal className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-gold-dark font-semibold block">
-                Simulador en Tiempo Real
-              </span>
-              <p className="font-serif text-xl text-charcoal">
-                Escriban sus nombres y previsualicen todo el catálogo personalizado:
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-            <input
-              type="text"
-              value={customBride}
-              onChange={(e) => setCustomBride(e.target.value)}
-              placeholder="Ej. Sofía"
-              maxLength={22}
-              className="px-4 py-2.5 bg-ivory-50 border border-ivory-300 focus:border-gold focus:outline-none text-sm text-charcoal placeholder:text-charcoal-muted/60 w-full sm:w-40"
-              aria-label="Nombre de la novia o pareja 1"
-            />
-            <span className="font-serif italic text-xl text-gold-dark text-center hidden sm:inline">
-              &amp;
-            </span>
-            <input
-              type="text"
-              value={customGroom}
-              onChange={(e) => setCustomGroom(e.target.value)}
-              placeholder="Ej. Mateo"
-              maxLength={22}
-              className="px-4 py-2.5 bg-ivory-50 border border-ivory-300 focus:border-gold focus:outline-none text-sm text-charcoal placeholder:text-charcoal-muted/60 w-full sm:w-40"
-              aria-label="Nombre del novio o pareja 2"
-            />
-            {(customBride || customGroom) && (
-              <button
-                type="button"
-                onClick={() => {
-                  setCustomBride('');
-                  setCustomGroom('');
-                }}
-                className="text-xs uppercase tracking-wider text-charcoal-muted hover:text-charcoal px-2 py-1"
-              >
-                Restaurar
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-
       {/* Category Filter Tabs */}
       <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
         {CATEGORIES.map((category) => {
@@ -262,12 +205,12 @@ export const CatalogExplorer: React.FC = () => {
                   href={`/disenos/${tpl.slug}`}
                   className="w-full py-3.5 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.18em] font-medium transition-all duration-300 flex items-center justify-center gap-2 shadow-sm rounded-lg"
                 >
-                  <Sparkles className="w-4 h-4 text-gold-light" />
+                  <ParchmentLogo className="w-4 h-4 text-gold-light" />
                   <span>Abrir Invitación Completa</span>
                   <ArrowUpRight className="w-4 h-4 opacity-75" />
                 </a>
 
-                {/* Button to Select and Preview in Hero Simulator */}
+                {/* Button to Select and Preview in Hero */}
                 <button
                   type="button"
                   onClick={() => handleSelectForHero(tpl)}
@@ -276,13 +219,13 @@ export const CatalogExplorer: React.FC = () => {
                       ? 'bg-champagne/90 text-charcoal font-semibold border-gold/50 shadow-xs'
                       : 'bg-ivory-50/90 hover:bg-champagne/50 text-charcoal-muted hover:text-charcoal border-ivory-300'
                   }`}
-                  title="Ver esta invitación en el simulador móvil del inicio"
+                  title="Ver esta invitación en la pantalla principal del inicio"
                 >
                   <Smartphone className="w-3.5 h-3.5 text-gold-dark" />
                   <span>
                     {heroActiveSlug === tpl.slug
-                      ? '✓ Activa en Simulador Hero'
-                      : 'Probar en Simulador Hero'}
+                      ? '✓ Activa en Vista Principal'
+                      : 'Probar en Vista Principal'}
                   </span>
                 </button>
               </div>
@@ -595,7 +538,7 @@ export const CatalogExplorer: React.FC = () => {
                     </h3>
                     <div className="mt-2 flex items-center gap-2">
                       <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-champagne border border-gold/40 text-xs font-medium text-gold-dark">
-                        <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
+                        <ParchmentLogo className="w-3.5 h-3.5 text-gold-dark" />
                         <span>Próximamente en CLP ($)</span>
                       </span>
                     </div>
@@ -633,7 +576,7 @@ export const CatalogExplorer: React.FC = () => {
                     className="w-full py-2.5 bg-champagne hover:bg-gold hover:text-ivory-50 text-charcoal border border-gold/40 text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-2 transition font-medium"
                   >
                     <Smartphone className="w-3.5 h-3.5" />
-                    <span>Ver en Simulador Hero</span>
+                    <span>Ver en Vista Principal</span>
                   </button>
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
@@ -648,9 +591,10 @@ export const CatalogExplorer: React.FC = () => {
                   </a>
                   <a
                     href={`/disenos/${activeDemo.slug}`}
-                    className="w-full py-2.5 border border-charcoal/25 hover:border-charcoal text-charcoal text-xs uppercase tracking-[0.16em] text-center block transition"
+                    className="w-full py-2.5 border border-charcoal/25 hover:border-charcoal text-charcoal text-xs uppercase tracking-[0.16em] text-center flex items-center justify-center gap-2 transition"
                   >
-                    Abrir Página Completa del Diseño
+                    <ParchmentLogo className="w-3.5 h-3.5 text-gold-dark" />
+                    <span>Abrir Página Completa del Diseño</span>
                   </a>
                 </div>
               </div>

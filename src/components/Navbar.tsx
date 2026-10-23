@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Menu, X, Heart, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Heart, ArrowUpRight } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { BRAND_NAME, WHATSAPP_NUMBER } from '../data/weddingData';
+import { ParchmentLogo } from './ParchmentLogo';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -18,7 +19,7 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { label: 'Catálogo', href: '/#catalogo' },
     { label: 'Funciones', href: '/#funciones' },
-    { label: 'Mesa de Regalos', href: '/disenos/mesa-de-regalos' },
+    { label: 'Lista de Regalos', href: '/disenos/mesa-de-regalos' },
     { label: 'Preguntas Frecuentes', href: '/#preguntas' },
   ];
 
@@ -42,15 +43,12 @@ export const Navbar: React.FC = () => {
             className="group flex items-center gap-3 shrink-0 focus:outline-none"
             aria-label={BRAND_NAME}
           >
-            <div className="w-10 h-10 rounded-full border border-gold/40 bg-champagne/60 flex items-center justify-center text-gold-dark group-hover:bg-gold group-hover:text-ivory-50 transition-colors duration-300 shrink-0">
-              <Sparkles className="w-4 h-4" />
+            <div className="w-10 h-10 rounded-full border border-gold/40 bg-champagne/60 flex items-center justify-center text-gold-dark group-hover:border-gold group-hover:bg-champagne/80 transition-colors duration-300 shrink-0">
+              <ParchmentLogo className="w-6 h-6 text-gold-dark group-hover:scale-105 transition-transform" />
             </div>
             <div className="flex flex-col justify-center">
               <span className="font-serif text-xl sm:text-[23px] tracking-normal text-charcoal leading-snug font-medium whitespace-nowrap">
                 {BRAND_NAME}
-              </span>
-              <span className="text-[10px] uppercase tracking-[0.22em] text-charcoal-muted leading-tight mt-0.5 whitespace-nowrap">
-                Alta Papelería Digital
               </span>
             </div>
           </a>
@@ -74,7 +72,7 @@ export const Navbar: React.FC = () => {
               href="/#catalogo"
               className="hidden 2xl:flex text-xs uppercase tracking-[0.16em] text-charcoal px-3.5 py-2.5 border border-charcoal/20 hover:border-gold hover:bg-champagne/40 transition-all items-center gap-1.5 whitespace-nowrap"
             >
-              <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
+              <ParchmentLogo className="w-3.5 h-3.5 text-gold-dark" />
               <span>Ver Diseños</span>
             </a>
             <a
@@ -122,7 +120,7 @@ export const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
               className="w-full justify-center py-3 border border-charcoal/25 text-center text-xs uppercase tracking-[0.18em] text-charcoal flex items-center gap-2"
             >
-              <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
+              <ParchmentLogo className="w-3.5 h-3.5 text-gold-dark" />
               <span>Explorar Catálogo</span>
             </a>
             <a

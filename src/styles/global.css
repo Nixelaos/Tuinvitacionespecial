@@ -51,8 +51,7 @@
 
 /* Custom subtle pattern overlay */
 .bg-linen-pattern {
-  background-image: radial-gradient(rgba(181, 148, 91, 0.14) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: none;
 }
 
 /* Artistic animations for Botanical & Celestial Invitation */

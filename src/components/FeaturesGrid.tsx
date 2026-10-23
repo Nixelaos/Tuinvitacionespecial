@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Sparkles,
   CalendarCheck,
   Music,
   MapPin,
@@ -13,6 +12,7 @@ import {
   Check,
 } from 'lucide-react';
 import { INTERACTIVE_FEATURES } from '../data/weddingData';
+import { ParchmentLogo } from './ParchmentLogo';
 import type { InteractiveFeature } from '../types/wedding';
 
 export const FeaturesGrid: React.FC = () => {
@@ -26,7 +26,7 @@ export const FeaturesGrid: React.FC = () => {
       case 'CalendarCheck':
         return <CalendarCheck {...props} />;
       case 'Sparkles':
-        return <Sparkles {...props} />;
+        return <ParchmentLogo {...props} />;
       case 'Music':
         return <Music {...props} />;
       case 'MapPin':
