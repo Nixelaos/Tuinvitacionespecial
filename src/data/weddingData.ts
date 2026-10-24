@@ -122,7 +122,7 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
       'Selector interactivo de 5 paletas cromáticas',
       'Modo simulador Celular, Tablet y Pantalla Completa',
       'Dress code elegante unificado',
-      'Botón directo a lista de regalos',
+      'Galería editorial de fotos',
     ],
     itinerary: [
       {
@@ -159,7 +159,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       { label: 'Cuenta regresiva en tiempo real', included: true },
       { label: 'Ubicación de ceremonia y recepción con mapa directo', included: true },
       { label: 'Itinerario de actividades y código de vestimenta', included: true },
-      { label: 'Lista de regalos y datos de transferencia con copiado rápido', included: true },
+      { label: 'Información de dress code y recomendaciones para invitados', included: true },
       { label: 'Confirmación de asistencia (RSVP) directo a WhatsApp', included: true },
       { label: 'Música de fondo y apertura con sobre animado', included: false },
       { label: 'Pases personalizados con nombre de cada invitado', included: false },
@@ -188,8 +188,8 @@ export const PRICING_PLANS: PricingPlan[] = [
       { label: 'Personalización de paleta de colores y tipografías', included: true },
       { label: 'Formulario RSVP con alergias alimentarias y canción sugerida', included: true },
       { label: 'Confirmación inmediata a tu WhatsApp con mensaje especial', included: true, highlight: true },
-      { label: 'Lista de regalos interactiva administrable por los novios', included: true },
-      { label: 'Datos de transferencia bancaria / Cuenta RUT listos para copiar', included: true },
+      { label: 'Diseño 100% responsive adaptado a celulares, tablets y PC', included: true },
+      { label: 'Itinerario detallado y mapas interactivos con Waze y Google Maps', included: true },
       { label: 'Dominio propio (.cl / .com) y códigos QR de acceso en recepción', included: false },
     ],
     ctaLabel: 'Reservar Colección Atelier',
@@ -266,12 +266,12 @@ export const INTERACTIVE_FEATURES: InteractiveFeature[] = [
     iconName: 'Clock',
   },
   {
-    id: 'feat-gifts',
-    title: 'Lista de Regalos & Transferencias',
-    subtitle: '100% adaptado a Chile (CLP $)',
+    id: 'feat-gallery',
+    title: 'Galería de Fotos & Momentos',
+    subtitle: 'Sesión pre-boda en alta definición',
     description:
-      'Incluye tu lista de regalos personalizada en Pesos Chilenos o comparte los datos de tu cuenta bancaria chilena / Cuenta RUT con copiado instantáneo.',
-    iconName: 'Gift',
+      'Comparte con tus seres queridos los momentos más memorables de su sesión de fotos o historia de amor en una elegante galería integrada.',
+    iconName: 'Camera',
   },
 ];
 
@@ -309,7 +309,7 @@ export const TESTIMONIALS: Testimonial[] = [
     weddingDate: 'Agosto 2026',
     templateName: 'Marfil & Menta',
     quote:
-      '«Buscábamos algo sumamente sobrio y elegante, lejos de las invitaciones digitales recargadas. El resultado superó todo y la lista de regalos en pesos chilenos fue un éxito.»',
+      '«Buscábamos algo sumamente sobrio y elegante, lejos de las invitaciones digitales recargadas. El resultado superó todo y la confirmación directa a WhatsApp fue un éxito.»',
     guestCount: 210,
     avatarUrl:
       'https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=300&q=80',
@@ -333,12 +333,10 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     id: 'faq-3',
-    category: 'Lista de Regalos',
-    question: '¿Cómo funciona la Lista de Regalos Interactiva?',
+    category: 'Personalización & Asesoría',
+    question: '¿Cómo coordinamos la personalización de nuestra invitación?',
     answer:
-      'Tus invitados pueden elegir regalos simbólicos de tu lista o copiar en un solo toque tus datos bancarios para transferirte directamente, de forma cómoda y sin comisiones ni intermediarios. Los novios disponen de un panel para gestionar y editar sus regalos con total libertad.',
-    linkText: 'Ver explicación y demo de la Lista de Regalos',
-    linkHref: '/disenos/mesa-de-regalos',
+      'Tras elegir tu colección, coordinaremos una entrevista personalizada donde nos compartirás sus fotos, música favorita, paleta de colores, ubicaciones de la ceremonia y detalles del evento. Nosotros nos encargamos de todo el montaje artesanal y diseño web.',
   },
   {
     id: 'faq-4',
@@ -352,7 +350,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: 'Valores & Moneda',
     question: '¿En qué moneda están los valores y cuáles son los medios de pago en Chile?',
     answer:
-      'Todos nuestros servicios y listas de regalos están expresados 100% en Pesos Chilenos (CLP $). Puedes reservar y pagar cómodamente mediante transferencia bancaria electrónica o tarjetas nacionales en un pago único y sin mensualidades.',
+      'Todos nuestros servicios e invitaciones están expresados 100% en Pesos Chilenos (CLP $). Puedes reservar y pagar cómodamente mediante transferencia bancaria electrónica o tarjetas nacionales en un pago único y sin mensualidades.',
   },
   {
     id: 'faq-6',

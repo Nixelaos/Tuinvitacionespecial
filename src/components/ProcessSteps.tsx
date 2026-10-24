@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Palette, FileText, Send } from 'lucide-react';
 import { PROCESS_STEPS } from '../data/weddingData';
 import type { ProcessStep } from '../types/wedding';

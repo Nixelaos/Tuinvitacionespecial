@@ -85,7 +85,6 @@ export interface InteractiveFeature {
     | 'Music'
     | 'MapPin'
     | 'Clock'
-    | 'Gift'
     | 'Camera'
     | 'ShieldCheck';
   badge?: string;

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { WHATSAPP_NUMBER, BRAND_NAME } from '../data/weddingData';
 

@@ -8,7 +8,6 @@ import {
   Volume2,
   VolumeX,
   Shirt,
-  Gift,
   Check,
   CheckCircle2,
   Church,
@@ -26,14 +25,6 @@ import {
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { WHATSAPP_NUMBER } from '../data/weddingData';
-import {
-  INITIAL_GIFTS_FALLBACK,
-  renderGiftIcon,
-  type WeddingGiftItem,
-} from './WeddingGiftRegistryApp';
-import { BACKEND_URL } from '../config/api';
-
-const STORAGE_KEY = 'atelier_wedding_gifts_v1';
 
 export interface TornPaperPalette {
   id: string;
@@ -256,10 +247,7 @@ export const TornPaperWeddingInvitation: React.FC = () => {
     seconds: 22,
   });
 
-  // 5. Gifts Preview loaded from Backend / LocalStorage for the Planilla
-  const [coupleGifts, setCoupleGifts] = useState<WeddingGiftItem[]>(INITIAL_GIFTS_FALLBACK);
-
-  // 6. WhatsApp RSVP State
+  // 5. WhatsApp RSVP State
   const [guestName, setGuestName] = useState('');
   const [attending, setAttending] = useState<'si' | 'no'>('si');
   const [passes, setPasses] = useState('2');
@@ -282,33 +270,6 @@ export const TornPaperWeddingInvitation: React.FC = () => {
     updateTimer();
     const id = setInterval(updateTimer, 1000);
     return () => clearInterval(id);
-  }, []);
-
-  // Fetch live gifts from backend (or localStorage) so the planilla always shows the couple's latest gifts
-  useEffect(() => {
-    const loadGifts = async () => {
-      if (BACKEND_URL) {
-        try {
-          const res = await fetch(BACKEND_URL);
-          if (res.ok) {
-            const data = await res.json();
-            setCoupleGifts(data);
-            return;
-          }
-        } catch {
-          // silently fallback to storage or defaults
-        }
-      }
-      try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) {
-          setCoupleGifts(JSON.parse(stored));
-        }
-      } catch {
-        // keep fallback
-      }
-    };
-    loadGifts();
   }, []);
 
   const handleUntieScroll = () => {

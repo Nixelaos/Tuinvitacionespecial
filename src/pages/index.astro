@@ -11,11 +11,11 @@ import { ParchmentLogo } from '../components/ParchmentLogo';
 import {
   Sparkles,
   ArrowRight,
+  Heart,
   Mail,
   Music,
   MapPin,
   Clock,
-  Gift,
   HelpCircle,
   CheckCircle2,
 } from 'lucide-react';
@@ -70,20 +70,13 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
               <p class="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-charcoal-muted font-semibold mb-2.5 text-center lg:text-left">
                 Accesos directos del menú:
               </p>
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-lg mx-auto lg:mx-0">
+              <div class="grid grid-cols-3 gap-2 max-w-lg mx-auto lg:mx-0">
                 <a
                   href="#catalogo"
                   class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-ivory-50/95 border border-ivory-300 hover:border-gold hover:bg-champagne/40 transition-all text-[11px] uppercase tracking-wider text-charcoal font-medium shadow-xs"
                 >
                   <ParchmentLogo className="w-3.5 h-3.5 text-gold-dark shrink-0" />
                   <span>Catálogo</span>
-                </a>
-                <a
-                  href="/disenos/mesa-de-regalos"
-                  class="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-ivory-50/95 border border-ivory-300 hover:border-gold hover:bg-champagne/40 transition-all text-[11px] uppercase tracking-wider text-charcoal font-medium shadow-xs"
-                >
-                  <Gift className="w-3.5 h-3.5 text-gold-dark shrink-0" />
-                  <span>Lista Regalos</span>
                 </a>
                 <a
                   href="#funciones"
@@ -174,7 +167,7 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
               { icon: MapPin, label: 'Ubicación', desc: 'Google Maps y Waze' },
               { icon: Clock, label: 'Cuenta regresiva', desc: 'Tiempo en vivo' },
               { icon: FaWhatsapp, label: 'Confirmación', desc: 'Directa a WhatsApp' },
-              { icon: Gift, label: 'Lista de regalos', desc: 'Datos y transferencias' },
+              { icon: Heart, label: 'Diseño a Medida', desc: 'Atención artesanal' },
             ].map(({ icon: Icon, label, desc }) => (
               <li class="flex flex-col items-center gap-2 p-4 sm:p-5 bg-ivory-50 border border-ivory-300/80 shadow-xs hover:border-gold/60 hover:shadow-editorial transition-all group">
                 <span class="w-11 h-11 rounded-full bg-champagne group-hover:bg-gold group-hover:text-ivory-50 transition-colors flex items-center justify-center text-gold-dark shrink-0">
@@ -186,51 +179,6 @@ const whatsappHeroUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURICompon
             ))
           }
         </ul>
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- LISTA DE REGALOS (DESTACADO) -->
-    <!-- ========================================== -->
-    <section id="lista-regalos" class="py-16 sm:py-24 bg-[#FCFAF7] border-b border-ivory-300 relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-gradient-to-br from-ivory-50 via-champagne/30 to-ivory-100 border border-gold/30 p-8 sm:p-12 lg:p-14 shadow-editorial flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
-          <div class="space-y-3.5 max-w-2xl text-center lg:text-left">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-champagne/80 border border-gold/40 text-[11px] uppercase tracking-[0.28em] text-gold-dark font-semibold">
-              <Gift className="w-3.5 h-3.5" />
-              <span>Lista de Regalos Interactiva</span>
-            </div>
-
-            <h2 class="font-serif text-3xl sm:text-4xl lg:text-[46px] text-charcoal font-normal tracking-tight leading-[1.12]">
-              Lista de Regalos <span class="italic text-gold-dark">Interactiva</span>
-            </h2>
-
-            <div class="w-12 h-[2px] bg-gold/50 rounded-full mx-auto lg:mx-0 my-1"></div>
-
-            <p class="text-sm sm:text-base text-charcoal-muted leading-relaxed font-light">
-              Permite que tus invitados elijan regalos simbólicos de tu lista o copien en un solo toque tus datos bancarios para transferirte cómodamente sin comisiones ni intermediarios.
-            </p>
-          </div>
-
-          <div class="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3 w-full sm:w-auto">
-            <a
-              href="/disenos/mesa-de-regalos"
-              class="btn-gold text-center py-4 px-8 whitespace-nowrap shadow-sm"
-            >
-              <span>Ver Demo Lista de Regalos</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href={whatsappHeroUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="btn-outline-editorial text-center py-3.5 px-6 whitespace-nowrap text-xs uppercase tracking-wider"
-            >
-              <FaWhatsapp className="w-4 h-4 text-sage-dark" />
-              <span>Consultar por WhatsApp</span>
-            </a>
-          </div>
-        </div>
       </div>
     </section>
 

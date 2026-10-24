@@ -8,7 +8,6 @@ import {
   Volume2,
   VolumeX,
   Shirt,
-  Gift,
   Check,
   CheckCircle2,
   Church,
@@ -859,43 +858,6 @@ export const MintHeartsWeddingInvitation: React.FC = () => {
                     <span>Confirmar Asistencia por WhatsApp</span>
                   </button>
                 </form>
-              </div>
-            </section>
-
-            {/* GIFT SECTION WITH BUTTON TO GIFT REGISTRY */}
-            <section className={`${isMobile ? 'px-4' : 'px-6'} text-center`}>
-              <div
-                className={`max-w-3xl mx-auto ${
-                  isMobile ? 'p-6 rounded-[28px]' : 'p-8 sm:p-12 rounded-[36px]'
-                } shadow-sm space-y-4`}
-                style={{ backgroundColor: currentTheme.cardHex, border: `1px solid ${currentTheme.borderHex}` }}
-              >
-                <Gift className="w-7 h-7 mx-auto" style={{ color: currentTheme.primaryHex }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: currentTheme.primaryHex }}>
-                  Lista de Regalos
-                </span>
-                <h3 className={`font-serif ${isMobile ? 'text-2xl' : 'text-3xl sm:text-4xl'}`}>
-                  Lista de Regalos de los Novios
-                </h3>
-                <p className="text-xs sm:text-sm max-w-xl mx-auto" style={{ color: currentTheme.mutedHex }}>
-                  El mejor obsequio es contar con su presencia. Si desean tener un detalle para
-                  nuestro nuevo hogar o luna de miel, pueden consultar nuestra lista de regalos
-                  personalizada:
-                </p>
-
-                <div className="pt-2">
-                  <a
-                    href="/disenos/mesa-de-regalos"
-                    className={`inline-flex items-center justify-center gap-2 ${
-                      isMobile ? 'px-5 py-3.5 w-full' : 'px-8 py-4'
-                    } rounded-2xl text-ivory-50 text-xs uppercase tracking-[0.16em] font-semibold shadow-md transition hover:opacity-95`}
-                    style={{ backgroundColor: currentTheme.primaryHex }}
-                  >
-                    <Gift className="w-4 h-4 shrink-0" />
-                    <span>Ver Lista de Regalos de los Novios</span>
-                    <ArrowUpRight className="w-4 h-4 shrink-0" />
-                  </a>
-                </div>
               </div>
             </section>
 

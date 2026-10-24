@@ -103,11 +103,6 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/disenos/mesa-de-regalos" className="hover:text-gold-light transition">
-                  Lista de Regalos
-                </a>
-              </li>
-              <li>
                 <a href="/#preguntas" className="hover:text-gold-light transition">
                   Preguntas Frecuentes
                 </a>

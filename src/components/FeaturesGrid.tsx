@@ -4,7 +4,6 @@ import {
   Music,
   MapPin,
   Clock,
-  Gift,
   Camera,
   ShieldCheck,
   Users,
@@ -33,8 +32,6 @@ export const FeaturesGrid: React.FC = () => {
         return <MapPin {...props} />;
       case 'Clock':
         return <Clock {...props} />;
-      case 'Gift':
-        return <Gift {...props} />;
       case 'Camera':
         return <Camera {...props} />;
       case 'ShieldCheck':

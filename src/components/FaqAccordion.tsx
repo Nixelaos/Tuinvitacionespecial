@@ -47,7 +47,7 @@ export const FaqAccordion: React.FC = () => {
                       href={item.linkHref}
                       className="inline-flex items-center gap-2 px-4 py-2 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.16em] font-medium transition shadow-xs"
                     >
-                      <span>{item.linkText || 'Ver explicación sobre la lista de regalos'}</span>
+                      <span>{item.linkText || 'Ver más información'}</span>
                       <ArrowRight className="w-3.5 h-3.5 text-gold-light" />
                     </a>
                   </div>

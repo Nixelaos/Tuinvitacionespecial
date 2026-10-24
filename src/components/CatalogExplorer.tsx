@@ -5,8 +5,6 @@ import {
   Music,
   MapPin,
   Clock,
-  Gift,
-  Copy,
   CheckCircle2,
   CalendarHeart,
   Utensils,
@@ -31,7 +29,6 @@ export const CatalogExplorer: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<StyleCategory>('Todos');
   const [activeDemo, setActiveDemo] = useState<InvitationTemplate | null>(null);
   const [demoTab, setDemoTab] = useState<'invitacion' | 'itinerario' | 'rsvp'>('invitacion');
-  const [copiedClabe, setCopiedClabe] = useState(false);
   const [rsvpSubmitted, setRsvpSubmitted] = useState(false);
   const [rsvpGuestName, setRsvpGuestName] = useState('');
   const [rsvpPasses, setRsvpPasses] = useState('2');
@@ -89,10 +86,6 @@ export const CatalogExplorer: React.FC = () => {
     return { bride, groom, initials };
   };
 
-  const handleCopyBank = () => {
-    setCopiedClabe(true);
-    setTimeout(() => setCopiedClabe(false), 2500);
-  };
 
   const openModal = (tpl: InvitationTemplate) => {
     setActiveDemo(tpl);
@@ -273,7 +266,7 @@ export const CatalogExplorer: React.FC = () => {
                 <div className="flex items-center justify-center gap-2 mb-6">
                   {[
                     { id: 'invitacion', label: '1. Portada y Música' },
-                    { id: 'itinerario', label: '2. Itinerario y Regalos' },
+                    { id: 'itinerario', label: '2. Itinerario y Dress Code' },
                     { id: 'rsvp', label: '3. Confirmar RSVP' },
                   ].map((tab) => (
                     <button
@@ -397,38 +390,16 @@ export const CatalogExplorer: React.FC = () => {
                       ))}
                     </div>
 
-                    {/* Gift Registry Demo Box */}
+                    {/* Dress Code & Recomendaciones */}
                     <div className="p-4 bg-ivory-50 border border-gold/30 text-center space-y-2">
-                      <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold-dark">
-                        <Gift className="w-4 h-4" />
-                        <span>Lista de Regalos &amp; Transferencia</span>
+                      <div className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-gold-dark font-medium">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Código de Vestimenta · Rigurosa Etiqueta</span>
                       </div>
-                      <p className="text-xs text-charcoal-muted">
-                        Su presencia es nuestro mejor regalo. Si desean tener un detalle con
-                        nosotros:
+                      <p className="text-xs text-charcoal-muted leading-relaxed">
+                        Mujeres: Vestido largo de gala. Varones: Traje formal oscuro o esmoquin.
+                        Reserva exclusiva del blanco y marfil para la novia.
                       </p>
-                      <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
-                        <code className="px-3 py-1.5 bg-champagne/60 text-xs text-charcoal font-mono">
-                          Cuenta RUT · 12.345.678-9
-                        </code>
-                        <button
-                          type="button"
-                          onClick={handleCopyBank}
-                          className="px-3 py-1.5 bg-charcoal text-ivory-50 text-xs flex items-center gap-1 hover:bg-gold-dark transition"
-                        >
-                          {copiedClabe ? (
-                            <>
-                              <Check className="w-3.5 h-3.5 text-[#A7D7B8]" />
-                              <span>¡Copiado!</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3.5 h-3.5" />
-                              <span>Copiar</span>
-                            </>
-                          )}
-                        </button>
-                      </div>
                     </div>
                   </div>
                 )}

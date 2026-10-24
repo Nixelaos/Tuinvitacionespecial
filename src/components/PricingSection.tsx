@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Check, Minus, Clock, ShieldCheck } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import { PRICING_PLANS, WHATSAPP_NUMBER, BRAND_NAME } from '../data/weddingData';
