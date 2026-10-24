@@ -50,9 +50,9 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
       secondaryHex: '#69564A',
     },
     coverImage:
-      'https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1000&q=85',
     secondaryImage:
-      'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80',
     includedFeatures: [
       'Tarjetas digitales con bordes orgánicos rasgados',
       'Apertura animada desatando una cinta de seda',
@@ -93,8 +93,8 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
       bride: 'Isabella',
       groom: 'Tomás',
       initials: 'I & T',
-      date: '2027-09-18T17:00:00',
-      displayDate: 'Sábado, 18 de Septiembre de 2027',
+      date: '2027-10-23T17:00:00',
+      displayDate: 'Sábado, 23 de Octubre de 2027',
       city: 'Pirque, Región Metropolitana',
       ceremonyVenue: 'Parroquia Santa María de las Rosas',
       ceremonyTime: '17:00 hrs',
@@ -114,9 +114,9 @@ export const INVITATION_TEMPLATES: InvitationTemplate[] = [
       secondaryHex: '#587063',
     },
     coverImage:
-      'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1000&q=85',
     secondaryImage:
-      'https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80',
     includedFeatures: [
       'Sobre sensorial con sello interactivo',
       'Selector interactivo de 5 paletas cromáticas',

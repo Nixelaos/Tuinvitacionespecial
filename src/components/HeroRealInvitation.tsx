@@ -1,5 +1,5 @@
-﻿import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, Smartphone, ExternalLink, Check } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowUpRight, Check } from 'lucide-react';
 import { INVITATION_TEMPLATES } from '../data/weddingData';
 import type { InvitationTemplate } from '../types/wedding';
 import { ParchmentLogo } from './ParchmentLogo';

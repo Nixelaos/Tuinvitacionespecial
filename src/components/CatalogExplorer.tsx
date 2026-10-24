@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Sparkles,
   X,
   Music,
   MapPin,
   Clock,
+  Check,
   CheckCircle2,
   CalendarHeart,
   Utensils,
@@ -12,7 +13,6 @@ import {
   PartyPopper,
   Church,
   ArrowUpRight,
-  Smartphone,
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa6';
 import type { InvitationTemplate, StyleCategory } from '../types/wedding';
@@ -33,46 +33,6 @@ export const CatalogExplorer: React.FC = () => {
   const [rsvpGuestName, setRsvpGuestName] = useState('');
   const [rsvpPasses, setRsvpPasses] = useState('2');
   const [rsvpAllergies, setRsvpAllergies] = useState('');
-
-  // Hero Simulator Active Template Sync
-  const [heroActiveSlug, setHeroActiveSlug] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('selected_wedding_hero_template');
-      if (saved && INVITATION_TEMPLATES.some((t) => t.slug === saved)) {
-        return saved;
-      }
-    }
-    return INVITATION_TEMPLATES[0].slug;
-  });
-
-  useEffect(() => {
-    const handleHeroChanged = (e: Event) => {
-      const customEvent = e as CustomEvent<{ slug: string }>;
-      if (customEvent.detail?.slug) {
-        setHeroActiveSlug(customEvent.detail.slug);
-      }
-    };
-    window.addEventListener('hero-template-changed', handleHeroChanged);
-    return () => {
-      window.removeEventListener('hero-template-changed', handleHeroChanged);
-    };
-  }, []);
-
-  const handleSelectForHero = (tpl: InvitationTemplate) => {
-    setHeroActiveSlug(tpl.slug);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('selected_wedding_hero_template', tpl.slug);
-      window.dispatchEvent(
-        new CustomEvent('select-hero-template', { detail: { slug: tpl.slug } })
-      );
-      const heroElement = document.getElementById('hero-simulador');
-      if (heroElement) {
-        heroElement.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
-  };
 
   const filteredTemplates =
     selectedCategory === 'Todos'
@@ -193,7 +153,7 @@ export const CatalogExplorer: React.FC = () => {
               </div>
 
               {/* Card Footer Actions: Conciso y Directo */}
-              <div className="pt-4 pb-1 space-y-2.5">
+              <div className="pt-4 pb-1">
                 <a
                   href={`/disenos/${tpl.slug}`}
                   className="w-full py-3.5 bg-charcoal hover:bg-gold-dark text-ivory-50 text-xs uppercase tracking-[0.18em] font-medium transition-all duration-300 flex items-center justify-center gap-2 shadow-sm rounded-lg"
@@ -202,25 +162,6 @@ export const CatalogExplorer: React.FC = () => {
                   <span>Abrir Invitación Completa</span>
                   <ArrowUpRight className="w-4 h-4 opacity-75" />
                 </a>
-
-                {/* Button to Select and Preview in Hero */}
-                <button
-                  type="button"
-                  onClick={() => handleSelectForHero(tpl)}
-                  className={`w-full py-2.5 px-3 text-[11px] uppercase tracking-[0.14em] font-medium transition flex items-center justify-center gap-2 rounded-lg border ${
-                    heroActiveSlug === tpl.slug
-                      ? 'bg-champagne/90 text-charcoal font-semibold border-gold/50 shadow-xs'
-                      : 'bg-ivory-50/90 hover:bg-champagne/50 text-charcoal-muted hover:text-charcoal border-ivory-300'
-                  }`}
-                  title="Ver esta invitación en la pantalla principal del inicio"
-                >
-                  <Smartphone className="w-3.5 h-3.5 text-gold-dark" />
-                  <span>
-                    {heroActiveSlug === tpl.slug
-                      ? '✓ Activa en Vista Principal'
-                      : 'Probar en Vista Principal'}
-                  </span>
-                </button>
               </div>
             </article>
           );
@@ -538,17 +479,6 @@ export const CatalogExplorer: React.FC = () => {
                 </div>
 
                 <div className="pt-6 space-y-2.5">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      handleSelectForHero(activeDemo);
-                      setActiveDemo(null);
-                    }}
-                    className="w-full py-2.5 bg-champagne hover:bg-gold hover:text-ivory-50 text-charcoal border border-gold/40 text-xs uppercase tracking-[0.16em] flex items-center justify-center gap-2 transition font-medium"
-                  >
-                    <Smartphone className="w-3.5 h-3.5" />
-                    <span>Ver en Vista Principal</span>
-                  </button>
                   <a
                     href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                       `¡Hola! Acabo de probar la demo interactiva del diseño "${activeDemo.name}" y quiero reservarlo para nuestra boda.`
